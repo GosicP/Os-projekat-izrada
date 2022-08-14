@@ -14,8 +14,11 @@ bool CCB::isFinished() const {
 void CCB::setFinished(bool finished) {
     CCB::finished = finished;
 }
+CCB* CCB::running = nullptr;
 
-CCB* CCB::createCoroutine(CCB::Body body) {}
+CCB* CCB::createCoroutine(CCB::Body body) {
+    return new CCB(body);
+}
 
 void CCB::yield(){
 
@@ -29,7 +32,7 @@ void CCB::yield(){
 
 void CCB::dispatch() {
     CCB *old = running;
-    if (old->isFinished()) {
+    if (!old->isFinished()) {
         Scheduler::put(old);
     }
     running = Scheduler::get();

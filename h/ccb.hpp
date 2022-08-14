@@ -5,6 +5,7 @@
 #ifndef PROJECT_BASE_CCB_HPP
 #define PROJECT_BASE_CCB_HPP
 #include "../lib/hw.h"
+#include "../h/Scheduler.hpp"
 
 class CCB{
 
@@ -22,8 +23,16 @@ public:
     static CCB* running;
 
 private:
-    CCB(Body body){
-
+    CCB(Body body) :
+            body(body),
+            stack(body!=nullptr ? new uint64[1024] : nullptr),
+            context({body!=nullptr ? (uint64) body : 0,
+                     stack !=nullptr ? (uint64)&stack[1024] : 0
+                     }
+                    ),
+            finished(false)
+    {
+        if(body!=nullptr) {Scheduler::put(this);}
     }
     struct Context{
         uint64 ra;
