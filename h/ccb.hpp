@@ -41,9 +41,8 @@ private:
         uint64 ra;
         uint64 sp;
     };
-    uint64* stack;
-
     Body body;
+    uint64* stack;
     Context context;
     bool finished;
 

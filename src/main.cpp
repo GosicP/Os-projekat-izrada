@@ -3,7 +3,10 @@
 #include "../h/ccb.hpp"
 #include "../h/workers.hpp"
 #include "../h/Print.hpp"
+#include "../h/MemoryAllocation.hpp"
 int main(){
+    MemoryAllocation* mem_obj;
+    mem_obj = mem_obj->getInstance();
     CCB *coroutines[3];
 
     coroutines[0] = CCB::createCoroutine(nullptr);
