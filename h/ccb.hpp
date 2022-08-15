@@ -10,6 +10,9 @@
 class CCB{
 
 public:
+
+    ~CCB(){ delete[] stack;}
+
     using Body = void (*)();
 
     static CCB* createCoroutine(Body body);
