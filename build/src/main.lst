@@ -117,13 +117,13 @@ GAS LISTING /tmp/ccDRXMN3.s 			page 1
   48              	.L2:
   49              	.LBE11:
   50              	.LBE10:
-  10:src/main.cpp  ****     CCB *coroutines[3];
+  10:src/main.cpp  ****     TCB *coroutines[3];
 GAS LISTING /tmp/ccDRXMN3.s 			page 3
 
 
   51              		.loc 1 10 5 is_stmt 1
   11:src/main.cpp  **** 
-  12:src/main.cpp  ****     coroutines[0] = CCB::createCoroutine(nullptr);
+  12:src/main.cpp  ****     coroutines[0] = TCB::createCoroutine(nullptr);
   52              		.loc 1 12 5
   53              		.loc 1 12 41 is_stmt 0
   54 0028 13050000 		li	a0,0
@@ -132,14 +132,14 @@ GAS LISTING /tmp/ccDRXMN3.s 			page 1
   56              	.LVL0:
   57              		.loc 1 12 19
   58 0034 2334A4FC 		sd	a0,-56(s0)
-  13:src/main.cpp  ****     CCB::running=coroutines[0];
+  13:src/main.cpp  ****     TCB::running=coroutines[0];
   59              		.loc 1 13 5 is_stmt 1
   60              		.loc 1 13 17 is_stmt 0
   61 0038 97070000 		la	a5,_ZN3CCB7runningE
   61      83B70700 
   62 0040 23B0A700 		sd	a0,0(a5)
   14:src/main.cpp  **** 
-  15:src/main.cpp  ****     coroutines[1] = CCB::createCoroutine(workerBodyA); //ovde su neki workeri, prepisi to ako te ne
+  15:src/main.cpp  ****     coroutines[1] = TCB::createCoroutine(workerBodyA); //ovde su neki workeri, prepisi to ako te ne
   63              		.loc 1 15 5 is_stmt 1
   64              		.loc 1 15 41 is_stmt 0
   65 0044 17050000 		la	a0,_Z11workerBodyAv
@@ -158,7 +158,7 @@ GAS LISTING /tmp/ccDRXMN3.s 			page 1
   73      E7800000 
   74              	.LVL2:
   17:src/main.cpp  **** 
-  18:src/main.cpp  ****     coroutines[1] = CCB::createCoroutine(workerBodyB); //ovde su neki workeri, prepisi to ako te ne
+  18:src/main.cpp  ****     coroutines[1] = TCB::createCoroutine(workerBodyB); //ovde su neki workeri, prepisi to ako te ne
   75              		.loc 1 18 5 is_stmt 1
   76              		.loc 1 18 41 is_stmt 0
   77 0068 17050000 		la	a0,_Z11workerBodyBv
@@ -177,7 +177,7 @@ GAS LISTING /tmp/ccDRXMN3.s 			page 1
   85      E7800000 
   86              	.LVL4:
   20:src/main.cpp  **** 
-  21:src/main.cpp  ****     CCB::yield();
+  21:src/main.cpp  ****     TCB::yield();
 GAS LISTING /tmp/ccDRXMN3.s 			page 4
 
 
@@ -277,11 +277,11 @@ GAS LISTING /tmp/ccDRXMN3.s 			page 1
    7:src/../h/ccb.hpp **** #include "../lib/hw.h"
    8:src/../h/ccb.hpp **** #include "../h/Scheduler.hpp"
    9:src/../h/ccb.hpp **** 
-  10:src/../h/ccb.hpp **** class CCB{
+  10:src/../h/ccb.hpp **** class TCB{
   11:src/../h/ccb.hpp **** 
   12:src/../h/ccb.hpp **** public:
   13:src/../h/ccb.hpp **** 
-  14:src/../h/ccb.hpp ****     ~CCB(){ delete[] stack;}
+  14:src/../h/ccb.hpp ****     TCB(){ delete[] stack;}
  154              		.loc 3 14 13 is_stmt 1
  155              		.loc 3 14 22 is_stmt 0
  156 00f8 03358900 		ld	a0,8(s2)

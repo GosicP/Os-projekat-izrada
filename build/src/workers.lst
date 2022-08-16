@@ -40,7 +40,7 @@ GAS LISTING /tmp/ccNGz3Me.s 			page 1
   27              		.loc 1 11 5
   28 001c 93071000 		li	a5,1
   29 0020 63F6A702 		bleu	a0,a5,.L1
-  12:src/workers.cpp ****     if (n % 4 == 0) CCB::yield();
+  12:src/workers.cpp ****     if (n % 4 == 0) TCB::yield();
   30              		.loc 1 12 5
   31              		.loc 1 12 11 is_stmt 0
   32 0024 93773500 		andi	a5,a0,3
@@ -86,9 +86,9 @@ GAS LISTING /tmp/ccNGz3Me.s 			page 1
   65              	.LVL5:
   66              	.L6:
   67              		.cfi_restore_state
-  12:src/workers.cpp ****     if (n % 4 == 0) CCB::yield();
+  12:src/workers.cpp ****     if (n % 4 == 0) TCB::yield();
   68              		.loc 1 12 21 is_stmt 1 discriminator 1
-  12:src/workers.cpp ****     if (n % 4 == 0) CCB::yield();
+  12:src/workers.cpp ****     if (n % 4 == 0) TCB::yield();
   69              		.loc 1 12 31 is_stmt 0 discriminator 1
   70 0064 97000000 		call	_ZN3CCB5yieldEv@plt
   70      E7800000 
@@ -208,7 +208,7 @@ GAS LISTING /tmp/ccNGz3Me.s 			page 1
  150              		.loc 1 25 25 is_stmt 0
  151              	#APP
  152              	# 25 "src/workers.cpp" 1
-  26              	    CCB::yield();
+  26              	    TCB::yield();
  153              		li t1, 7
  154              	# 0 "" 2
  155              		.loc 1 26 5 is_stmt 1
@@ -335,7 +335,7 @@ GAS LISTING /tmp/ccNGz3Me.s 			page 1
  233 0190 E3F497FC 		bleu	s1,a5,.L14
   44:src/workers.cpp ****     }
   45:src/workers.cpp **** 
-  46:src/workers.cpp ****     CCB::running->setFinished(true);
+  46:src/workers.cpp ****     TCB::running->setFinished(true);
  234              		.loc 1 46 5
  235              		.loc 1 46 30 is_stmt 0
  236 0194 93051000 		li	a1,1
@@ -345,7 +345,7 @@ GAS LISTING /tmp/ccNGz3Me.s 			page 1
  239 01a4 97000000 		call	_ZN3CCB11setFinishedEb@plt
  239      E7800000 
  240              	.LVL31:
-  47:src/workers.cpp ****     CCB::yield();
+  47:src/workers.cpp ****     TCB::yield();
  241              		.loc 1 47 5 is_stmt 1
  242              		.loc 1 47 15 is_stmt 0
  243 01ac 97000000 		call	_ZN3CCB5yieldEv@plt
@@ -473,7 +473,7 @@ GAS LISTING /tmp/ccNGz3Me.s 			page 1
  331              		.loc 1 59 25 is_stmt 0
  332              	#APP
  333              	# 59 "src/workers.cpp" 1
-  60              	    CCB::yield();
+  60              	    TCB::yield();
  334              		li t1, 5
  335              	# 0 "" 2
  336              		.loc 1 60 5 is_stmt 1
@@ -564,7 +564,7 @@ GAS LISTING /tmp/ccNGz3Me.s 			page 1
  390 02bc E3F497FC 		bleu	s1,a5,.L22
   71:src/workers.cpp ****     }
   72:src/workers.cpp **** 
-  73:src/workers.cpp ****     CCB::running->setFinished(true);
+  73:src/workers.cpp ****     TCB::running->setFinished(true);
  391              		.loc 1 73 5
  392              		.loc 1 73 30 is_stmt 0
  393 02c0 93051000 		li	a1,1
@@ -574,7 +574,7 @@ GAS LISTING /tmp/ccNGz3Me.s 			page 1
  396 02d0 97000000 		call	_ZN3CCB11setFinishedEb@plt
  396      E7800000 
  397              	.LVL55:
-  74:src/workers.cpp ****     CCB::yield();
+  74:src/workers.cpp ****     TCB::yield();
  398              		.loc 1 74 5 is_stmt 1
  399              		.loc 1 74 15 is_stmt 0
  400 02d8 97000000 		call	_ZN3CCB5yieldEv@plt

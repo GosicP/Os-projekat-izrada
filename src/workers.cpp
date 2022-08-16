@@ -3,13 +3,13 @@
 //
 
 #include "../h/workers.hpp"
-#include "../h/ccb.hpp"
+#include "../h/tcb.hpp"
 #include "../lib/hw.h"
 #include "../h/Print.hpp"
 
 static uint64 fibonacci(uint64 n) {
     if (n == 0 || n == 1) { return n; }
-    if (n % 4 == 0) CCB::yield();
+    if (n % 4 == 0) TCB::yield();
     return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
@@ -23,7 +23,7 @@ void workerBodyA(){
 
     printString("A yield\n");
     __asm__ ("li t1, 7");
-    CCB::yield();
+    TCB::yield();
 
     uint64 t1=0;
     __asm__ ("mv %[t1], t1" : [t1] "=r"(t1));
@@ -43,8 +43,8 @@ void workerBodyA(){
         printString("\n");
     }
 
-    CCB::running->setFinished(true);
-    CCB::yield();
+    TCB::running->setFinished(true);
+    TCB::yield();
 }
 
 void workerBodyB(){
@@ -57,7 +57,7 @@ void workerBodyB(){
 
     printString("B: yield\n");
     __asm__ ("li t1, 5");
-    CCB::yield();
+    TCB::yield();
 
     uint64 result=fibonacci(23);
     printString("A: fibonaci=");
@@ -70,6 +70,6 @@ void workerBodyB(){
         printString("\n");
     }
 
-    CCB::running->setFinished(true);
-    CCB::yield();
+    TCB::running->setFinished(true);
+    TCB::yield();
 }

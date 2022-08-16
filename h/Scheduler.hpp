@@ -7,15 +7,15 @@
 
 #include "LinkedList.hpp"
 
-class CCB;
+class TCB;
 
 class Scheduler {
 private:
-    static LinkedList<CCB> readyCoroutineQueue;
+    static LinkedList<TCB> readyCoroutineQueue;
 public:
-    static CCB *get();
+    static TCB *get();
 
-    static void put (CCB *ccb);
+    static void put (TCB *ccb);
 };
 
 

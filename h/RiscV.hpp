@@ -75,8 +75,11 @@ public:
     //write register sstatus
     static void w_sstatus(uint64 sstatus);
 
-private:
+    static void supervisorTrap();
 
+private:
+    //obradjuje trap handler
+    static void handleSupervisorTrap();
 };
 
 inline uint64 RiscV::r_scause() {
@@ -95,6 +98,52 @@ inline uint64 RiscV::r_sepc(){
     uint64 volatile sepc;
     __asm__ volatile("csrr %[sepc], sepc" : [sepc] "=r"(sepc));
     return sepc;
+}
+
+inline void RiscV::w_sepc(uint64 sepc){
+    __asm__ volatile ("csrw sepc, %[sepc]": : [sepc] "r"(sepc));
+}
+
+inline uint64 RiscV::r_stvec() {
+    uint64 volatile stvec;
+    __asm__ volatile ("csrr %[stvec], stvec": [stvec] "=r"(stvec));
+    return stvec;
+}
+
+inline void RiscV::w_stvec(uint64 stvec){
+    __asm__ volatile ("csrw stvec, %[stvec]": : [stvec] "r"(stvec));
+}
+
+inline uint64 RiscV::r_stval(){
+    uint64 volatile stval;
+    __asm__ volatile("csrr %[stval], stval" : [stval] "=r"(stval));
+    return stval;
+}
+
+inline void RiscV::w_stval(uint64 stval) {
+    __asm__ volatile ("csrw stval, %[stval]": : [stval] "r"(stval));
+}
+
+inline void RiscV::ms_sip(uint64 mask){
+    __asm__ volatile("csrs sip, %[mask]": : [mask]"r"(mask));
+}
+
+inline void RiscV::mc_sip(uint64 mask) {
+    __asm__ volatile("csrc sip, %[mask]" : : [mask] "r"(mask));
+}
+
+inline uint64 RiscV::r_sip(){
+    uint64 volatile sip;
+    __asm__ volatile("csrr %[sip], sip" : [sip] "=r"(sip));
+    return sip;
+}
+
+inline void RiscV::w_sip(uint64 sip) {
+    __asm__ volatile("csrw sip, %[sip]": : [sip] "r"(sip));
+}
+
+inline void RiscV::ms_sstatus(uint64 mask) {
+    __asm__ volatile ("csrs sstatus, %[mask]": : [mask] "r"(mask));
 }
 
 

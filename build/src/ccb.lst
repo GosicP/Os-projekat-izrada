@@ -20,7 +20,7 @@ GAS LISTING /tmp/cc9fcKsf.s 			page 1
    7:src/ccb.cpp   **** #include "../h/Scheduler.hpp"
    8:src/ccb.cpp   **** 
    9:src/ccb.cpp   **** 
-  10:src/ccb.cpp   **** bool CCB::isFinished() const {
+  10:src/ccb.cpp   **** bool TCB::isFinished() const {
   12              		.loc 1 10 30
   13              		.cfi_startproc
   14              	.LVL0:
@@ -49,7 +49,7 @@ GAS LISTING /tmp/cc9fcKsf.s 			page 1
   37              	_ZN3CCB11setFinishedEb:
   38              	.LFB18:
   13:src/ccb.cpp   **** 
-  14:src/ccb.cpp   **** void CCB::setFinished(bool finished) {
+  14:src/ccb.cpp   **** void TCB::setFinished(bool finished) {
   39              		.loc 1 14 38 is_stmt 1
   40              		.cfi_startproc
   41              	.LVL2:
@@ -62,7 +62,7 @@ GAS LISTING /tmp/cc9fcKsf.s 			page 1
 
 
   47              		.cfi_def_cfa 8, 0
-  15:src/ccb.cpp   ****     CCB::finished = finished;
+  15:src/ccb.cpp   ****     TCB::finished = finished;
   48              		.loc 1 15 5
   49              		.loc 1 15 19 is_stmt 0
   50 0028 2300B502 		sb	a1,32(a0)
@@ -80,9 +80,9 @@ GAS LISTING /tmp/cc9fcKsf.s 			page 1
   62              		.globl	_ZN3CCB15createCoroutineEPFvvE
   64              	_ZN3CCB15createCoroutineEPFvvE:
   65              	.LFB19:
-  17:src/ccb.cpp   **** CCB* CCB::running = nullptr;
+  17:src/ccb.cpp   **** TCB* TCB::running = nullptr;
   18:src/ccb.cpp   **** 
-  19:src/ccb.cpp   **** CCB* CCB::createCoroutine(CCB::Body body) {
+  19:src/ccb.cpp   **** TCB* TCB::createCoroutine(TCB::Body body) {
   66              		.loc 1 19 43 is_stmt 1
   67              		.cfi_startproc
   68              		.cfi_personality 0x9b,DW.ref.__gxx_personality_v0
@@ -101,7 +101,7 @@ GAS LISTING /tmp/cc9fcKsf.s 			page 1
   81 004c 13040102 		addi	s0,sp,32
   82              		.cfi_def_cfa 8, 0
   83 0050 13090500 		mv	s2,a0
-  20:src/ccb.cpp   ****     return new CCB(body);
+  20:src/ccb.cpp   ****     return new TCB(body);
   84              		.loc 1 20 5
   85              		.loc 1 20 24 is_stmt 0
   86 0054 13058002 		li	a0,40
@@ -128,15 +128,15 @@ GAS LISTING /tmp/cc9fcKsf.s 			page 1
    7:src/../h/ccb.hpp **** #include "../lib/hw.h"
    8:src/../h/ccb.hpp **** #include "../h/Scheduler.hpp"
    9:src/../h/ccb.hpp **** 
-  10:src/../h/ccb.hpp **** class CCB{
+  10:src/../h/ccb.hpp **** class TCB{
   11:src/../h/ccb.hpp **** 
   12:src/../h/ccb.hpp **** public:
   13:src/../h/ccb.hpp **** 
-  14:src/../h/ccb.hpp ****     ~CCB(){ delete[] stack;}
+  14:src/../h/ccb.hpp ****     TCB(){ delete[] stack;}
   15:src/../h/ccb.hpp **** 
   16:src/../h/ccb.hpp ****     using Body = void (*)();
   17:src/../h/ccb.hpp **** 
-  18:src/../h/ccb.hpp ****     static CCB* createCoroutine(Body body);
+  18:src/../h/ccb.hpp ****     static TCB* createCoroutine(Body body);
   19:src/../h/ccb.hpp **** 
   20:src/../h/ccb.hpp ****     bool isFinished() const;
   21:src/../h/ccb.hpp **** 
@@ -144,10 +144,10 @@ GAS LISTING /tmp/cc9fcKsf.s 			page 1
   23:src/../h/ccb.hpp **** 
   24:src/../h/ccb.hpp ****     static void yield();
   25:src/../h/ccb.hpp **** 
-  26:src/../h/ccb.hpp ****     static CCB* running;
+  26:src/../h/ccb.hpp ****     static TCB* running;
   27:src/../h/ccb.hpp **** 
   28:src/../h/ccb.hpp **** private:
-  29:src/../h/ccb.hpp ****     CCB(Body body) :
+  29:src/../h/ccb.hpp ****     TCB(Body body) :
   30:src/../h/ccb.hpp ****             body(body),
   31:src/../h/ccb.hpp ****             stack(body!=nullptr ? new uint64[1024] : nullptr),
   32:src/../h/ccb.hpp ****             context({body!=nullptr ? (uint64) body : 0,
@@ -282,17 +282,17 @@ GAS LISTING /tmp/cc9fcKsf.s 			page 1
  202              	_ZN3CCB8dispatchEv:
  203              	.LFB21:
   22:src/ccb.cpp   **** 
-  23:src/ccb.cpp   **** void CCB::yield(){
+  23:src/ccb.cpp   **** void TCB::yield(){
   24:src/ccb.cpp   **** 
   25:src/ccb.cpp   ****     RiscV::pushRegisters();
   26:src/ccb.cpp   **** 
-  27:src/ccb.cpp   ****     CCB::dispatch();
+  27:src/ccb.cpp   ****     TCB::dispatch();
   28:src/ccb.cpp   **** 
   29:src/ccb.cpp   ****     RiscV::popRegisters();
   30:src/ccb.cpp   **** 
   31:src/ccb.cpp   **** };
   32:src/ccb.cpp   **** 
-  33:src/ccb.cpp   **** void CCB::dispatch() {
+  33:src/ccb.cpp   **** void TCB::dispatch() {
  204              		.loc 1 33 22 is_stmt 1
  205              		.cfi_startproc
  206 0100 130101FE 		addi	sp,sp,-32
@@ -308,7 +308,7 @@ GAS LISTING /tmp/cc9fcKsf.s 			page 1
  213              		.cfi_offset 9, -24
  214 0110 13040102 		addi	s0,sp,32
  215              		.cfi_def_cfa 8, 0
-  34:src/ccb.cpp   ****     CCB *old = running;
+  34:src/ccb.cpp   ****     TCB *old = running;
  216              		.loc 1 34 5
  217              		.loc 1 34 10 is_stmt 0
  218 0114 97040000 		ld	s1,.LANCHOR0
@@ -336,7 +336,7 @@ GAS LISTING /tmp/cc9fcKsf.s 			page 1
  233 0134 97070000 		sd	a0,.LANCHOR0,a5
  233      23B0A700 
   39:src/ccb.cpp   **** 
-  40:src/ccb.cpp   ****     CCB::contextSwitch(&old->context, &running->context);
+  40:src/ccb.cpp   ****     TCB::contextSwitch(&old->context, &running->context);
  234              		.loc 1 40 5 is_stmt 1
  235              		.loc 1 40 23 is_stmt 0
  236 013c 93050501 		addi	a1,a0,16
@@ -379,7 +379,7 @@ GAS LISTING /tmp/cc9fcKsf.s 			page 1
  266              		.globl	_ZN3CCB5yieldEv
  268              	_ZN3CCB5yieldEv:
  269              	.LFB20:
-  23:src/ccb.cpp   **** void CCB::yield(){
+  23:src/ccb.cpp   **** void TCB::yield(){
  270              		.loc 1 23 18 is_stmt 1
  271              		.cfi_startproc
  272 0170 130101FF 		addi	sp,sp,-16
@@ -397,9 +397,9 @@ GAS LISTING /tmp/cc9fcKsf.s 			page 1
  282 0180 97000000 		call	_ZN5RiscV13pushRegistersEv@plt
  282      E7800000 
  283              	.LVL21:
-  27:src/ccb.cpp   ****     CCB::dispatch();
+  27:src/ccb.cpp   ****     TCB::dispatch();
  284              		.loc 1 27 5 is_stmt 1
-  27:src/ccb.cpp   ****     CCB::dispatch();
+  27:src/ccb.cpp   ****     TCB::dispatch();
  285              		.loc 1 27 18 is_stmt 0
  286 0188 97000000 		call	_ZN3CCB8dispatchEv
  286      E7800000 

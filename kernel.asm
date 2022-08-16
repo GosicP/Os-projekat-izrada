@@ -138,7 +138,7 @@ static uint64 fibonacci(uint64 n) {
     if (n == 0 || n == 1) { return n; }
     80001128:	00100793          	li	a5,1
     8000112c:	02a7f663          	bgeu	a5,a0,80001158 <_ZL9fibonaccim+0x4c>
-    if (n % 4 == 0) CCB::yield();
+    if (n % 4 == 0) TCB::yield();
     80001130:	00357793          	andi	a5,a0,3
     80001134:	02078e63          	beqz	a5,80001170 <_ZL9fibonaccim+0x64>
     return fibonacci(n - 1) + fibonacci(n - 2);
@@ -157,7 +157,7 @@ static uint64 fibonacci(uint64 n) {
     80001164:	00013903          	ld	s2,0(sp)
     80001168:	02010113          	addi	sp,sp,32
     8000116c:	00008067          	ret
-    if (n % 4 == 0) CCB::yield();
+    if (n % 4 == 0) TCB::yield();
     80001170:	00001097          	auipc	ra,0x1
     80001174:	ac4080e7          	jalr	-1340(ra) # 80001c34 <_ZN3CCB5yieldEv>
     80001178:	fc1ff06f          	j	80001138 <_ZL9fibonaccim+0x2c>
@@ -203,7 +203,7 @@ void workerBodyA(){
     800011e4:	b04080e7          	jalr	-1276(ra) # 80001ce4 <_Z11printStringPKc>
     __asm__ ("li t1, 7");
     800011e8:	00700313          	li	t1,7
-    CCB::yield();
+    TCB::yield();
     800011ec:	00001097          	auipc	ra,0x1
     800011f0:	a48080e7          	jalr	-1464(ra) # 80001c34 <_ZN3CCB5yieldEv>
 
@@ -269,14 +269,14 @@ void workerBodyA(){
     8000129c:	fc97f4e3          	bgeu	a5,s1,80001264 <_Z11workerBodyAv+0xe8>
     }
 
-    CCB::running->setFinished(true);
+    TCB::running->setFinished(true);
     800012a0:	00100593          	li	a1,1
     800012a4:	00003797          	auipc	a5,0x3
     800012a8:	45c7b783          	ld	a5,1116(a5) # 80004700 <_GLOBAL_OFFSET_TABLE_+0x28>
     800012ac:	0007b503          	ld	a0,0(a5)
     800012b0:	00001097          	auipc	ra,0x1
     800012b4:	830080e7          	jalr	-2000(ra) # 80001ae0 <_ZN3CCB11setFinishedEb>
-    CCB::yield();
+    TCB::yield();
     800012b8:	00001097          	auipc	ra,0x1
     800012bc:	97c080e7          	jalr	-1668(ra) # 80001c34 <_ZN3CCB5yieldEv>
 }
@@ -328,7 +328,7 @@ void workerBodyB(){
     80001340:	9a8080e7          	jalr	-1624(ra) # 80001ce4 <_Z11printStringPKc>
     __asm__ ("li t1, 5");
     80001344:	00500313          	li	t1,5
-    CCB::yield();
+    TCB::yield();
     80001348:	00001097          	auipc	ra,0x1
     8000134c:	8ec080e7          	jalr	-1812(ra) # 80001c34 <_ZN3CCB5yieldEv>
 
@@ -375,14 +375,14 @@ void workerBodyB(){
     800013c8:	fc97f4e3          	bgeu	a5,s1,80001390 <_Z11workerBodyBv+0xb8>
     }
 
-    CCB::running->setFinished(true);
+    TCB::running->setFinished(true);
     800013cc:	00100593          	li	a1,1
     800013d0:	00003797          	auipc	a5,0x3
     800013d4:	3307b783          	ld	a5,816(a5) # 80004700 <_GLOBAL_OFFSET_TABLE_+0x28>
     800013d8:	0007b503          	ld	a0,0(a5)
     800013dc:	00000097          	auipc	ra,0x0
     800013e0:	704080e7          	jalr	1796(ra) # 80001ae0 <_ZN3CCB11setFinishedEb>
-    CCB::yield();
+    TCB::yield();
     800013e4:	00001097          	auipc	ra,0x1
     800013e8:	850080e7          	jalr	-1968(ra) # 80001c34 <_ZN3CCB5yieldEv>
     800013ec:	01813083          	ld	ra,24(sp)
@@ -395,7 +395,7 @@ void workerBodyB(){
 0000000080001404 <_Z41__static_initialization_and_destruction_0ii>:
 }
 
-void Scheduler::put(CCB *ccb)
+void Scheduler::put(TCB *ccb)
 {
     readyCoroutineQueue.addLast(ccb);
     80001404:	ff010113          	addi	sp,sp,-16
@@ -543,19 +543,19 @@ public:
     80001570:	06078c63          	beqz	a5,800015e8 <main+0x9c>
     MemoryAllocation* mem_obj;
     mem_obj = mem_obj->getInstance();
-    CCB *coroutines[3];
+    TCB *coroutines[3];
 
-    coroutines[0] = CCB::createCoroutine(nullptr);
+    coroutines[0] = TCB::createCoroutine(nullptr);
     80001574:	00000513          	li	a0,0
     80001578:	00000097          	auipc	ra,0x0
     8000157c:	584080e7          	jalr	1412(ra) # 80001afc <_ZN3CCB15createCoroutineEPFvvE>
     80001580:	fca43423          	sd	a0,-56(s0)
-    CCB::running=coroutines[0];
+    TCB::running=coroutines[0];
     80001584:	00003797          	auipc	a5,0x3
     80001588:	17c7b783          	ld	a5,380(a5) # 80004700 <_GLOBAL_OFFSET_TABLE_+0x28>
     8000158c:	00a7b023          	sd	a0,0(a5)
 
-    coroutines[1] = CCB::createCoroutine(workerBodyA); //ovde su neki workeri, prepisi to ako te ne bude mrzelo da proveris 01:07:20
+    coroutines[1] = TCB::createCoroutine(workerBodyA); //ovde su neki workeri, prepisi to ako te ne bude mrzelo da proveris 01:07:20
     80001590:	00003517          	auipc	a0,0x3
     80001594:	16053503          	ld	a0,352(a0) # 800046f0 <_GLOBAL_OFFSET_TABLE_+0x18>
     80001598:	00000097          	auipc	ra,0x0
@@ -567,7 +567,7 @@ public:
     800015ac:	00000097          	auipc	ra,0x0
     800015b0:	738080e7          	jalr	1848(ra) # 80001ce4 <_Z11printStringPKc>
 
-    coroutines[1] = CCB::createCoroutine(workerBodyB); //ovde su neki workeri, prepisi to ako te ne bude mrzelo da proveris 01:07:20
+    coroutines[1] = TCB::createCoroutine(workerBodyB); //ovde su neki workeri, prepisi to ako te ne bude mrzelo da proveris 01:07:20
     800015b4:	00003517          	auipc	a0,0x3
     800015b8:	13453503          	ld	a0,308(a0) # 800046e8 <_GLOBAL_OFFSET_TABLE_+0x10>
     800015bc:	00000097          	auipc	ra,0x0
@@ -579,7 +579,7 @@ public:
     800015d0:	00000097          	auipc	ra,0x0
     800015d4:	714080e7          	jalr	1812(ra) # 80001ce4 <_Z11printStringPKc>
 
-    CCB::yield();
+    TCB::yield();
     800015d8:	00000097          	auipc	ra,0x0
     800015dc:	65c080e7          	jalr	1628(ra) # 80001c34 <_ZN3CCB5yieldEv>
 
@@ -620,11 +620,11 @@ public:
     8000163c:	0004b903          	ld	s2,0(s1)
     80001640:	fe0908e3          	beqz	s2,80001630 <main+0xe4>
 
-class CCB{
+class TCB{
 
 public:
 
-    ~CCB(){ delete[] stack;}
+    TCB(){ delete[] stack;}
     80001644:	00893503          	ld	a0,8(s2)
     80001648:	fc050ee3          	beqz	a0,80001624 <main+0xd8>
     8000164c:	00000097          	auipc	ra,0x0
@@ -1056,7 +1056,7 @@ void operator delete[] (void *p) noexcept{
 #include "../h/Scheduler.hpp"
 
 
-bool CCB::isFinished() const {
+bool TCB::isFinished() const {
     80001ac4:	ff010113          	addi	sp,sp,-16
     80001ac8:	00813423          	sd	s0,8(sp)
     80001acc:	01010413          	addi	s0,sp,16
@@ -1069,11 +1069,11 @@ bool CCB::isFinished() const {
 
 0000000080001ae0 <_ZN3CCB11setFinishedEb>:
 
-void CCB::setFinished(bool finished) {
+void TCB::setFinished(bool finished) {
     80001ae0:	ff010113          	addi	sp,sp,-16
     80001ae4:	00813423          	sd	s0,8(sp)
     80001ae8:	01010413          	addi	s0,sp,16
-    CCB::finished = finished;
+    TCB::finished = finished;
     80001aec:	02b50023          	sb	a1,32(a0)
 }
     80001af0:	00813403          	ld	s0,8(sp)
@@ -1081,9 +1081,9 @@ void CCB::setFinished(bool finished) {
     80001af8:	00008067          	ret
 
 0000000080001afc <_ZN3CCB15createCoroutineEPFvvE>:
-CCB* CCB::running = nullptr;
+TCB* TCB::running = nullptr;
 
-CCB* CCB::createCoroutine(CCB::Body body) {
+TCB* TCB::createCoroutine(TCB::Body body) {
     80001afc:	fe010113          	addi	sp,sp,-32
     80001b00:	00113c23          	sd	ra,24(sp)
     80001b04:	00813823          	sd	s0,16(sp)
@@ -1091,7 +1091,7 @@ CCB* CCB::createCoroutine(CCB::Body body) {
     80001b0c:	01213023          	sd	s2,0(sp)
     80001b10:	02010413          	addi	s0,sp,32
     80001b14:	00050913          	mv	s2,a0
-    return new CCB(body);
+    return new TCB(body);
     80001b18:	02800513          	li	a0,40
     80001b1c:	00000097          	auipc	ra,0x0
     80001b20:	b68080e7          	jalr	-1176(ra) # 80001684 <_Znwm>
@@ -1159,13 +1159,13 @@ CCB* CCB::createCoroutine(CCB::Body body) {
 
 };
 
-void CCB::dispatch() {
+void TCB::dispatch() {
     80001bc4:	fe010113          	addi	sp,sp,-32
     80001bc8:	00113c23          	sd	ra,24(sp)
     80001bcc:	00813823          	sd	s0,16(sp)
     80001bd0:	00913423          	sd	s1,8(sp)
     80001bd4:	02010413          	addi	s0,sp,32
-    CCB *old = running;
+    TCB *old = running;
     80001bd8:	00003497          	auipc	s1,0x3
     80001bdc:	ba84b483          	ld	s1,-1112(s1) # 80004780 <_ZN3CCB7runningE>
     if (!old->isFinished()) {
@@ -1181,7 +1181,7 @@ void CCB::dispatch() {
     80001bf8:	00003797          	auipc	a5,0x3
     80001bfc:	b8a7b423          	sd	a0,-1144(a5) # 80004780 <_ZN3CCB7runningE>
 
-    CCB::contextSwitch(&old->context, &running->context);
+    TCB::contextSwitch(&old->context, &running->context);
     80001c00:	01050593          	addi	a1,a0,16 # 2010 <_entry-0x7fffdff0>
     80001c04:	01048513          	addi	a0,s1,16
     80001c08:	fffff097          	auipc	ra,0xfffff
@@ -1198,7 +1198,7 @@ void CCB::dispatch() {
     80001c30:	fc1ff06f          	j	80001bf0 <_ZN3CCB8dispatchEv+0x2c>
 
 0000000080001c34 <_ZN3CCB5yieldEv>:
-void CCB::yield(){
+void TCB::yield(){
     80001c34:	ff010113          	addi	sp,sp,-16
     80001c38:	00113423          	sd	ra,8(sp)
     80001c3c:	00813023          	sd	s0,0(sp)
@@ -1206,7 +1206,7 @@ void CCB::yield(){
     RiscV::pushRegisters();
     80001c44:	fffff097          	auipc	ra,0xfffff
     80001c48:	3bc080e7          	jalr	956(ra) # 80001000 <_ZN5RiscV13pushRegistersEv>
-    CCB::dispatch();
+    TCB::dispatch();
     80001c4c:	00000097          	auipc	ra,0x0
     80001c50:	f78080e7          	jalr	-136(ra) # 80001bc4 <_ZN3CCB8dispatchEv>
     RiscV::popRegisters();

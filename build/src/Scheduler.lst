@@ -12,14 +12,14 @@ GAS LISTING /tmp/ccOptO8r.s 			page 1
   10              		.file 1 "src/Scheduler.cpp"
    1:src/Scheduler.cpp **** #include "../h/Scheduler.hpp"
    2:src/Scheduler.cpp **** 
-   3:src/Scheduler.cpp **** LinkedList<CCB> Scheduler::readyCoroutineQueue;
+   3:src/Scheduler.cpp **** LinkedList<TCB> Scheduler::readyCoroutineQueue;
    4:src/Scheduler.cpp **** 
-   5:src/Scheduler.cpp **** CCB* Scheduler::get()
+   5:src/Scheduler.cpp **** TCB* Scheduler::get()
    6:src/Scheduler.cpp **** {
    7:src/Scheduler.cpp ****     return readyCoroutineQueue.removeFirst();
    8:src/Scheduler.cpp **** }
    9:src/Scheduler.cpp **** 
-  10:src/Scheduler.cpp **** void Scheduler::put(CCB *ccb)
+  10:src/Scheduler.cpp **** void Scheduler::put(TCB *ccb)
   11:src/Scheduler.cpp **** {
   12:src/Scheduler.cpp ****     readyCoroutineQueue.addLast(ccb);
   13:src/Scheduler.cpp **** }...
