@@ -8,6 +8,8 @@
 
 class RiscV {
 public:
+    //pop sstatus.spp and sstatus.spie bits(mora da bude ne inline funkcija)
+    static void popSppSpie();
 
     //push x3...x31 registers on stack
     static void pushRegisters();
@@ -40,9 +42,9 @@ public:
     static void w_stval(uint64 stval);
 
     enum BitMaskSip{
-        SIP_SSIE = (1<<1),
-        SIP_STIE = (1<<5),
-        SIP_SEIE = (1<<9),
+        SIP_SSIP = (1 << 1),
+        SIP_STIP = (1 << 5),
+        SIP_SEIP = (1 << 9),
     };
 
     //mask set register sip

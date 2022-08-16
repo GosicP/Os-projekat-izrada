@@ -30,7 +30,7 @@ private:
     TCB(Body body, uint64 timeSlice) :
             body(body),
             stack(body != nullptr ? new uint64[1024] : nullptr),
-            context({body != nullptr ? (uint64) body : 0,
+            context({(uint64)&threadWrapper,
                      stack != nullptr ? (uint64) &stack[1024] : 0
                     }
             ),
@@ -51,6 +51,10 @@ private:
     Context context;
     uint64 timeSlice;
     bool finished;
+
+    friend class RiscV;
+
+    static void threadWrapper();
 
     static void contextSwitch(Context *oldContext, Context *newContext);
 

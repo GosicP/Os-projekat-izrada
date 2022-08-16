@@ -24,11 +24,13 @@ TCB* TCB::createThread(TCB::Body body) {
 
 void TCB::yield(){
 
-    RiscV::pushRegisters();
+    /*RiscV::pushRegisters();
 
     TCB::dispatch();
 
-    RiscV::popRegisters();
+    RiscV::popRegisters();*/
+
+    __asm__ volatile ("ecall");
 
 };
 
@@ -42,4 +44,9 @@ void TCB::dispatch() {
     TCB::contextSwitch(&old->context, &running->context);
 }
 
-
+void TCB::threadWrapper() {
+    RiscV::popSppSpie();
+    running->body();
+    running->setFinished(true);
+    TCB::yield();
+}

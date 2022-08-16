@@ -4,7 +4,7 @@
 
 #include "../h/Print.hpp"
 #include "../lib/console.h"
-
+//promenjeni print string i integer na vezbama 2, 1:10:00 tu negde, da bi se onemogucili prekidi u samoj niti
 void printString(char const *string){
     while(*string!='\0'){
         __putc(*string);
