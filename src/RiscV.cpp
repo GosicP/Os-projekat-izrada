@@ -3,8 +3,9 @@
 //
 
 #include "../h/RiscV.hpp"
-#include "../lib/console.h"
 #include "../h/tcb.hpp"
+#include "../lib/console.h"
+
 
 void RiscV::popSppSpie() {
     __asm__ volatile ("csrw sepc, ra");
@@ -13,7 +14,7 @@ void RiscV::popSppSpie() {
 
 void RiscV::handleSupervisorTrap() {
     uint64 scause = r_scause();
-    if (scause == 0x800000000000009UL){
+    if (scause == 0x000000000000009UL){
         //enviroment call from s-mode
         uint64 sepc = r_sepc() + 4;
         uint64 sstatus = r_sstatus();

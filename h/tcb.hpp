@@ -10,7 +10,6 @@
 class TCB {
 
 public:
-
     ~TCB() { delete[] stack; }
 
     using Body = void (*)();
@@ -27,7 +26,7 @@ public:
 
     inline uint64 getTimeSlice() const { return timeSlice; };
 private:
-    TCB(Body body, uint64 timeSlice) :
+    explicit TCB(Body body, uint64 timeSlice) :
             body(body),
             stack(body != nullptr ? new uint64[1024] : nullptr),
             context({(uint64)&threadWrapper,
@@ -38,14 +37,13 @@ private:
             finished(false) {
         if (body != nullptr) { Scheduler::put(this); }
     }
-
     struct Context {
         uint64 ra;
         uint64 sp;
     };
 
 
-private:
+
     Body body;
     uint64 *stack;
     Context context;

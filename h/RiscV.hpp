@@ -148,6 +148,19 @@ inline void RiscV::ms_sstatus(uint64 mask) {
     __asm__ volatile ("csrs sstatus, %[mask]": : [mask] "r"(mask));
 }
 
+inline void RiscV::mc_sstatus(uint64 mask) {
+    __asm__ volatile("csrc sstatus, %[mask]": : [mask] "r"(mask));
+}
+
+inline uint64 RiscV::r_sstatus() {
+    uint64 volatile sstatus;
+    __asm__ volatile ("csrr %[sstatus], sstatus": [sstatus] "=r"(sstatus));
+    return sstatus;
+}
+
+inline void RiscV::w_sstatus(uint64 sstatus) {
+    __asm__ volatile("csrw sstatus, %[sstatus]": : [sstatus] "r"(sstatus));
+}
 
 
 #endif //PROJECT_BASE_RISCV_HPP

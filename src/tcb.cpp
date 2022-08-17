@@ -4,7 +4,7 @@
 
 #include "../h/tcb.hpp"
 #include "../h/RiscV.hpp"
-#include "../h/Scheduler.hpp"
+
 
 
 bool TCB::isFinished() const {
@@ -24,11 +24,7 @@ TCB* TCB::createThread(TCB::Body body) {
 
 void TCB::yield(){
 
-    /*RiscV::pushRegisters();
 
-    TCB::dispatch();
-
-    RiscV::popRegisters();*/
 
     __asm__ volatile ("ecall");
 

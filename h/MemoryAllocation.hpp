@@ -66,7 +66,7 @@ public:
     void operator=(MemoryAllocation const&)  = delete;*/
 //===========================DEFINICIJA SINGLETON KLASE KRAJ========================
     static int bytesToBlocks(size_t size){
-        return (size+MEM_BLOCK_SIZE-1)/MEM_BLOCK_SIZE;
+        return (size+sizeof(FreeMem)+MEM_BLOCK_SIZE-1)/MEM_BLOCK_SIZE;
     }
 
 
@@ -95,7 +95,7 @@ public:
                 FreeMem* newSeg = (FreeMem*)ptr;
                 newSeg->next=nullptr;
                 newSeg->prev=nullptr;
-                newSeg->size=bytesToBlocks(sizeof(ptr))*MEM_BLOCK_SIZE+sizeof(fmem_head);
+                newSeg->size=bytesToBlocks(sizeof(ptr))*MEM_BLOCK_SIZE;
                         //sizeof(ptr);
                 newSeg->prev=cur;
                 if(cur) {
@@ -150,7 +150,8 @@ public:
     }*/
 
     static void* mem_alloc(size_t size) {//uopste ne radi, iako u lotsofsmallmallocs pise da radi
-        size=size*(size_t)MEM_BLOCK_SIZE+sizeof(fmem_head); //kada je ovo ukljuceno, pravi problem u memfree, so ill pretend i never seen that, verovatno doduse dok on izmota celu listu, POSLUSAJ BOJANINE GLASOVNE OPET
+        //size_t x=sizeof(fmem_head);
+        size=(size)*(size_t)MEM_BLOCK_SIZE; //kada je ovo ukljuceno, pravi problem u memfree, so ill pretend i never seen that, verovatno doduse dok on izmota celu listu, POSLUSAJ BOJANINE GLASOVNE OPET
         for (FreeMem* cur = fmem_head; cur != nullptr; cur=cur->next){ // U DRUGOJ ITERACIJI FMEM_HEAD SEBI STVORI NEKI NEXT NI OD KUDA?????
             cur->next=fmem_head->next;
             cur->prev=fmem_head->prev;
@@ -164,13 +165,14 @@ public:
                 FreeMem* newfrgm = (FreeMem*)((char*)cur+size);
                 newfrgm->prev=nullptr;
                 newfrgm->next=nullptr;
+                //newfrgm->size=cur->size-size;// DODATO TOKOM PROBE NITI
                 if (cur->prev) cur->prev->next = newfrgm;
-                else fmem_head = newfrgm+sizeof(fmem_head); // ovo sam dodao sizeof da bi mi radio lotsofsmallmalloc
+                else fmem_head = newfrgm+sizeof(fmem_head); // ovo sam dodao sizeof da bi mi radio lotsofsmallmalloc //obrisano sizeof(fmem_head)
                 if (cur->next) cur->next->prev = newfrgm;
                 newfrgm->prev = cur->prev;
                 newfrgm->next = cur->next;
                 newfrgm->size = cur->size-size;
-                fmem_head = newfrgm+sizeof(fmem_head);
+                fmem_head =newfrgm+sizeof(fmem_head);
                 fmem_head->next=newfrgm->next;
                 fmem_head->prev=newfrgm->prev;
                 fmem_head->size=newfrgm->size;

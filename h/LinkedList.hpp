@@ -77,6 +77,12 @@ class LinkedList{
         return tail->data;
     }
 
+    bool listEmpty(){
+        if(peekFirst()==0){
+            return true;
+        }else{return false;}
+    }
+
 };
 
 #endif //PROJECT_BASE_LINKEDLIST_HPP
