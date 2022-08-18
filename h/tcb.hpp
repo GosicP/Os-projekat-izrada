@@ -16,6 +16,10 @@ public:
 
     static TCB *createThread(Body body);
 
+    static void thread_dispatch(){dispatch();}
+
+    int thread_exit();
+
     bool isFinished() const;
 
     void setFinished(bool finished);

@@ -24,8 +24,6 @@ TCB* TCB::createThread(TCB::Body body) {
 
 void TCB::yield(){
 
-
-
     __asm__ volatile ("ecall");
 
 };
@@ -45,4 +43,8 @@ void TCB::threadWrapper() {
     running->body();
     running->setFinished(true);
     TCB::yield();
+}
+
+int TCB::thread_exit() {
+    return 0;
 }

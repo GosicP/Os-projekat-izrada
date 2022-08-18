@@ -1,5 +1,4 @@
 #include "../h/MemoryAllocation.hpp"
-#include "../lib/mem.h"
 
 void *operator new(uint64 n){
     return MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(n)); //njemu je samo __mem_alloc???
