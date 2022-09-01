@@ -1,4 +1,4 @@
-GAS LISTING /tmp/ccbDqsYH.s 			page 1
+GAS LISTING /tmp/ccXDgX4F.s 			page 1
 
 
    1              		.file	"_new.cpp"
@@ -12,10 +12,9 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
   10              	.LFB10:
   11              		.file 1 "src/_new.cpp"
    1:src/_new.cpp  **** #include "../h/MemoryAllocation.hpp"
-   2:src/_new.cpp  **** #include "../lib/mem.h"
-   3:src/_new.cpp  **** 
-   4:src/_new.cpp  **** void *operator new(uint64 n){
-  12              		.loc 1 4 29
+   2:src/_new.cpp  **** 
+   3:src/_new.cpp  **** void *operator new(uint64 n){
+  12              		.loc 1 3 29
   13              		.cfi_startproc
   14              	.LVL0:
   15 0000 130101FF 		addi	sp,sp,-16
@@ -24,8 +23,8 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
   18              		.cfi_offset 8, -8
   19 0008 13040101 		addi	s0,sp,16
   20              		.cfi_def_cfa 8, 0
-   5:src/_new.cpp  ****     return MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(n)); //njemu je samo __mem_a
-  21              		.loc 1 5 5
+   4:src/_new.cpp  ****     return MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(n)); //njemu je samo __mem_a
+  21              		.loc 1 4 5
   22              	.LVL1:
   23              	.LBB20:
   24              	.LBB21:
@@ -58,10 +57,10 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
   26:src/../h/MemoryAllocation.hpp **** 
   27:src/../h/MemoryAllocation.hpp **** 
   28:src/../h/MemoryAllocation.hpp ****     MemoryAllocation() { //OVO SE SADA NIGGDE
-GAS LISTING /tmp/ccbDqsYH.s 			page 2
-
-
   29:src/../h/MemoryAllocation.hpp ****         fmem_head->size = (size_t) ((char *) HEAP_END_ADDR -
+GAS LISTING /tmp/ccXDgX4F.s 			page 2
+
+
   30:src/../h/MemoryAllocation.hpp ****                                     (char *) HEAP_START_ADDR); //da li smem ovo da castujem u size_
   31:src/../h/MemoryAllocation.hpp ****         fmem_head->next = nullptr;
   32:src/../h/MemoryAllocation.hpp ****         fmem_head->prev = nullptr;
@@ -118,10 +117,10 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
   71:src/../h/MemoryAllocation.hpp **** 
   72:src/../h/MemoryAllocation.hpp **** 
   73:src/../h/MemoryAllocation.hpp **** //===========================METODE ZA ALOKACIJU MEMORIJE===========================
-GAS LISTING /tmp/ccbDqsYH.s 			page 3
-
-
   74:src/../h/MemoryAllocation.hpp ****     static void tryToJoin (FreeMem* curr) {
+GAS LISTING /tmp/ccXDgX4F.s 			page 3
+
+
   75:src/../h/MemoryAllocation.hpp ****         if (!curr) return;
   76:src/../h/MemoryAllocation.hpp ****         if (curr->next && (char*)curr+curr->size == (char*)(curr->next)) {
   77:src/../h/MemoryAllocation.hpp ****         // Remove the cur->next segment:
@@ -178,10 +177,10 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  128:src/../h/MemoryAllocation.hpp **** 
  129:src/../h/MemoryAllocation.hpp **** 
  130:src/../h/MemoryAllocation.hpp ****     /*int mem_free(char* addr, size_t size) {
-GAS LISTING /tmp/ccbDqsYH.s 			page 4
-
-
  131:src/../h/MemoryAllocation.hpp ****         // Find the place where to insert the new free segment (just after cur):
+GAS LISTING /tmp/ccXDgX4F.s 			page 4
+
+
  132:src/../h/MemoryAllocation.hpp ****         FreeMem* cur=0;
  133:src/../h/MemoryAllocation.hpp ****         if (!fmem_head || addr<(char*)fmem_head)
  134:src/../h/MemoryAllocation.hpp ****             cur = 0; // insert as the first
@@ -204,86 +203,87 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  151:src/../h/MemoryAllocation.hpp **** 
  152:src/../h/MemoryAllocation.hpp ****     static void* mem_alloc(size_t size) {//uopste ne radi, iako u lotsofsmallmallocs pise da radi
  153:src/../h/MemoryAllocation.hpp ****         //size_t x=sizeof(fmem_head);
- 154:src/../h/MemoryAllocation.hpp ****         size=(size)*(size_t)MEM_BLOCK_SIZE; //kada je ovo ukljuceno, pravi problem u memfree, so il
-  38              		.loc 2 154 9 is_stmt 1
-  39              		.loc 2 154 13 is_stmt 0
+ 154:src/../h/MemoryAllocation.hpp ****         //pozovi ovde samo bytes to blocks od size, da ne moras to da radis iz maina
+ 155:src/../h/MemoryAllocation.hpp ****         size=(size)*(size_t)MEM_BLOCK_SIZE; //kada je ovo ukljuceno, pravi problem u memfree, so il
+  38              		.loc 2 155 9 is_stmt 1
+  39              		.loc 2 155 13 is_stmt 0
   40 0018 93976700 		slli	a5,a5,6
   41              	.LVL3:
- 155:src/../h/MemoryAllocation.hpp ****         for (FreeMem* cur = fmem_head; cur != nullptr; cur=cur->next){ // U DRUGOJ ITERACIJI FMEM_H
-  42              		.loc 2 155 9 is_stmt 1
+ 156:src/../h/MemoryAllocation.hpp ****         for (FreeMem* cur = fmem_head; cur != nullptr; cur=cur->next){ // U DRUGOJ ITERACIJI FMEM_H
+  42              		.loc 2 156 9 is_stmt 1
   43              	.LBB24:
-  44              		.loc 2 155 23 is_stmt 0
+  44              		.loc 2 156 23 is_stmt 0
   45 001c 17070000 		la	a4,_ZN16MemoryAllocation9fmem_headE
   45      03370700 
   46 0024 03350700 		ld	a0,0(a4)
   47              	.LVL4:
   48              	.L3:
-  49              		.loc 2 155 44 is_stmt 1
+  49              		.loc 2 156 44 is_stmt 1
   50 0028 6308050C 		beqz	a0,.L1
   51              	.LBB25:
- 156:src/../h/MemoryAllocation.hpp ****             cur->next=fmem_head->next;
-  52              		.loc 2 156 13
-  53              		.loc 2 156 34 is_stmt 0
+ 157:src/../h/MemoryAllocation.hpp ****             cur->next=fmem_head->next;
+  52              		.loc 2 157 13
+  53              		.loc 2 157 34 is_stmt 0
   54 002c 17070000 		la	a4,_ZN16MemoryAllocation9fmem_headE
   54      03370700 
   55 0034 83360700 		ld	a3,0(a4)
   56 0038 83B60600 		ld	a3,0(a3)
-  57              		.loc 2 156 22
+  57              		.loc 2 157 22
   58 003c 2330D500 		sd	a3,0(a0)
- 157:src/../h/MemoryAllocation.hpp ****             cur->prev=fmem_head->prev;
-  59              		.loc 2 157 13 is_stmt 1
-  60              		.loc 2 157 34 is_stmt 0
+ 158:src/../h/MemoryAllocation.hpp ****             cur->prev=fmem_head->prev;
+  59              		.loc 2 158 13 is_stmt 1
+  60              		.loc 2 158 34 is_stmt 0
   61 0040 03370700 		ld	a4,0(a4)
   62 0044 03368700 		ld	a2,8(a4)
-  63              		.loc 2 157 22
+  63              		.loc 2 158 22
   64 0048 2334C500 		sd	a2,8(a0)
- 158:src/../h/MemoryAllocation.hpp ****             if (cur->size<size) continue;
-GAS LISTING /tmp/ccbDqsYH.s 			page 5
+ 159:src/../h/MemoryAllocation.hpp ****             if (cur->size<size) continue;
+GAS LISTING /tmp/ccXDgX4F.s 			page 5
 
 
-  65              		.loc 2 158 13 is_stmt 1
-  66              		.loc 2 158 22 is_stmt 0
+  65              		.loc 2 159 13 is_stmt 1
+  66              		.loc 2 159 22 is_stmt 0
   67 004c 03370501 		ld	a4,16(a0)
-  68              		.loc 2 158 13
+  68              		.loc 2 159 13
   69 0050 6366F702 		bgtu	a5,a4,.L11
- 159:src/../h/MemoryAllocation.hpp ****             if (cur->size-size<=sizeof(FreeMem)){
-  70              		.loc 2 159 13 is_stmt 1
+ 160:src/../h/MemoryAllocation.hpp ****             if (cur->size-size<=sizeof(FreeMem)){
+  70              		.loc 2 160 13 is_stmt 1
   71              	.LBB26:
-  72              		.loc 2 159 26 is_stmt 0
+  72              		.loc 2 160 26 is_stmt 0
   73 0054 3307F740 		sub	a4,a4,a5
-  74              		.loc 2 159 13
+  74              		.loc 2 160 13
   75 0058 93058001 		li	a1,24
   76 005c 63ECE502 		bgtu	a4,a1,.L4
- 160:src/../h/MemoryAllocation.hpp ****                 if (cur->prev) cur->prev->next = cur->next;
-  77              		.loc 2 160 17 is_stmt 1
+ 161:src/../h/MemoryAllocation.hpp ****                 if (cur->prev) cur->prev->next = cur->next;
+  77              		.loc 2 161 17 is_stmt 1
   78 0060 63020602 		beqz	a2,.L5
-  79              		.loc 2 160 32
-  80              		.loc 2 160 48 is_stmt 0
+  79              		.loc 2 161 32
+  80              		.loc 2 161 48 is_stmt 0
   81 0064 2330D600 		sd	a3,0(a2)
   82              	.LVL5:
   83              	.L6:
- 161:src/../h/MemoryAllocation.hpp ****                 else fmem_head = cur->next;
- 162:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = cur->prev;
-  84              		.loc 2 162 17 is_stmt 1
-  85              		.loc 2 162 26 is_stmt 0
+ 162:src/../h/MemoryAllocation.hpp ****                 else fmem_head = cur->next;
+ 163:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = cur->prev;
+  84              		.loc 2 163 17 is_stmt 1
+  85              		.loc 2 163 26 is_stmt 0
   86 0068 83370500 		ld	a5,0(a0)
-  87              		.loc 2 162 17
+  87              		.loc 2 163 17
   88 006c 63860708 		beqz	a5,.L1
-  89              		.loc 2 162 32 is_stmt 1
-  90              		.loc 2 162 55 is_stmt 0
+  89              		.loc 2 163 32 is_stmt 1
+  90              		.loc 2 163 55 is_stmt 0
   91 0070 03378500 		ld	a4,8(a0)
-  92              		.loc 2 162 48
+  92              		.loc 2 163 48
   93 0074 23B4E700 		sd	a4,8(a5)
- 163:src/../h/MemoryAllocation.hpp ****                 return cur;
-  94              		.loc 2 163 17 is_stmt 1
-  95              		.loc 2 163 24 is_stmt 0
+ 164:src/../h/MemoryAllocation.hpp ****                 return cur;
+  94              		.loc 2 164 17 is_stmt 1
+  95              		.loc 2 164 24 is_stmt 0
   96 0078 6F000008 		j	.L1
   97              	.LVL6:
   98              	.L11:
   99              	.LBE26:
  100              	.LBE25:
- 155:src/../h/MemoryAllocation.hpp ****             cur->next=fmem_head->next;
- 101              		.loc 2 155 59
+ 156:src/../h/MemoryAllocation.hpp ****             cur->next=fmem_head->next;
+ 101              		.loc 2 156 59
  102 007c 13850600 		mv	a0,a3
  103              	.LVL7:
  104 0080 6FF09FFA 		j	.L3
@@ -291,14 +291,14 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  106              	.L5:
  107              	.LBB31:
  108              	.LBB29:
- 161:src/../h/MemoryAllocation.hpp ****                 else fmem_head = cur->next;
- 109              		.loc 2 161 22 is_stmt 1
- 161:src/../h/MemoryAllocation.hpp ****                 else fmem_head = cur->next;
- 110              		.loc 2 161 32 is_stmt 0
+ 162:src/../h/MemoryAllocation.hpp ****                 else fmem_head = cur->next;
+ 109              		.loc 2 162 22 is_stmt 1
+ 162:src/../h/MemoryAllocation.hpp ****                 else fmem_head = cur->next;
+ 110              		.loc 2 162 32 is_stmt 0
  111 0084 97070000 		la	a5,_ZN16MemoryAllocation9fmem_headE
  111      83B70700 
  112              	.LVL9:
-GAS LISTING /tmp/ccbDqsYH.s 			page 6
+GAS LISTING /tmp/ccXDgX4F.s 			page 6
 
 
  113 008c 23B0D700 		sd	a3,0(a5)
@@ -306,92 +306,92 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  115              	.LVL10:
  116              	.L4:
  117              	.LBB27:
- 164:src/../h/MemoryAllocation.hpp ****             }else {
- 165:src/../h/MemoryAllocation.hpp ****                 FreeMem* newfrgm = (FreeMem*)((char*)cur+size);
- 118              		.loc 2 165 17 is_stmt 1
- 119              		.loc 2 165 26 is_stmt 0
+ 165:src/../h/MemoryAllocation.hpp ****             }else {
+ 166:src/../h/MemoryAllocation.hpp ****                 FreeMem* newfrgm = (FreeMem*)((char*)cur+size);
+ 118              		.loc 2 166 17 is_stmt 1
+ 119              		.loc 2 166 26 is_stmt 0
  120 0094 3307F500 		add	a4,a0,a5
  121              	.LVL11:
- 166:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev=nullptr;
- 122              		.loc 2 166 17 is_stmt 1
- 123              		.loc 2 166 30 is_stmt 0
+ 167:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev=nullptr;
+ 122              		.loc 2 167 17 is_stmt 1
+ 123              		.loc 2 167 30 is_stmt 0
  124 0098 23340700 		sd	zero,8(a4)
- 167:src/../h/MemoryAllocation.hpp ****                 newfrgm->next=nullptr;
- 125              		.loc 2 167 17 is_stmt 1
- 126              		.loc 2 167 30 is_stmt 0
+ 168:src/../h/MemoryAllocation.hpp ****                 newfrgm->next=nullptr;
+ 125              		.loc 2 168 17 is_stmt 1
+ 126              		.loc 2 168 30 is_stmt 0
  127 009c 23300700 		sd	zero,0(a4)
- 168:src/../h/MemoryAllocation.hpp ****                 //newfrgm->size=cur->size-size;// DODATO TOKOM PROBE NITI
- 169:src/../h/MemoryAllocation.hpp ****                 if (cur->prev) cur->prev->next = newfrgm;
- 128              		.loc 2 169 17 is_stmt 1
- 129              		.loc 2 169 26 is_stmt 0
+ 169:src/../h/MemoryAllocation.hpp ****                 //newfrgm->size=cur->size-size;// DODATO TOKOM PROBE NITI
+ 170:src/../h/MemoryAllocation.hpp ****                 if (cur->prev) cur->prev->next = newfrgm;
+ 128              		.loc 2 170 17 is_stmt 1
+ 129              		.loc 2 170 26 is_stmt 0
  130 00a0 83368500 		ld	a3,8(a0)
- 131              		.loc 2 169 17
+ 131              		.loc 2 170 17
  132 00a4 63800606 		beqz	a3,.L8
- 133              		.loc 2 169 32 is_stmt 1
- 134              		.loc 2 169 48 is_stmt 0
+ 133              		.loc 2 170 32 is_stmt 1
+ 134              		.loc 2 170 48 is_stmt 0
  135 00a8 23B0E600 		sd	a4,0(a3)
  136              	.L9:
- 170:src/../h/MemoryAllocation.hpp ****                 else fmem_head = newfrgm+sizeof(fmem_head); // ovo sam dodao sizeof da bi mi radio 
- 171:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = newfrgm;
- 137              		.loc 2 171 17 is_stmt 1
- 138              		.loc 2 171 26 is_stmt 0
+ 171:src/../h/MemoryAllocation.hpp ****                 else fmem_head = newfrgm+sizeof(fmem_head); // ovo sam dodao sizeof da bi mi radio 
+ 172:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = newfrgm;
+ 137              		.loc 2 172 17 is_stmt 1
+ 138              		.loc 2 172 26 is_stmt 0
  139 00ac 83360500 		ld	a3,0(a0)
- 140              		.loc 2 171 17
+ 140              		.loc 2 172 17
  141 00b0 63840600 		beqz	a3,.L10
- 142              		.loc 2 171 32 is_stmt 1
- 143              		.loc 2 171 48 is_stmt 0
+ 142              		.loc 2 172 32 is_stmt 1
+ 143              		.loc 2 172 48 is_stmt 0
  144 00b4 23B4E600 		sd	a4,8(a3)
  145              	.L10:
- 172:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev = cur->prev;
- 146              		.loc 2 172 17 is_stmt 1
- 147              		.loc 2 172 38 is_stmt 0
+ 173:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev = cur->prev;
+ 146              		.loc 2 173 17 is_stmt 1
+ 147              		.loc 2 173 38 is_stmt 0
  148 00b8 03368500 		ld	a2,8(a0)
- 149              		.loc 2 172 31
+ 149              		.loc 2 173 31
  150 00bc 2334C700 		sd	a2,8(a4)
- 173:src/../h/MemoryAllocation.hpp ****                 newfrgm->next = cur->next;
- 151              		.loc 2 173 17 is_stmt 1
- 152              		.loc 2 173 38 is_stmt 0
+ 174:src/../h/MemoryAllocation.hpp ****                 newfrgm->next = cur->next;
+ 151              		.loc 2 174 17 is_stmt 1
+ 152              		.loc 2 174 38 is_stmt 0
  153 00c0 83360500 		ld	a3,0(a0)
- 154              		.loc 2 173 31
+ 154              		.loc 2 174 31
  155 00c4 2330D700 		sd	a3,0(a4)
- 174:src/../h/MemoryAllocation.hpp ****                 newfrgm->size = cur->size-size;
- 156              		.loc 2 174 17 is_stmt 1
- 157              		.loc 2 174 38 is_stmt 0
+ 175:src/../h/MemoryAllocation.hpp ****                 newfrgm->size = cur->size-size;
+ 156              		.loc 2 175 17 is_stmt 1
+ 157              		.loc 2 175 38 is_stmt 0
  158 00c8 83360501 		ld	a3,16(a0)
-GAS LISTING /tmp/ccbDqsYH.s 			page 7
+GAS LISTING /tmp/ccXDgX4F.s 			page 7
 
 
- 159              		.loc 2 174 42
+ 159              		.loc 2 175 42
  160 00cc B387F640 		sub	a5,a3,a5
  161              	.LVL12:
- 162              		.loc 2 174 31
+ 162              		.loc 2 175 31
  163 00d0 2338F700 		sd	a5,16(a4)
- 175:src/../h/MemoryAllocation.hpp ****                 fmem_head =newfrgm+sizeof(fmem_head);
- 164              		.loc 2 175 17 is_stmt 1
- 165              		.loc 2 175 35 is_stmt 0
+ 176:src/../h/MemoryAllocation.hpp ****                 fmem_head =newfrgm+sizeof(fmem_head);
+ 164              		.loc 2 176 17 is_stmt 1
+ 165              		.loc 2 176 35 is_stmt 0
  166 00d4 9306070C 		addi	a3,a4,192
- 167              		.loc 2 175 27
+ 167              		.loc 2 176 27
  168 00d8 97050000 		la	a1,_ZN16MemoryAllocation9fmem_headE
  168      83B50500 
  169 00e0 23B0D500 		sd	a3,0(a1)
- 176:src/../h/MemoryAllocation.hpp ****                 fmem_head->next=newfrgm->next;
- 170              		.loc 2 176 17 is_stmt 1
- 171              		.loc 2 176 42 is_stmt 0
+ 177:src/../h/MemoryAllocation.hpp ****                 fmem_head->next=newfrgm->next;
+ 170              		.loc 2 177 17 is_stmt 1
+ 171              		.loc 2 177 42 is_stmt 0
  172 00e4 83350700 		ld	a1,0(a4)
- 173              		.loc 2 176 32
+ 173              		.loc 2 177 32
  174 00e8 2330B70C 		sd	a1,192(a4)
- 177:src/../h/MemoryAllocation.hpp ****                 fmem_head->prev=newfrgm->prev;
- 175              		.loc 2 177 17 is_stmt 1
- 176              		.loc 2 177 32 is_stmt 0
+ 178:src/../h/MemoryAllocation.hpp ****                 fmem_head->prev=newfrgm->prev;
+ 175              		.loc 2 178 17 is_stmt 1
+ 176              		.loc 2 178 32 is_stmt 0
  177 00ec 2334C70C 		sd	a2,200(a4)
- 178:src/../h/MemoryAllocation.hpp ****                 fmem_head->size=newfrgm->size;
- 178              		.loc 2 178 17 is_stmt 1
- 179              		.loc 2 178 32 is_stmt 0
+ 179:src/../h/MemoryAllocation.hpp ****                 fmem_head->size=newfrgm->size;
+ 178              		.loc 2 179 17 is_stmt 1
+ 179              		.loc 2 179 32 is_stmt 0
  180 00f0 2338F70C 		sd	a5,208(a4)
- 179:src/../h/MemoryAllocation.hpp ****                 //fmem_head = (FreeMem*) (char*)newfrgm;
- 180:src/../h/MemoryAllocation.hpp ****                 return newfrgm;
- 181              		.loc 2 180 17 is_stmt 1
- 182              		.loc 2 180 24 is_stmt 0
+ 180:src/../h/MemoryAllocation.hpp ****                 //fmem_head = (FreeMem*) (char*)newfrgm;
+ 181:src/../h/MemoryAllocation.hpp ****                 return newfrgm;
+ 181              		.loc 2 181 17 is_stmt 1
+ 182              		.loc 2 181 24 is_stmt 0
  183 00f4 13050700 		mv	a0,a4
  184              	.LVL13:
  185              	.L1:
@@ -401,9 +401,9 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  189              	.LBE24:
  190              	.LBE23:
  191              	.LBE22:
-   6:src/_new.cpp  ****     //return __mem_alloc(n);
-   7:src/_new.cpp  **** }
- 192              		.loc 1 7 1
+   5:src/_new.cpp  ****     //return __mem_alloc(n);
+   6:src/_new.cpp  **** }
+ 192              		.loc 1 6 1
  193 00f8 03348100 		ld	s0,8(sp)
  194              		.cfi_remember_state
  195              		.cfi_restore 8
@@ -418,18 +418,18 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  204              	.LBB34:
  205              	.LBB33:
  206              	.LBB32:
-GAS LISTING /tmp/ccbDqsYH.s 			page 8
+GAS LISTING /tmp/ccXDgX4F.s 			page 8
 
 
  207              	.LBB30:
  208              	.LBB28:
- 170:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = newfrgm;
- 209              		.loc 2 170 22 is_stmt 1
- 170:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = newfrgm;
- 210              		.loc 2 170 41 is_stmt 0
+ 171:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = newfrgm;
+ 209              		.loc 2 171 22 is_stmt 1
+ 171:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = newfrgm;
+ 210              		.loc 2 171 41 is_stmt 0
  211 0104 9306070C 		addi	a3,a4,192
- 170:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = newfrgm;
- 212              		.loc 2 170 32
+ 171:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = newfrgm;
+ 212              		.loc 2 171 32
  213 0108 17060000 		la	a2,_ZN16MemoryAllocation9fmem_headE
  213      03360600 
  214 0110 2330D600 		sd	a3,0(a2)
@@ -446,9 +446,9 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  226              		.globl	_Znam
  228              	_Znam:
  229              	.LFB11:
-   8:src/_new.cpp  **** 
-   9:src/_new.cpp  **** void *operator new[](uint64 n){
- 230              		.loc 1 9 31 is_stmt 1
+   7:src/_new.cpp  **** 
+   8:src/_new.cpp  **** void *operator new[](uint64 n){
+ 230              		.loc 1 8 31 is_stmt 1
  231              		.cfi_startproc
  232              	.LVL15:
  233 0118 130101FF 		addi	sp,sp,-16
@@ -457,8 +457,8 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  236              		.cfi_offset 8, -8
  237 0120 13040101 		addi	s0,sp,16
  238              		.cfi_def_cfa 8, 0
-  10:src/_new.cpp  ****     return MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(n));
- 239              		.loc 1 10 5
+   9:src/_new.cpp  ****     return MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(n));
+ 239              		.loc 1 9 5
  240              	.LVL16:
  241              	.LBB44:
  242              	.LBB45:
@@ -478,107 +478,107 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  252              	.LBE44:
  253              	.LBB46:
  254              	.LBB47:
-GAS LISTING /tmp/ccbDqsYH.s 			page 9
+GAS LISTING /tmp/ccXDgX4F.s 			page 9
 
 
- 154:src/../h/MemoryAllocation.hpp ****         for (FreeMem* cur = fmem_head; cur != nullptr; cur=cur->next){ // U DRUGOJ ITERACIJI FMEM_H
- 255              		.loc 2 154 9 is_stmt 1
- 154:src/../h/MemoryAllocation.hpp ****         for (FreeMem* cur = fmem_head; cur != nullptr; cur=cur->next){ // U DRUGOJ ITERACIJI FMEM_H
- 256              		.loc 2 154 13 is_stmt 0
+ 155:src/../h/MemoryAllocation.hpp ****         for (FreeMem* cur = fmem_head; cur != nullptr; cur=cur->next){ // U DRUGOJ ITERACIJI FMEM_H
+ 255              		.loc 2 155 9 is_stmt 1
+ 155:src/../h/MemoryAllocation.hpp ****         for (FreeMem* cur = fmem_head; cur != nullptr; cur=cur->next){ // U DRUGOJ ITERACIJI FMEM_H
+ 256              		.loc 2 155 13 is_stmt 0
  257 0130 93976700 		slli	a5,a5,6
  258              	.LVL18:
- 155:src/../h/MemoryAllocation.hpp ****             cur->next=fmem_head->next;
- 259              		.loc 2 155 9 is_stmt 1
+ 156:src/../h/MemoryAllocation.hpp ****             cur->next=fmem_head->next;
+ 259              		.loc 2 156 9 is_stmt 1
  260              	.LBB48:
- 155:src/../h/MemoryAllocation.hpp ****             cur->next=fmem_head->next;
- 261              		.loc 2 155 23 is_stmt 0
+ 156:src/../h/MemoryAllocation.hpp ****             cur->next=fmem_head->next;
+ 261              		.loc 2 156 23 is_stmt 0
  262 0134 17070000 		la	a4,_ZN16MemoryAllocation9fmem_headE
  262      03370700 
  263 013c 03350700 		ld	a0,0(a4)
  264              	.LVL19:
  265              	.L15:
- 155:src/../h/MemoryAllocation.hpp ****             cur->next=fmem_head->next;
- 266              		.loc 2 155 44 is_stmt 1
+ 156:src/../h/MemoryAllocation.hpp ****             cur->next=fmem_head->next;
+ 266              		.loc 2 156 44 is_stmt 1
  267 0140 6308050C 		beqz	a0,.L13
  268              	.LBB49:
- 156:src/../h/MemoryAllocation.hpp ****             cur->prev=fmem_head->prev;
- 269              		.loc 2 156 13
- 156:src/../h/MemoryAllocation.hpp ****             cur->prev=fmem_head->prev;
- 270              		.loc 2 156 34 is_stmt 0
+ 157:src/../h/MemoryAllocation.hpp ****             cur->prev=fmem_head->prev;
+ 269              		.loc 2 157 13
+ 157:src/../h/MemoryAllocation.hpp ****             cur->prev=fmem_head->prev;
+ 270              		.loc 2 157 34 is_stmt 0
  271 0144 17070000 		la	a4,_ZN16MemoryAllocation9fmem_headE
  271      03370700 
  272 014c 83360700 		ld	a3,0(a4)
  273 0150 83B60600 		ld	a3,0(a3)
- 156:src/../h/MemoryAllocation.hpp ****             cur->prev=fmem_head->prev;
- 274              		.loc 2 156 22
+ 157:src/../h/MemoryAllocation.hpp ****             cur->prev=fmem_head->prev;
+ 274              		.loc 2 157 22
  275 0154 2330D500 		sd	a3,0(a0)
- 157:src/../h/MemoryAllocation.hpp ****             if (cur->size<size) continue;
- 276              		.loc 2 157 13 is_stmt 1
- 157:src/../h/MemoryAllocation.hpp ****             if (cur->size<size) continue;
- 277              		.loc 2 157 34 is_stmt 0
+ 158:src/../h/MemoryAllocation.hpp ****             if (cur->size<size) continue;
+ 276              		.loc 2 158 13 is_stmt 1
+ 158:src/../h/MemoryAllocation.hpp ****             if (cur->size<size) continue;
+ 277              		.loc 2 158 34 is_stmt 0
  278 0158 03370700 		ld	a4,0(a4)
  279 015c 03368700 		ld	a2,8(a4)
- 157:src/../h/MemoryAllocation.hpp ****             if (cur->size<size) continue;
- 280              		.loc 2 157 22
+ 158:src/../h/MemoryAllocation.hpp ****             if (cur->size<size) continue;
+ 280              		.loc 2 158 22
  281 0160 2334C500 		sd	a2,8(a0)
- 158:src/../h/MemoryAllocation.hpp ****             if (cur->size-size<=sizeof(FreeMem)){
- 282              		.loc 2 158 13 is_stmt 1
- 158:src/../h/MemoryAllocation.hpp ****             if (cur->size-size<=sizeof(FreeMem)){
- 283              		.loc 2 158 22 is_stmt 0
+ 159:src/../h/MemoryAllocation.hpp ****             if (cur->size-size<=sizeof(FreeMem)){
+ 282              		.loc 2 159 13 is_stmt 1
+ 159:src/../h/MemoryAllocation.hpp ****             if (cur->size-size<=sizeof(FreeMem)){
+ 283              		.loc 2 159 22 is_stmt 0
  284 0164 03370501 		ld	a4,16(a0)
- 158:src/../h/MemoryAllocation.hpp ****             if (cur->size-size<=sizeof(FreeMem)){
- 285              		.loc 2 158 13
+ 159:src/../h/MemoryAllocation.hpp ****             if (cur->size-size<=sizeof(FreeMem)){
+ 285              		.loc 2 159 13
  286 0168 6366F702 		bgtu	a5,a4,.L23
- 159:src/../h/MemoryAllocation.hpp ****                 if (cur->prev) cur->prev->next = cur->next;
- 287              		.loc 2 159 13 is_stmt 1
+ 160:src/../h/MemoryAllocation.hpp ****                 if (cur->prev) cur->prev->next = cur->next;
+ 287              		.loc 2 160 13 is_stmt 1
  288              	.LBB50:
- 159:src/../h/MemoryAllocation.hpp ****                 if (cur->prev) cur->prev->next = cur->next;
- 289              		.loc 2 159 26 is_stmt 0
+ 160:src/../h/MemoryAllocation.hpp ****                 if (cur->prev) cur->prev->next = cur->next;
+ 289              		.loc 2 160 26 is_stmt 0
  290 016c 3307F740 		sub	a4,a4,a5
- 159:src/../h/MemoryAllocation.hpp ****                 if (cur->prev) cur->prev->next = cur->next;
- 291              		.loc 2 159 13
+ 160:src/../h/MemoryAllocation.hpp ****                 if (cur->prev) cur->prev->next = cur->next;
+ 291              		.loc 2 160 13
  292 0170 93058001 		li	a1,24
-GAS LISTING /tmp/ccbDqsYH.s 			page 10
+GAS LISTING /tmp/ccXDgX4F.s 			page 10
 
 
  293 0174 63ECE502 		bgtu	a4,a1,.L16
- 160:src/../h/MemoryAllocation.hpp ****                 else fmem_head = cur->next;
- 294              		.loc 2 160 17 is_stmt 1
+ 161:src/../h/MemoryAllocation.hpp ****                 else fmem_head = cur->next;
+ 294              		.loc 2 161 17 is_stmt 1
  295 0178 63020602 		beqz	a2,.L17
- 160:src/../h/MemoryAllocation.hpp ****                 else fmem_head = cur->next;
- 296              		.loc 2 160 32
- 160:src/../h/MemoryAllocation.hpp ****                 else fmem_head = cur->next;
- 297              		.loc 2 160 48 is_stmt 0
+ 161:src/../h/MemoryAllocation.hpp ****                 else fmem_head = cur->next;
+ 296              		.loc 2 161 32
+ 161:src/../h/MemoryAllocation.hpp ****                 else fmem_head = cur->next;
+ 297              		.loc 2 161 48 is_stmt 0
  298 017c 2330D600 		sd	a3,0(a2)
  299              	.LVL20:
  300              	.L18:
- 162:src/../h/MemoryAllocation.hpp ****                 return cur;
- 301              		.loc 2 162 17 is_stmt 1
- 162:src/../h/MemoryAllocation.hpp ****                 return cur;
- 302              		.loc 2 162 26 is_stmt 0
+ 163:src/../h/MemoryAllocation.hpp ****                 return cur;
+ 301              		.loc 2 163 17 is_stmt 1
+ 163:src/../h/MemoryAllocation.hpp ****                 return cur;
+ 302              		.loc 2 163 26 is_stmt 0
  303 0180 83370500 		ld	a5,0(a0)
- 162:src/../h/MemoryAllocation.hpp ****                 return cur;
- 304              		.loc 2 162 17
+ 163:src/../h/MemoryAllocation.hpp ****                 return cur;
+ 304              		.loc 2 163 17
  305 0184 63860708 		beqz	a5,.L13
- 162:src/../h/MemoryAllocation.hpp ****                 return cur;
- 306              		.loc 2 162 32 is_stmt 1
- 162:src/../h/MemoryAllocation.hpp ****                 return cur;
- 307              		.loc 2 162 55 is_stmt 0
+ 163:src/../h/MemoryAllocation.hpp ****                 return cur;
+ 306              		.loc 2 163 32 is_stmt 1
+ 163:src/../h/MemoryAllocation.hpp ****                 return cur;
+ 307              		.loc 2 163 55 is_stmt 0
  308 0188 03378500 		ld	a4,8(a0)
- 162:src/../h/MemoryAllocation.hpp ****                 return cur;
- 309              		.loc 2 162 48
+ 163:src/../h/MemoryAllocation.hpp ****                 return cur;
+ 309              		.loc 2 163 48
  310 018c 23B4E700 		sd	a4,8(a5)
- 163:src/../h/MemoryAllocation.hpp ****             }else {
- 311              		.loc 2 163 17 is_stmt 1
- 163:src/../h/MemoryAllocation.hpp ****             }else {
- 312              		.loc 2 163 24 is_stmt 0
+ 164:src/../h/MemoryAllocation.hpp ****             }else {
+ 311              		.loc 2 164 17 is_stmt 1
+ 164:src/../h/MemoryAllocation.hpp ****             }else {
+ 312              		.loc 2 164 24 is_stmt 0
  313 0190 6F000008 		j	.L13
  314              	.LVL21:
  315              	.L23:
  316              	.LBE50:
  317              	.LBE49:
- 155:src/../h/MemoryAllocation.hpp ****             cur->next=fmem_head->next;
- 318              		.loc 2 155 59
+ 156:src/../h/MemoryAllocation.hpp ****             cur->next=fmem_head->next;
+ 318              		.loc 2 156 59
  319 0194 13850600 		mv	a0,a3
  320              	.LVL22:
  321 0198 6FF09FFA 		j	.L15
@@ -586,10 +586,10 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  323              	.L17:
  324              	.LBB55:
  325              	.LBB53:
- 161:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = cur->prev;
- 326              		.loc 2 161 22 is_stmt 1
- 161:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = cur->prev;
- 327              		.loc 2 161 32 is_stmt 0
+ 162:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = cur->prev;
+ 326              		.loc 2 162 22 is_stmt 1
+ 162:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = cur->prev;
+ 327              		.loc 2 162 32 is_stmt 0
  328 019c 97070000 		la	a5,_ZN16MemoryAllocation9fmem_headE
  328      83B70700 
  329              	.LVL24:
@@ -598,114 +598,114 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  332              	.LVL25:
  333              	.L16:
  334              	.LBB51:
-GAS LISTING /tmp/ccbDqsYH.s 			page 11
+GAS LISTING /tmp/ccXDgX4F.s 			page 11
 
 
- 165:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev=nullptr;
- 335              		.loc 2 165 17 is_stmt 1
- 165:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev=nullptr;
- 336              		.loc 2 165 26 is_stmt 0
+ 166:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev=nullptr;
+ 335              		.loc 2 166 17 is_stmt 1
+ 166:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev=nullptr;
+ 336              		.loc 2 166 26 is_stmt 0
  337 01ac 3307F500 		add	a4,a0,a5
  338              	.LVL26:
- 166:src/../h/MemoryAllocation.hpp ****                 newfrgm->next=nullptr;
- 339              		.loc 2 166 17 is_stmt 1
- 166:src/../h/MemoryAllocation.hpp ****                 newfrgm->next=nullptr;
- 340              		.loc 2 166 30 is_stmt 0
+ 167:src/../h/MemoryAllocation.hpp ****                 newfrgm->next=nullptr;
+ 339              		.loc 2 167 17 is_stmt 1
+ 167:src/../h/MemoryAllocation.hpp ****                 newfrgm->next=nullptr;
+ 340              		.loc 2 167 30 is_stmt 0
  341 01b0 23340700 		sd	zero,8(a4)
- 167:src/../h/MemoryAllocation.hpp ****                 //newfrgm->size=cur->size-size;// DODATO TOKOM PROBE NITI
- 342              		.loc 2 167 17 is_stmt 1
- 167:src/../h/MemoryAllocation.hpp ****                 //newfrgm->size=cur->size-size;// DODATO TOKOM PROBE NITI
- 343              		.loc 2 167 30 is_stmt 0
+ 168:src/../h/MemoryAllocation.hpp ****                 //newfrgm->size=cur->size-size;// DODATO TOKOM PROBE NITI
+ 342              		.loc 2 168 17 is_stmt 1
+ 168:src/../h/MemoryAllocation.hpp ****                 //newfrgm->size=cur->size-size;// DODATO TOKOM PROBE NITI
+ 343              		.loc 2 168 30 is_stmt 0
  344 01b4 23300700 		sd	zero,0(a4)
- 169:src/../h/MemoryAllocation.hpp ****                 else fmem_head = newfrgm+sizeof(fmem_head); // ovo sam dodao sizeof da bi mi radio 
- 345              		.loc 2 169 17 is_stmt 1
- 169:src/../h/MemoryAllocation.hpp ****                 else fmem_head = newfrgm+sizeof(fmem_head); // ovo sam dodao sizeof da bi mi radio 
- 346              		.loc 2 169 26 is_stmt 0
+ 170:src/../h/MemoryAllocation.hpp ****                 else fmem_head = newfrgm+sizeof(fmem_head); // ovo sam dodao sizeof da bi mi radio 
+ 345              		.loc 2 170 17 is_stmt 1
+ 170:src/../h/MemoryAllocation.hpp ****                 else fmem_head = newfrgm+sizeof(fmem_head); // ovo sam dodao sizeof da bi mi radio 
+ 346              		.loc 2 170 26 is_stmt 0
  347 01b8 83368500 		ld	a3,8(a0)
- 169:src/../h/MemoryAllocation.hpp ****                 else fmem_head = newfrgm+sizeof(fmem_head); // ovo sam dodao sizeof da bi mi radio 
- 348              		.loc 2 169 17
+ 170:src/../h/MemoryAllocation.hpp ****                 else fmem_head = newfrgm+sizeof(fmem_head); // ovo sam dodao sizeof da bi mi radio 
+ 348              		.loc 2 170 17
  349 01bc 63800606 		beqz	a3,.L20
- 169:src/../h/MemoryAllocation.hpp ****                 else fmem_head = newfrgm+sizeof(fmem_head); // ovo sam dodao sizeof da bi mi radio 
- 350              		.loc 2 169 32 is_stmt 1
- 169:src/../h/MemoryAllocation.hpp ****                 else fmem_head = newfrgm+sizeof(fmem_head); // ovo sam dodao sizeof da bi mi radio 
- 351              		.loc 2 169 48 is_stmt 0
+ 170:src/../h/MemoryAllocation.hpp ****                 else fmem_head = newfrgm+sizeof(fmem_head); // ovo sam dodao sizeof da bi mi radio 
+ 350              		.loc 2 170 32 is_stmt 1
+ 170:src/../h/MemoryAllocation.hpp ****                 else fmem_head = newfrgm+sizeof(fmem_head); // ovo sam dodao sizeof da bi mi radio 
+ 351              		.loc 2 170 48 is_stmt 0
  352 01c0 23B0E600 		sd	a4,0(a3)
  353              	.L21:
- 171:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev = cur->prev;
- 354              		.loc 2 171 17 is_stmt 1
- 171:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev = cur->prev;
- 355              		.loc 2 171 26 is_stmt 0
+ 172:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev = cur->prev;
+ 354              		.loc 2 172 17 is_stmt 1
+ 172:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev = cur->prev;
+ 355              		.loc 2 172 26 is_stmt 0
  356 01c4 83360500 		ld	a3,0(a0)
- 171:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev = cur->prev;
- 357              		.loc 2 171 17
+ 172:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev = cur->prev;
+ 357              		.loc 2 172 17
  358 01c8 63840600 		beqz	a3,.L22
- 171:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev = cur->prev;
- 359              		.loc 2 171 32 is_stmt 1
- 171:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev = cur->prev;
- 360              		.loc 2 171 48 is_stmt 0
+ 172:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev = cur->prev;
+ 359              		.loc 2 172 32 is_stmt 1
+ 172:src/../h/MemoryAllocation.hpp ****                 newfrgm->prev = cur->prev;
+ 360              		.loc 2 172 48 is_stmt 0
  361 01cc 23B4E600 		sd	a4,8(a3)
  362              	.L22:
- 172:src/../h/MemoryAllocation.hpp ****                 newfrgm->next = cur->next;
- 363              		.loc 2 172 17 is_stmt 1
- 172:src/../h/MemoryAllocation.hpp ****                 newfrgm->next = cur->next;
- 364              		.loc 2 172 38 is_stmt 0
+ 173:src/../h/MemoryAllocation.hpp ****                 newfrgm->next = cur->next;
+ 363              		.loc 2 173 17 is_stmt 1
+ 173:src/../h/MemoryAllocation.hpp ****                 newfrgm->next = cur->next;
+ 364              		.loc 2 173 38 is_stmt 0
  365 01d0 03368500 		ld	a2,8(a0)
- 172:src/../h/MemoryAllocation.hpp ****                 newfrgm->next = cur->next;
- 366              		.loc 2 172 31
+ 173:src/../h/MemoryAllocation.hpp ****                 newfrgm->next = cur->next;
+ 366              		.loc 2 173 31
  367 01d4 2334C700 		sd	a2,8(a4)
- 173:src/../h/MemoryAllocation.hpp ****                 newfrgm->size = cur->size-size;
- 368              		.loc 2 173 17 is_stmt 1
- 173:src/../h/MemoryAllocation.hpp ****                 newfrgm->size = cur->size-size;
- 369              		.loc 2 173 38 is_stmt 0
+ 174:src/../h/MemoryAllocation.hpp ****                 newfrgm->size = cur->size-size;
+ 368              		.loc 2 174 17 is_stmt 1
+ 174:src/../h/MemoryAllocation.hpp ****                 newfrgm->size = cur->size-size;
+ 369              		.loc 2 174 38 is_stmt 0
  370 01d8 83360500 		ld	a3,0(a0)
-GAS LISTING /tmp/ccbDqsYH.s 			page 12
+GAS LISTING /tmp/ccXDgX4F.s 			page 12
 
 
- 173:src/../h/MemoryAllocation.hpp ****                 newfrgm->size = cur->size-size;
- 371              		.loc 2 173 31
+ 174:src/../h/MemoryAllocation.hpp ****                 newfrgm->size = cur->size-size;
+ 371              		.loc 2 174 31
  372 01dc 2330D700 		sd	a3,0(a4)
- 174:src/../h/MemoryAllocation.hpp ****                 fmem_head =newfrgm+sizeof(fmem_head);
- 373              		.loc 2 174 17 is_stmt 1
- 174:src/../h/MemoryAllocation.hpp ****                 fmem_head =newfrgm+sizeof(fmem_head);
- 374              		.loc 2 174 38 is_stmt 0
+ 175:src/../h/MemoryAllocation.hpp ****                 fmem_head =newfrgm+sizeof(fmem_head);
+ 373              		.loc 2 175 17 is_stmt 1
+ 175:src/../h/MemoryAllocation.hpp ****                 fmem_head =newfrgm+sizeof(fmem_head);
+ 374              		.loc 2 175 38 is_stmt 0
  375 01e0 83360501 		ld	a3,16(a0)
- 174:src/../h/MemoryAllocation.hpp ****                 fmem_head =newfrgm+sizeof(fmem_head);
- 376              		.loc 2 174 42
+ 175:src/../h/MemoryAllocation.hpp ****                 fmem_head =newfrgm+sizeof(fmem_head);
+ 376              		.loc 2 175 42
  377 01e4 B387F640 		sub	a5,a3,a5
  378              	.LVL27:
- 174:src/../h/MemoryAllocation.hpp ****                 fmem_head =newfrgm+sizeof(fmem_head);
- 379              		.loc 2 174 31
+ 175:src/../h/MemoryAllocation.hpp ****                 fmem_head =newfrgm+sizeof(fmem_head);
+ 379              		.loc 2 175 31
  380 01e8 2338F700 		sd	a5,16(a4)
- 175:src/../h/MemoryAllocation.hpp ****                 fmem_head->next=newfrgm->next;
- 381              		.loc 2 175 17 is_stmt 1
- 175:src/../h/MemoryAllocation.hpp ****                 fmem_head->next=newfrgm->next;
- 382              		.loc 2 175 35 is_stmt 0
+ 176:src/../h/MemoryAllocation.hpp ****                 fmem_head->next=newfrgm->next;
+ 381              		.loc 2 176 17 is_stmt 1
+ 176:src/../h/MemoryAllocation.hpp ****                 fmem_head->next=newfrgm->next;
+ 382              		.loc 2 176 35 is_stmt 0
  383 01ec 9306070C 		addi	a3,a4,192
- 175:src/../h/MemoryAllocation.hpp ****                 fmem_head->next=newfrgm->next;
- 384              		.loc 2 175 27
+ 176:src/../h/MemoryAllocation.hpp ****                 fmem_head->next=newfrgm->next;
+ 384              		.loc 2 176 27
  385 01f0 97050000 		la	a1,_ZN16MemoryAllocation9fmem_headE
  385      83B50500 
  386 01f8 23B0D500 		sd	a3,0(a1)
- 176:src/../h/MemoryAllocation.hpp ****                 fmem_head->prev=newfrgm->prev;
- 387              		.loc 2 176 17 is_stmt 1
- 176:src/../h/MemoryAllocation.hpp ****                 fmem_head->prev=newfrgm->prev;
- 388              		.loc 2 176 42 is_stmt 0
+ 177:src/../h/MemoryAllocation.hpp ****                 fmem_head->prev=newfrgm->prev;
+ 387              		.loc 2 177 17 is_stmt 1
+ 177:src/../h/MemoryAllocation.hpp ****                 fmem_head->prev=newfrgm->prev;
+ 388              		.loc 2 177 42 is_stmt 0
  389 01fc 83350700 		ld	a1,0(a4)
- 176:src/../h/MemoryAllocation.hpp ****                 fmem_head->prev=newfrgm->prev;
- 390              		.loc 2 176 32
+ 177:src/../h/MemoryAllocation.hpp ****                 fmem_head->prev=newfrgm->prev;
+ 390              		.loc 2 177 32
  391 0200 2330B70C 		sd	a1,192(a4)
- 177:src/../h/MemoryAllocation.hpp ****                 fmem_head->size=newfrgm->size;
- 392              		.loc 2 177 17 is_stmt 1
- 177:src/../h/MemoryAllocation.hpp ****                 fmem_head->size=newfrgm->size;
- 393              		.loc 2 177 32 is_stmt 0
+ 178:src/../h/MemoryAllocation.hpp ****                 fmem_head->size=newfrgm->size;
+ 392              		.loc 2 178 17 is_stmt 1
+ 178:src/../h/MemoryAllocation.hpp ****                 fmem_head->size=newfrgm->size;
+ 393              		.loc 2 178 32 is_stmt 0
  394 0204 2334C70C 		sd	a2,200(a4)
- 178:src/../h/MemoryAllocation.hpp ****                 //fmem_head = (FreeMem*) (char*)newfrgm;
- 395              		.loc 2 178 17 is_stmt 1
- 178:src/../h/MemoryAllocation.hpp ****                 //fmem_head = (FreeMem*) (char*)newfrgm;
- 396              		.loc 2 178 32 is_stmt 0
+ 179:src/../h/MemoryAllocation.hpp ****                 //fmem_head = (FreeMem*) (char*)newfrgm;
+ 395              		.loc 2 179 17 is_stmt 1
+ 179:src/../h/MemoryAllocation.hpp ****                 //fmem_head = (FreeMem*) (char*)newfrgm;
+ 396              		.loc 2 179 32 is_stmt 0
  397 0208 2338F70C 		sd	a5,208(a4)
- 398              		.loc 2 180 17 is_stmt 1
- 399              		.loc 2 180 24 is_stmt 0
+ 398              		.loc 2 181 17 is_stmt 1
+ 399              		.loc 2 181 24 is_stmt 0
  400 020c 13050700 		mv	a0,a4
  401              	.LVL28:
  402              	.L13:
@@ -715,10 +715,10 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  406              	.LBE48:
  407              	.LBE47:
  408              	.LBE46:
-  11:src/_new.cpp  ****     //return __mem_alloc(n);
-  12:src/_new.cpp  **** }
- 409              		.loc 1 12 1
-GAS LISTING /tmp/ccbDqsYH.s 			page 13
+  10:src/_new.cpp  ****     //return __mem_alloc(n);
+  11:src/_new.cpp  **** }
+ 409              		.loc 1 11 1
+GAS LISTING /tmp/ccXDgX4F.s 			page 13
 
 
  410 0210 03348100 		ld	s0,8(sp)
@@ -737,13 +737,13 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  423              	.LBB56:
  424              	.LBB54:
  425              	.LBB52:
- 170:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = newfrgm;
- 426              		.loc 2 170 22 is_stmt 1
- 170:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = newfrgm;
- 427              		.loc 2 170 41 is_stmt 0
+ 171:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = newfrgm;
+ 426              		.loc 2 171 22 is_stmt 1
+ 171:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = newfrgm;
+ 427              		.loc 2 171 41 is_stmt 0
  428 021c 9306070C 		addi	a3,a4,192
- 170:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = newfrgm;
- 429              		.loc 2 170 32
+ 171:src/../h/MemoryAllocation.hpp ****                 if (cur->next) cur->next->prev = newfrgm;
+ 429              		.loc 2 171 32
  430 0220 17060000 		la	a2,_ZN16MemoryAllocation9fmem_headE
  430      03360600 
  431 0228 2330D600 		sd	a3,0(a2)
@@ -760,9 +760,9 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  443              		.globl	_ZdlPv
  445              	_ZdlPv:
  446              	.LFB12:
-  13:src/_new.cpp  **** 
-  14:src/_new.cpp  **** void operator delete(void *p) noexcept {
- 447              		.loc 1 14 40 is_stmt 1
+  12:src/_new.cpp  **** 
+  13:src/_new.cpp  **** void operator delete(void *p) noexcept {
+ 447              		.loc 1 13 40 is_stmt 1
  448              		.cfi_startproc
  449              	.LVL30:
  450 0230 130101FF 		addi	sp,sp,-16
@@ -771,14 +771,14 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  453              		.cfi_offset 8, -8
  454 0238 13040101 		addi	s0,sp,16
  455              		.cfi_def_cfa 8, 0
-  15:src/_new.cpp  ****     MemoryAllocation::mem_free(p);
- 456              		.loc 1 15 5
+  14:src/_new.cpp  ****     MemoryAllocation::mem_free(p);
+ 456              		.loc 1 14 5
  457              	.LVL31:
  458              	.LBB66:
  459              	.LBB67:
   88:src/../h/MemoryAllocation.hpp ****         if(!fmem_head || ptr < (char*)fmem_head)
  460              		.loc 2 88 9
-GAS LISTING /tmp/ccbDqsYH.s 			page 14
+GAS LISTING /tmp/ccXDgX4F.s 			page 14
 
 
   89:src/../h/MemoryAllocation.hpp ****         {
@@ -838,7 +838,7 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  500              	.LBB76:
   98:src/../h/MemoryAllocation.hpp ****                         //sizeof(ptr);
  501              		.loc 2 98 29 is_stmt 0
-GAS LISTING /tmp/ccbDqsYH.s 			page 15
+GAS LISTING /tmp/ccXDgX4F.s 			page 15
 
 
  502 0274 13070004 		li	a4,64
@@ -898,7 +898,7 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  538 02a4 03370500 		ld	a4,0(a0)
   76:src/../h/MemoryAllocation.hpp ****         // Remove the cur->next segment:
  539              		.loc 2 76 9
-GAS LISTING /tmp/ccbDqsYH.s 			page 16
+GAS LISTING /tmp/ccXDgX4F.s 			page 16
 
 
  540 02a8 63080700 		beqz	a4,.L33
@@ -945,9 +945,9 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  570              	.LBE71:
  571              	.LBE76:
  572              	.LBE78:
-  16:src/_new.cpp  ****     //__mem_free(p);
-  17:src/_new.cpp  **** }
- 573              		.loc 1 17 1
+  15:src/_new.cpp  ****     //__mem_free(p);
+  16:src/_new.cpp  **** }
+ 573              		.loc 1 16 1
  574 02d0 03348100 		ld	s0,8(sp)
  575              		.cfi_remember_state
  576              		.cfi_restore 8
@@ -958,7 +958,7 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  581              	.LVL40:
  582              	.L28:
  583              		.cfi_restore_state
-GAS LISTING /tmp/ccbDqsYH.s 			page 17
+GAS LISTING /tmp/ccXDgX4F.s 			page 17
 
 
  584              	.LBB79:
@@ -1018,7 +1018,7 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  623              	.LBB75:
  624              	.LBB73:
   78:src/../h/MemoryAllocation.hpp ****             curr->next = curr->next->next;
-GAS LISTING /tmp/ccbDqsYH.s 			page 18
+GAS LISTING /tmp/ccXDgX4F.s 			page 18
 
 
  625              		.loc 2 78 13 is_stmt 1
@@ -1052,7 +1052,7 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  644              		.loc 2 120 13 is_stmt 1
  645              	.LBE77:
  646              	.LBE79:
- 647              		.loc 1 17 1 is_stmt 0
+ 647              		.loc 1 16 1 is_stmt 0
  648 033c 6FF05FF9 		j	.L25
  649              		.cfi_endproc
  650              	.LFE12:
@@ -1060,9 +1060,9 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  653              		.globl	_ZdaPv
  655              	_ZdaPv:
  656              	.LFB13:
-  18:src/_new.cpp  **** 
-  19:src/_new.cpp  **** void operator delete[] (void *p) noexcept{
- 657              		.loc 1 19 42 is_stmt 1
+  17:src/_new.cpp  **** 
+  18:src/_new.cpp  **** void operator delete[] (void *p) noexcept{
+ 657              		.loc 1 18 42 is_stmt 1
  658              		.cfi_startproc
  659              	.LVL44:
  660 0340 130101FF 		addi	sp,sp,-16
@@ -1071,14 +1071,14 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  663              		.cfi_offset 8, -8
  664 0348 13040101 		addi	s0,sp,16
  665              		.cfi_def_cfa 8, 0
-  20:src/_new.cpp  ****     MemoryAllocation::mem_free(p);
- 666              		.loc 1 20 5
+  19:src/_new.cpp  ****     MemoryAllocation::mem_free(p);
+ 666              		.loc 1 19 5
  667              	.LVL45:
  668              	.LBB86:
  669              	.LBB87:
   88:src/../h/MemoryAllocation.hpp ****         if(!fmem_head || ptr < (char*)fmem_head)
  670              		.loc 2 88 9
-GAS LISTING /tmp/ccbDqsYH.s 			page 19
+GAS LISTING /tmp/ccXDgX4F.s 			page 19
 
 
   89:src/../h/MemoryAllocation.hpp ****         {
@@ -1138,7 +1138,7 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  710              	.LBB96:
   98:src/../h/MemoryAllocation.hpp ****                         //sizeof(ptr);
  711              		.loc 2 98 29 is_stmt 0
-GAS LISTING /tmp/ccbDqsYH.s 			page 20
+GAS LISTING /tmp/ccXDgX4F.s 			page 20
 
 
  712 0384 13070004 		li	a4,64
@@ -1198,7 +1198,7 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  748 03b4 03370500 		ld	a4,0(a0)
   76:src/../h/MemoryAllocation.hpp ****         // Remove the cur->next segment:
  749              		.loc 2 76 9
-GAS LISTING /tmp/ccbDqsYH.s 			page 21
+GAS LISTING /tmp/ccXDgX4F.s 			page 21
 
 
  750 03b8 63080700 		beqz	a4,.L48
@@ -1245,9 +1245,9 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  780              	.LBE91:
  781              	.LBE96:
  782              	.LBE98:
-  21:src/_new.cpp  ****     //__mem_free(p);
-  22:src/_new.cpp  **** }...
- 783              		.loc 1 22 1
+  20:src/_new.cpp  ****     //__mem_free(p);
+  21:src/_new.cpp  **** }...
+ 783              		.loc 1 21 1
  784 03e0 03348100 		ld	s0,8(sp)
  785              		.cfi_remember_state
  786              		.cfi_restore 8
@@ -1258,7 +1258,7 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  791              	.LVL54:
  792              	.L43:
  793              		.cfi_restore_state
-GAS LISTING /tmp/ccbDqsYH.s 			page 22
+GAS LISTING /tmp/ccXDgX4F.s 			page 22
 
 
  794              	.LBB99:
@@ -1318,7 +1318,7 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  833              	.LBB95:
  834              	.LBB93:
   78:src/../h/MemoryAllocation.hpp ****             curr->next = curr->next->next;
-GAS LISTING /tmp/ccbDqsYH.s 			page 23
+GAS LISTING /tmp/ccXDgX4F.s 			page 23
 
 
  835              		.loc 2 78 13 is_stmt 1
@@ -1352,653 +1352,653 @@ GAS LISTING /tmp/ccbDqsYH.s 			page 1
  854              		.loc 2 120 13 is_stmt 1
  855              	.LBE97:
  856              	.LBE99:
- 857              		.loc 1 22 1 is_stmt 0
+ 857              		.loc 1 21 1 is_stmt 0
  858 044c 6FF05FF9 		j	.L40
  859              		.cfi_endproc
  860              	.LFE13:
  862              	.Letext0:
  863              		.file 3 "src/../h/../lib/hw.h"
-GAS LISTING /tmp/ccbDqsYH.s 			page 24
+GAS LISTING /tmp/ccXDgX4F.s 			page 24
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 _new.cpp
-     /tmp/ccbDqsYH.s:9      .text:0000000000000000 _Znwm
-     /tmp/ccbDqsYH.s:13     .text:0000000000000000 .L0 
-     /tmp/ccbDqsYH.s:15     .text:0000000000000000 .L0 
-     /tmp/ccbDqsYH.s:16     .text:0000000000000004 .L0 
-     /tmp/ccbDqsYH.s:18     .text:0000000000000008 .L0 
-     /tmp/ccbDqsYH.s:20     .text:000000000000000c .L0 
-     /tmp/ccbDqsYH.s:26     .text:000000000000000c .L0 
-     /tmp/ccbDqsYH.s:27     .text:000000000000000c .L0 
-     /tmp/ccbDqsYH.s:28     .text:000000000000000c .L0 
-     /tmp/ccbDqsYH.s:30     .text:0000000000000010 .L0 
-     /tmp/ccbDqsYH.s:32     .text:0000000000000014 .L0 
-     /tmp/ccbDqsYH.s:39     .text:0000000000000018 .L0 
-     /tmp/ccbDqsYH.s:40     .text:0000000000000018 .L0 
-     /tmp/ccbDqsYH.s:44     .text:000000000000001c .L0 
-     /tmp/ccbDqsYH.s:45     .text:000000000000001c .L0 
-     /tmp/ccbDqsYH.s:50     .text:0000000000000028 .L0 
-     /tmp/ccbDqsYH.s:53     .text:000000000000002c .L0 
-     /tmp/ccbDqsYH.s:54     .text:000000000000002c .L0 
-     /tmp/ccbDqsYH.s:58     .text:000000000000003c .L0 
-     /tmp/ccbDqsYH.s:60     .text:0000000000000040 .L0 
-     /tmp/ccbDqsYH.s:61     .text:0000000000000040 .L0 
-     /tmp/ccbDqsYH.s:64     .text:0000000000000048 .L0 
-     /tmp/ccbDqsYH.s:66     .text:000000000000004c .L0 
-     /tmp/ccbDqsYH.s:67     .text:000000000000004c .L0 
-     /tmp/ccbDqsYH.s:69     .text:0000000000000050 .L0 
-     /tmp/ccbDqsYH.s:72     .text:0000000000000054 .L0 
-     /tmp/ccbDqsYH.s:73     .text:0000000000000054 .L0 
-     /tmp/ccbDqsYH.s:75     .text:0000000000000058 .L0 
-     /tmp/ccbDqsYH.s:78     .text:0000000000000060 .L0 
-     /tmp/ccbDqsYH.s:80     .text:0000000000000064 .L0 
-     /tmp/ccbDqsYH.s:81     .text:0000000000000064 .L0 
-     /tmp/ccbDqsYH.s:85     .text:0000000000000068 .L0 
-     /tmp/ccbDqsYH.s:86     .text:0000000000000068 .L0 
-     /tmp/ccbDqsYH.s:88     .text:000000000000006c .L0 
-     /tmp/ccbDqsYH.s:90     .text:0000000000000070 .L0 
-     /tmp/ccbDqsYH.s:91     .text:0000000000000070 .L0 
-     /tmp/ccbDqsYH.s:93     .text:0000000000000074 .L0 
-     /tmp/ccbDqsYH.s:95     .text:0000000000000078 .L0 
-     /tmp/ccbDqsYH.s:96     .text:0000000000000078 .L0 
-     /tmp/ccbDqsYH.s:102    .text:000000000000007c .L0 
-     /tmp/ccbDqsYH.s:110    .text:0000000000000084 .L0 
-     /tmp/ccbDqsYH.s:111    .text:0000000000000084 .L0 
-     /tmp/ccbDqsYH.s:119    .text:0000000000000094 .L0 
-     /tmp/ccbDqsYH.s:120    .text:0000000000000094 .L0 
-     /tmp/ccbDqsYH.s:123    .text:0000000000000098 .L0 
-     /tmp/ccbDqsYH.s:124    .text:0000000000000098 .L0 
-     /tmp/ccbDqsYH.s:126    .text:000000000000009c .L0 
-     /tmp/ccbDqsYH.s:127    .text:000000000000009c .L0 
-     /tmp/ccbDqsYH.s:129    .text:00000000000000a0 .L0 
-     /tmp/ccbDqsYH.s:130    .text:00000000000000a0 .L0 
-     /tmp/ccbDqsYH.s:132    .text:00000000000000a4 .L0 
-     /tmp/ccbDqsYH.s:134    .text:00000000000000a8 .L0 
-     /tmp/ccbDqsYH.s:135    .text:00000000000000a8 .L0 
-     /tmp/ccbDqsYH.s:138    .text:00000000000000ac .L0 
-     /tmp/ccbDqsYH.s:139    .text:00000000000000ac .L0 
-GAS LISTING /tmp/ccbDqsYH.s 			page 25
+     /tmp/ccXDgX4F.s:9      .text:0000000000000000 _Znwm
+     /tmp/ccXDgX4F.s:13     .text:0000000000000000 .L0 
+     /tmp/ccXDgX4F.s:15     .text:0000000000000000 .L0 
+     /tmp/ccXDgX4F.s:16     .text:0000000000000004 .L0 
+     /tmp/ccXDgX4F.s:18     .text:0000000000000008 .L0 
+     /tmp/ccXDgX4F.s:20     .text:000000000000000c .L0 
+     /tmp/ccXDgX4F.s:26     .text:000000000000000c .L0 
+     /tmp/ccXDgX4F.s:27     .text:000000000000000c .L0 
+     /tmp/ccXDgX4F.s:28     .text:000000000000000c .L0 
+     /tmp/ccXDgX4F.s:30     .text:0000000000000010 .L0 
+     /tmp/ccXDgX4F.s:32     .text:0000000000000014 .L0 
+     /tmp/ccXDgX4F.s:39     .text:0000000000000018 .L0 
+     /tmp/ccXDgX4F.s:40     .text:0000000000000018 .L0 
+     /tmp/ccXDgX4F.s:44     .text:000000000000001c .L0 
+     /tmp/ccXDgX4F.s:45     .text:000000000000001c .L0 
+     /tmp/ccXDgX4F.s:50     .text:0000000000000028 .L0 
+     /tmp/ccXDgX4F.s:53     .text:000000000000002c .L0 
+     /tmp/ccXDgX4F.s:54     .text:000000000000002c .L0 
+     /tmp/ccXDgX4F.s:58     .text:000000000000003c .L0 
+     /tmp/ccXDgX4F.s:60     .text:0000000000000040 .L0 
+     /tmp/ccXDgX4F.s:61     .text:0000000000000040 .L0 
+     /tmp/ccXDgX4F.s:64     .text:0000000000000048 .L0 
+     /tmp/ccXDgX4F.s:66     .text:000000000000004c .L0 
+     /tmp/ccXDgX4F.s:67     .text:000000000000004c .L0 
+     /tmp/ccXDgX4F.s:69     .text:0000000000000050 .L0 
+     /tmp/ccXDgX4F.s:72     .text:0000000000000054 .L0 
+     /tmp/ccXDgX4F.s:73     .text:0000000000000054 .L0 
+     /tmp/ccXDgX4F.s:75     .text:0000000000000058 .L0 
+     /tmp/ccXDgX4F.s:78     .text:0000000000000060 .L0 
+     /tmp/ccXDgX4F.s:80     .text:0000000000000064 .L0 
+     /tmp/ccXDgX4F.s:81     .text:0000000000000064 .L0 
+     /tmp/ccXDgX4F.s:85     .text:0000000000000068 .L0 
+     /tmp/ccXDgX4F.s:86     .text:0000000000000068 .L0 
+     /tmp/ccXDgX4F.s:88     .text:000000000000006c .L0 
+     /tmp/ccXDgX4F.s:90     .text:0000000000000070 .L0 
+     /tmp/ccXDgX4F.s:91     .text:0000000000000070 .L0 
+     /tmp/ccXDgX4F.s:93     .text:0000000000000074 .L0 
+     /tmp/ccXDgX4F.s:95     .text:0000000000000078 .L0 
+     /tmp/ccXDgX4F.s:96     .text:0000000000000078 .L0 
+     /tmp/ccXDgX4F.s:102    .text:000000000000007c .L0 
+     /tmp/ccXDgX4F.s:110    .text:0000000000000084 .L0 
+     /tmp/ccXDgX4F.s:111    .text:0000000000000084 .L0 
+     /tmp/ccXDgX4F.s:119    .text:0000000000000094 .L0 
+     /tmp/ccXDgX4F.s:120    .text:0000000000000094 .L0 
+     /tmp/ccXDgX4F.s:123    .text:0000000000000098 .L0 
+     /tmp/ccXDgX4F.s:124    .text:0000000000000098 .L0 
+     /tmp/ccXDgX4F.s:126    .text:000000000000009c .L0 
+     /tmp/ccXDgX4F.s:127    .text:000000000000009c .L0 
+     /tmp/ccXDgX4F.s:129    .text:00000000000000a0 .L0 
+     /tmp/ccXDgX4F.s:130    .text:00000000000000a0 .L0 
+     /tmp/ccXDgX4F.s:132    .text:00000000000000a4 .L0 
+     /tmp/ccXDgX4F.s:134    .text:00000000000000a8 .L0 
+     /tmp/ccXDgX4F.s:135    .text:00000000000000a8 .L0 
+     /tmp/ccXDgX4F.s:138    .text:00000000000000ac .L0 
+     /tmp/ccXDgX4F.s:139    .text:00000000000000ac .L0 
+GAS LISTING /tmp/ccXDgX4F.s 			page 25
 
 
-     /tmp/ccbDqsYH.s:141    .text:00000000000000b0 .L0 
-     /tmp/ccbDqsYH.s:143    .text:00000000000000b4 .L0 
-     /tmp/ccbDqsYH.s:144    .text:00000000000000b4 .L0 
-     /tmp/ccbDqsYH.s:147    .text:00000000000000b8 .L0 
-     /tmp/ccbDqsYH.s:148    .text:00000000000000b8 .L0 
-     /tmp/ccbDqsYH.s:150    .text:00000000000000bc .L0 
-     /tmp/ccbDqsYH.s:152    .text:00000000000000c0 .L0 
-     /tmp/ccbDqsYH.s:153    .text:00000000000000c0 .L0 
-     /tmp/ccbDqsYH.s:155    .text:00000000000000c4 .L0 
-     /tmp/ccbDqsYH.s:157    .text:00000000000000c8 .L0 
-     /tmp/ccbDqsYH.s:158    .text:00000000000000c8 .L0 
-     /tmp/ccbDqsYH.s:160    .text:00000000000000cc .L0 
-     /tmp/ccbDqsYH.s:163    .text:00000000000000d0 .L0 
-     /tmp/ccbDqsYH.s:165    .text:00000000000000d4 .L0 
-     /tmp/ccbDqsYH.s:166    .text:00000000000000d4 .L0 
-     /tmp/ccbDqsYH.s:168    .text:00000000000000d8 .L0 
-     /tmp/ccbDqsYH.s:171    .text:00000000000000e4 .L0 
-     /tmp/ccbDqsYH.s:172    .text:00000000000000e4 .L0 
-     /tmp/ccbDqsYH.s:174    .text:00000000000000e8 .L0 
-     /tmp/ccbDqsYH.s:176    .text:00000000000000ec .L0 
-     /tmp/ccbDqsYH.s:177    .text:00000000000000ec .L0 
-     /tmp/ccbDqsYH.s:179    .text:00000000000000f0 .L0 
-     /tmp/ccbDqsYH.s:180    .text:00000000000000f0 .L0 
-     /tmp/ccbDqsYH.s:182    .text:00000000000000f4 .L0 
-     /tmp/ccbDqsYH.s:183    .text:00000000000000f4 .L0 
-     /tmp/ccbDqsYH.s:193    .text:00000000000000f8 .L0 
-     /tmp/ccbDqsYH.s:194    .text:00000000000000fc .L0 
-     /tmp/ccbDqsYH.s:195    .text:00000000000000fc .L0 
-     /tmp/ccbDqsYH.s:196    .text:00000000000000fc .L0 
-     /tmp/ccbDqsYH.s:198    .text:0000000000000100 .L0 
-     /tmp/ccbDqsYH.s:202    .text:0000000000000104 .L0 
-     /tmp/ccbDqsYH.s:210    .text:0000000000000104 .L0 
-     /tmp/ccbDqsYH.s:211    .text:0000000000000104 .L0 
-     /tmp/ccbDqsYH.s:213    .text:0000000000000108 .L0 
-     /tmp/ccbDqsYH.s:222    .text:0000000000000118 .L0 
-     /tmp/ccbDqsYH.s:228    .text:0000000000000118 _Znam
-     /tmp/ccbDqsYH.s:231    .text:0000000000000118 .L0 
-     /tmp/ccbDqsYH.s:233    .text:0000000000000118 .L0 
-     /tmp/ccbDqsYH.s:234    .text:000000000000011c .L0 
-     /tmp/ccbDqsYH.s:236    .text:0000000000000120 .L0 
-     /tmp/ccbDqsYH.s:238    .text:0000000000000124 .L0 
-     /tmp/ccbDqsYH.s:243    .text:0000000000000124 .L0 
-     /tmp/ccbDqsYH.s:244    .text:0000000000000124 .L0 
-     /tmp/ccbDqsYH.s:245    .text:0000000000000124 .L0 
-     /tmp/ccbDqsYH.s:247    .text:0000000000000128 .L0 
-     /tmp/ccbDqsYH.s:249    .text:000000000000012c .L0 
-     /tmp/ccbDqsYH.s:256    .text:0000000000000130 .L0 
-     /tmp/ccbDqsYH.s:257    .text:0000000000000130 .L0 
-     /tmp/ccbDqsYH.s:261    .text:0000000000000134 .L0 
-     /tmp/ccbDqsYH.s:262    .text:0000000000000134 .L0 
-     /tmp/ccbDqsYH.s:267    .text:0000000000000140 .L0 
-     /tmp/ccbDqsYH.s:270    .text:0000000000000144 .L0 
-     /tmp/ccbDqsYH.s:271    .text:0000000000000144 .L0 
-     /tmp/ccbDqsYH.s:275    .text:0000000000000154 .L0 
-     /tmp/ccbDqsYH.s:277    .text:0000000000000158 .L0 
-     /tmp/ccbDqsYH.s:278    .text:0000000000000158 .L0 
-     /tmp/ccbDqsYH.s:281    .text:0000000000000160 .L0 
-GAS LISTING /tmp/ccbDqsYH.s 			page 26
+     /tmp/ccXDgX4F.s:141    .text:00000000000000b0 .L0 
+     /tmp/ccXDgX4F.s:143    .text:00000000000000b4 .L0 
+     /tmp/ccXDgX4F.s:144    .text:00000000000000b4 .L0 
+     /tmp/ccXDgX4F.s:147    .text:00000000000000b8 .L0 
+     /tmp/ccXDgX4F.s:148    .text:00000000000000b8 .L0 
+     /tmp/ccXDgX4F.s:150    .text:00000000000000bc .L0 
+     /tmp/ccXDgX4F.s:152    .text:00000000000000c0 .L0 
+     /tmp/ccXDgX4F.s:153    .text:00000000000000c0 .L0 
+     /tmp/ccXDgX4F.s:155    .text:00000000000000c4 .L0 
+     /tmp/ccXDgX4F.s:157    .text:00000000000000c8 .L0 
+     /tmp/ccXDgX4F.s:158    .text:00000000000000c8 .L0 
+     /tmp/ccXDgX4F.s:160    .text:00000000000000cc .L0 
+     /tmp/ccXDgX4F.s:163    .text:00000000000000d0 .L0 
+     /tmp/ccXDgX4F.s:165    .text:00000000000000d4 .L0 
+     /tmp/ccXDgX4F.s:166    .text:00000000000000d4 .L0 
+     /tmp/ccXDgX4F.s:168    .text:00000000000000d8 .L0 
+     /tmp/ccXDgX4F.s:171    .text:00000000000000e4 .L0 
+     /tmp/ccXDgX4F.s:172    .text:00000000000000e4 .L0 
+     /tmp/ccXDgX4F.s:174    .text:00000000000000e8 .L0 
+     /tmp/ccXDgX4F.s:176    .text:00000000000000ec .L0 
+     /tmp/ccXDgX4F.s:177    .text:00000000000000ec .L0 
+     /tmp/ccXDgX4F.s:179    .text:00000000000000f0 .L0 
+     /tmp/ccXDgX4F.s:180    .text:00000000000000f0 .L0 
+     /tmp/ccXDgX4F.s:182    .text:00000000000000f4 .L0 
+     /tmp/ccXDgX4F.s:183    .text:00000000000000f4 .L0 
+     /tmp/ccXDgX4F.s:193    .text:00000000000000f8 .L0 
+     /tmp/ccXDgX4F.s:194    .text:00000000000000fc .L0 
+     /tmp/ccXDgX4F.s:195    .text:00000000000000fc .L0 
+     /tmp/ccXDgX4F.s:196    .text:00000000000000fc .L0 
+     /tmp/ccXDgX4F.s:198    .text:0000000000000100 .L0 
+     /tmp/ccXDgX4F.s:202    .text:0000000000000104 .L0 
+     /tmp/ccXDgX4F.s:210    .text:0000000000000104 .L0 
+     /tmp/ccXDgX4F.s:211    .text:0000000000000104 .L0 
+     /tmp/ccXDgX4F.s:213    .text:0000000000000108 .L0 
+     /tmp/ccXDgX4F.s:222    .text:0000000000000118 .L0 
+     /tmp/ccXDgX4F.s:228    .text:0000000000000118 _Znam
+     /tmp/ccXDgX4F.s:231    .text:0000000000000118 .L0 
+     /tmp/ccXDgX4F.s:233    .text:0000000000000118 .L0 
+     /tmp/ccXDgX4F.s:234    .text:000000000000011c .L0 
+     /tmp/ccXDgX4F.s:236    .text:0000000000000120 .L0 
+     /tmp/ccXDgX4F.s:238    .text:0000000000000124 .L0 
+     /tmp/ccXDgX4F.s:243    .text:0000000000000124 .L0 
+     /tmp/ccXDgX4F.s:244    .text:0000000000000124 .L0 
+     /tmp/ccXDgX4F.s:245    .text:0000000000000124 .L0 
+     /tmp/ccXDgX4F.s:247    .text:0000000000000128 .L0 
+     /tmp/ccXDgX4F.s:249    .text:000000000000012c .L0 
+     /tmp/ccXDgX4F.s:256    .text:0000000000000130 .L0 
+     /tmp/ccXDgX4F.s:257    .text:0000000000000130 .L0 
+     /tmp/ccXDgX4F.s:261    .text:0000000000000134 .L0 
+     /tmp/ccXDgX4F.s:262    .text:0000000000000134 .L0 
+     /tmp/ccXDgX4F.s:267    .text:0000000000000140 .L0 
+     /tmp/ccXDgX4F.s:270    .text:0000000000000144 .L0 
+     /tmp/ccXDgX4F.s:271    .text:0000000000000144 .L0 
+     /tmp/ccXDgX4F.s:275    .text:0000000000000154 .L0 
+     /tmp/ccXDgX4F.s:277    .text:0000000000000158 .L0 
+     /tmp/ccXDgX4F.s:278    .text:0000000000000158 .L0 
+     /tmp/ccXDgX4F.s:281    .text:0000000000000160 .L0 
+GAS LISTING /tmp/ccXDgX4F.s 			page 26
 
 
-     /tmp/ccbDqsYH.s:283    .text:0000000000000164 .L0 
-     /tmp/ccbDqsYH.s:284    .text:0000000000000164 .L0 
-     /tmp/ccbDqsYH.s:286    .text:0000000000000168 .L0 
-     /tmp/ccbDqsYH.s:289    .text:000000000000016c .L0 
-     /tmp/ccbDqsYH.s:290    .text:000000000000016c .L0 
-     /tmp/ccbDqsYH.s:292    .text:0000000000000170 .L0 
-     /tmp/ccbDqsYH.s:295    .text:0000000000000178 .L0 
-     /tmp/ccbDqsYH.s:297    .text:000000000000017c .L0 
-     /tmp/ccbDqsYH.s:298    .text:000000000000017c .L0 
-     /tmp/ccbDqsYH.s:302    .text:0000000000000180 .L0 
-     /tmp/ccbDqsYH.s:303    .text:0000000000000180 .L0 
-     /tmp/ccbDqsYH.s:305    .text:0000000000000184 .L0 
-     /tmp/ccbDqsYH.s:307    .text:0000000000000188 .L0 
-     /tmp/ccbDqsYH.s:308    .text:0000000000000188 .L0 
-     /tmp/ccbDqsYH.s:310    .text:000000000000018c .L0 
-     /tmp/ccbDqsYH.s:312    .text:0000000000000190 .L0 
-     /tmp/ccbDqsYH.s:313    .text:0000000000000190 .L0 
-     /tmp/ccbDqsYH.s:319    .text:0000000000000194 .L0 
-     /tmp/ccbDqsYH.s:327    .text:000000000000019c .L0 
-     /tmp/ccbDqsYH.s:328    .text:000000000000019c .L0 
-     /tmp/ccbDqsYH.s:336    .text:00000000000001ac .L0 
-     /tmp/ccbDqsYH.s:337    .text:00000000000001ac .L0 
-     /tmp/ccbDqsYH.s:340    .text:00000000000001b0 .L0 
-     /tmp/ccbDqsYH.s:341    .text:00000000000001b0 .L0 
-     /tmp/ccbDqsYH.s:343    .text:00000000000001b4 .L0 
-     /tmp/ccbDqsYH.s:344    .text:00000000000001b4 .L0 
-     /tmp/ccbDqsYH.s:346    .text:00000000000001b8 .L0 
-     /tmp/ccbDqsYH.s:347    .text:00000000000001b8 .L0 
-     /tmp/ccbDqsYH.s:349    .text:00000000000001bc .L0 
-     /tmp/ccbDqsYH.s:351    .text:00000000000001c0 .L0 
-     /tmp/ccbDqsYH.s:352    .text:00000000000001c0 .L0 
-     /tmp/ccbDqsYH.s:355    .text:00000000000001c4 .L0 
-     /tmp/ccbDqsYH.s:356    .text:00000000000001c4 .L0 
-     /tmp/ccbDqsYH.s:358    .text:00000000000001c8 .L0 
-     /tmp/ccbDqsYH.s:360    .text:00000000000001cc .L0 
-     /tmp/ccbDqsYH.s:361    .text:00000000000001cc .L0 
-     /tmp/ccbDqsYH.s:364    .text:00000000000001d0 .L0 
-     /tmp/ccbDqsYH.s:365    .text:00000000000001d0 .L0 
-     /tmp/ccbDqsYH.s:367    .text:00000000000001d4 .L0 
-     /tmp/ccbDqsYH.s:369    .text:00000000000001d8 .L0 
-     /tmp/ccbDqsYH.s:370    .text:00000000000001d8 .L0 
-     /tmp/ccbDqsYH.s:372    .text:00000000000001dc .L0 
-     /tmp/ccbDqsYH.s:374    .text:00000000000001e0 .L0 
-     /tmp/ccbDqsYH.s:375    .text:00000000000001e0 .L0 
-     /tmp/ccbDqsYH.s:377    .text:00000000000001e4 .L0 
-     /tmp/ccbDqsYH.s:380    .text:00000000000001e8 .L0 
-     /tmp/ccbDqsYH.s:382    .text:00000000000001ec .L0 
-     /tmp/ccbDqsYH.s:383    .text:00000000000001ec .L0 
-     /tmp/ccbDqsYH.s:385    .text:00000000000001f0 .L0 
-     /tmp/ccbDqsYH.s:388    .text:00000000000001fc .L0 
-     /tmp/ccbDqsYH.s:389    .text:00000000000001fc .L0 
-     /tmp/ccbDqsYH.s:391    .text:0000000000000200 .L0 
-     /tmp/ccbDqsYH.s:393    .text:0000000000000204 .L0 
-     /tmp/ccbDqsYH.s:394    .text:0000000000000204 .L0 
-     /tmp/ccbDqsYH.s:396    .text:0000000000000208 .L0 
-     /tmp/ccbDqsYH.s:397    .text:0000000000000208 .L0 
-     /tmp/ccbDqsYH.s:399    .text:000000000000020c .L0 
-GAS LISTING /tmp/ccbDqsYH.s 			page 27
+     /tmp/ccXDgX4F.s:283    .text:0000000000000164 .L0 
+     /tmp/ccXDgX4F.s:284    .text:0000000000000164 .L0 
+     /tmp/ccXDgX4F.s:286    .text:0000000000000168 .L0 
+     /tmp/ccXDgX4F.s:289    .text:000000000000016c .L0 
+     /tmp/ccXDgX4F.s:290    .text:000000000000016c .L0 
+     /tmp/ccXDgX4F.s:292    .text:0000000000000170 .L0 
+     /tmp/ccXDgX4F.s:295    .text:0000000000000178 .L0 
+     /tmp/ccXDgX4F.s:297    .text:000000000000017c .L0 
+     /tmp/ccXDgX4F.s:298    .text:000000000000017c .L0 
+     /tmp/ccXDgX4F.s:302    .text:0000000000000180 .L0 
+     /tmp/ccXDgX4F.s:303    .text:0000000000000180 .L0 
+     /tmp/ccXDgX4F.s:305    .text:0000000000000184 .L0 
+     /tmp/ccXDgX4F.s:307    .text:0000000000000188 .L0 
+     /tmp/ccXDgX4F.s:308    .text:0000000000000188 .L0 
+     /tmp/ccXDgX4F.s:310    .text:000000000000018c .L0 
+     /tmp/ccXDgX4F.s:312    .text:0000000000000190 .L0 
+     /tmp/ccXDgX4F.s:313    .text:0000000000000190 .L0 
+     /tmp/ccXDgX4F.s:319    .text:0000000000000194 .L0 
+     /tmp/ccXDgX4F.s:327    .text:000000000000019c .L0 
+     /tmp/ccXDgX4F.s:328    .text:000000000000019c .L0 
+     /tmp/ccXDgX4F.s:336    .text:00000000000001ac .L0 
+     /tmp/ccXDgX4F.s:337    .text:00000000000001ac .L0 
+     /tmp/ccXDgX4F.s:340    .text:00000000000001b0 .L0 
+     /tmp/ccXDgX4F.s:341    .text:00000000000001b0 .L0 
+     /tmp/ccXDgX4F.s:343    .text:00000000000001b4 .L0 
+     /tmp/ccXDgX4F.s:344    .text:00000000000001b4 .L0 
+     /tmp/ccXDgX4F.s:346    .text:00000000000001b8 .L0 
+     /tmp/ccXDgX4F.s:347    .text:00000000000001b8 .L0 
+     /tmp/ccXDgX4F.s:349    .text:00000000000001bc .L0 
+     /tmp/ccXDgX4F.s:351    .text:00000000000001c0 .L0 
+     /tmp/ccXDgX4F.s:352    .text:00000000000001c0 .L0 
+     /tmp/ccXDgX4F.s:355    .text:00000000000001c4 .L0 
+     /tmp/ccXDgX4F.s:356    .text:00000000000001c4 .L0 
+     /tmp/ccXDgX4F.s:358    .text:00000000000001c8 .L0 
+     /tmp/ccXDgX4F.s:360    .text:00000000000001cc .L0 
+     /tmp/ccXDgX4F.s:361    .text:00000000000001cc .L0 
+     /tmp/ccXDgX4F.s:364    .text:00000000000001d0 .L0 
+     /tmp/ccXDgX4F.s:365    .text:00000000000001d0 .L0 
+     /tmp/ccXDgX4F.s:367    .text:00000000000001d4 .L0 
+     /tmp/ccXDgX4F.s:369    .text:00000000000001d8 .L0 
+     /tmp/ccXDgX4F.s:370    .text:00000000000001d8 .L0 
+     /tmp/ccXDgX4F.s:372    .text:00000000000001dc .L0 
+     /tmp/ccXDgX4F.s:374    .text:00000000000001e0 .L0 
+     /tmp/ccXDgX4F.s:375    .text:00000000000001e0 .L0 
+     /tmp/ccXDgX4F.s:377    .text:00000000000001e4 .L0 
+     /tmp/ccXDgX4F.s:380    .text:00000000000001e8 .L0 
+     /tmp/ccXDgX4F.s:382    .text:00000000000001ec .L0 
+     /tmp/ccXDgX4F.s:383    .text:00000000000001ec .L0 
+     /tmp/ccXDgX4F.s:385    .text:00000000000001f0 .L0 
+     /tmp/ccXDgX4F.s:388    .text:00000000000001fc .L0 
+     /tmp/ccXDgX4F.s:389    .text:00000000000001fc .L0 
+     /tmp/ccXDgX4F.s:391    .text:0000000000000200 .L0 
+     /tmp/ccXDgX4F.s:393    .text:0000000000000204 .L0 
+     /tmp/ccXDgX4F.s:394    .text:0000000000000204 .L0 
+     /tmp/ccXDgX4F.s:396    .text:0000000000000208 .L0 
+     /tmp/ccXDgX4F.s:397    .text:0000000000000208 .L0 
+     /tmp/ccXDgX4F.s:399    .text:000000000000020c .L0 
+GAS LISTING /tmp/ccXDgX4F.s 			page 27
 
 
-     /tmp/ccbDqsYH.s:400    .text:000000000000020c .L0 
-     /tmp/ccbDqsYH.s:410    .text:0000000000000210 .L0 
-     /tmp/ccbDqsYH.s:411    .text:0000000000000214 .L0 
-     /tmp/ccbDqsYH.s:412    .text:0000000000000214 .L0 
-     /tmp/ccbDqsYH.s:413    .text:0000000000000214 .L0 
-     /tmp/ccbDqsYH.s:415    .text:0000000000000218 .L0 
-     /tmp/ccbDqsYH.s:419    .text:000000000000021c .L0 
-     /tmp/ccbDqsYH.s:427    .text:000000000000021c .L0 
-     /tmp/ccbDqsYH.s:428    .text:000000000000021c .L0 
-     /tmp/ccbDqsYH.s:430    .text:0000000000000220 .L0 
-     /tmp/ccbDqsYH.s:439    .text:0000000000000230 .L0 
-     /tmp/ccbDqsYH.s:445    .text:0000000000000230 _ZdlPv
-     /tmp/ccbDqsYH.s:448    .text:0000000000000230 .L0 
-     /tmp/ccbDqsYH.s:450    .text:0000000000000230 .L0 
-     /tmp/ccbDqsYH.s:451    .text:0000000000000234 .L0 
-     /tmp/ccbDqsYH.s:453    .text:0000000000000238 .L0 
-     /tmp/ccbDqsYH.s:455    .text:000000000000023c .L0 
-     /tmp/ccbDqsYH.s:460    .text:000000000000023c .L0 
-     /tmp/ccbDqsYH.s:461    .text:000000000000023c .L0 
-     /tmp/ccbDqsYH.s:462    .text:000000000000023c .L0 
-     /tmp/ccbDqsYH.s:463    .text:000000000000023c .L0 
-     /tmp/ccbDqsYH.s:466    .text:0000000000000248 .L0 
-     /tmp/ccbDqsYH.s:468    .text:000000000000024c .L0 
-     /tmp/ccbDqsYH.s:472    .text:0000000000000250 .L0 
-     /tmp/ccbDqsYH.s:474    .text:0000000000000254 .L0 
-     /tmp/ccbDqsYH.s:477    .text:0000000000000258 .L0 
-     /tmp/ccbDqsYH.s:483    .text:0000000000000264 .L0 
-     /tmp/ccbDqsYH.s:490    .text:0000000000000270 .L0 
-     /tmp/ccbDqsYH.s:491    .text:0000000000000270 .L0 
-     /tmp/ccbDqsYH.s:492    .text:0000000000000270 .L0 
-     /tmp/ccbDqsYH.s:494    .text:0000000000000274 .L0 
-     /tmp/ccbDqsYH.s:498    .text:0000000000000274 .L0 
-     /tmp/ccbDqsYH.s:501    .text:0000000000000274 .L0 
-     /tmp/ccbDqsYH.s:502    .text:0000000000000274 .L0 
-     /tmp/ccbDqsYH.s:505    .text:000000000000027c .L0 
-     /tmp/ccbDqsYH.s:506    .text:000000000000027c .L0 
-     /tmp/ccbDqsYH.s:508    .text:0000000000000280 .L0 
-     /tmp/ccbDqsYH.s:510    .text:0000000000000284 .L0 
-     /tmp/ccbDqsYH.s:511    .text:0000000000000284 .L0 
-     /tmp/ccbDqsYH.s:513    .text:0000000000000288 .L0 
-     /tmp/ccbDqsYH.s:516    .text:000000000000028c .L0 
-     /tmp/ccbDqsYH.s:517    .text:000000000000028c .L0 
-     /tmp/ccbDqsYH.s:519    .text:0000000000000290 .L0 
-     /tmp/ccbDqsYH.s:521    .text:0000000000000294 .L0 
-     /tmp/ccbDqsYH.s:522    .text:0000000000000294 .L0 
-     /tmp/ccbDqsYH.s:525    .text:0000000000000298 .L0 
-     /tmp/ccbDqsYH.s:527    .text:000000000000029c .L0 
-     /tmp/ccbDqsYH.s:528    .text:000000000000029c .L0 
-     /tmp/ccbDqsYH.s:534    .text:00000000000002a0 .L0 
-     /tmp/ccbDqsYH.s:535    .text:00000000000002a0 .L0 
-     /tmp/ccbDqsYH.s:537    .text:00000000000002a4 .L0 
-     /tmp/ccbDqsYH.s:538    .text:00000000000002a4 .L0 
-     /tmp/ccbDqsYH.s:540    .text:00000000000002a8 .L0 
-     /tmp/ccbDqsYH.s:542    .text:00000000000002ac .L0 
-     /tmp/ccbDqsYH.s:544    .text:00000000000002b0 .L0 
-     /tmp/ccbDqsYH.s:546    .text:00000000000002b4 .L0 
-     /tmp/ccbDqsYH.s:554    .text:00000000000002b8 .L0 
-GAS LISTING /tmp/ccbDqsYH.s 			page 28
+     /tmp/ccXDgX4F.s:400    .text:000000000000020c .L0 
+     /tmp/ccXDgX4F.s:410    .text:0000000000000210 .L0 
+     /tmp/ccXDgX4F.s:411    .text:0000000000000214 .L0 
+     /tmp/ccXDgX4F.s:412    .text:0000000000000214 .L0 
+     /tmp/ccXDgX4F.s:413    .text:0000000000000214 .L0 
+     /tmp/ccXDgX4F.s:415    .text:0000000000000218 .L0 
+     /tmp/ccXDgX4F.s:419    .text:000000000000021c .L0 
+     /tmp/ccXDgX4F.s:427    .text:000000000000021c .L0 
+     /tmp/ccXDgX4F.s:428    .text:000000000000021c .L0 
+     /tmp/ccXDgX4F.s:430    .text:0000000000000220 .L0 
+     /tmp/ccXDgX4F.s:439    .text:0000000000000230 .L0 
+     /tmp/ccXDgX4F.s:445    .text:0000000000000230 _ZdlPv
+     /tmp/ccXDgX4F.s:448    .text:0000000000000230 .L0 
+     /tmp/ccXDgX4F.s:450    .text:0000000000000230 .L0 
+     /tmp/ccXDgX4F.s:451    .text:0000000000000234 .L0 
+     /tmp/ccXDgX4F.s:453    .text:0000000000000238 .L0 
+     /tmp/ccXDgX4F.s:455    .text:000000000000023c .L0 
+     /tmp/ccXDgX4F.s:460    .text:000000000000023c .L0 
+     /tmp/ccXDgX4F.s:461    .text:000000000000023c .L0 
+     /tmp/ccXDgX4F.s:462    .text:000000000000023c .L0 
+     /tmp/ccXDgX4F.s:463    .text:000000000000023c .L0 
+     /tmp/ccXDgX4F.s:466    .text:0000000000000248 .L0 
+     /tmp/ccXDgX4F.s:468    .text:000000000000024c .L0 
+     /tmp/ccXDgX4F.s:472    .text:0000000000000250 .L0 
+     /tmp/ccXDgX4F.s:474    .text:0000000000000254 .L0 
+     /tmp/ccXDgX4F.s:477    .text:0000000000000258 .L0 
+     /tmp/ccXDgX4F.s:483    .text:0000000000000264 .L0 
+     /tmp/ccXDgX4F.s:490    .text:0000000000000270 .L0 
+     /tmp/ccXDgX4F.s:491    .text:0000000000000270 .L0 
+     /tmp/ccXDgX4F.s:492    .text:0000000000000270 .L0 
+     /tmp/ccXDgX4F.s:494    .text:0000000000000274 .L0 
+     /tmp/ccXDgX4F.s:498    .text:0000000000000274 .L0 
+     /tmp/ccXDgX4F.s:501    .text:0000000000000274 .L0 
+     /tmp/ccXDgX4F.s:502    .text:0000000000000274 .L0 
+     /tmp/ccXDgX4F.s:505    .text:000000000000027c .L0 
+     /tmp/ccXDgX4F.s:506    .text:000000000000027c .L0 
+     /tmp/ccXDgX4F.s:508    .text:0000000000000280 .L0 
+     /tmp/ccXDgX4F.s:510    .text:0000000000000284 .L0 
+     /tmp/ccXDgX4F.s:511    .text:0000000000000284 .L0 
+     /tmp/ccXDgX4F.s:513    .text:0000000000000288 .L0 
+     /tmp/ccXDgX4F.s:516    .text:000000000000028c .L0 
+     /tmp/ccXDgX4F.s:517    .text:000000000000028c .L0 
+     /tmp/ccXDgX4F.s:519    .text:0000000000000290 .L0 
+     /tmp/ccXDgX4F.s:521    .text:0000000000000294 .L0 
+     /tmp/ccXDgX4F.s:522    .text:0000000000000294 .L0 
+     /tmp/ccXDgX4F.s:525    .text:0000000000000298 .L0 
+     /tmp/ccXDgX4F.s:527    .text:000000000000029c .L0 
+     /tmp/ccXDgX4F.s:528    .text:000000000000029c .L0 
+     /tmp/ccXDgX4F.s:534    .text:00000000000002a0 .L0 
+     /tmp/ccXDgX4F.s:535    .text:00000000000002a0 .L0 
+     /tmp/ccXDgX4F.s:537    .text:00000000000002a4 .L0 
+     /tmp/ccXDgX4F.s:538    .text:00000000000002a4 .L0 
+     /tmp/ccXDgX4F.s:540    .text:00000000000002a8 .L0 
+     /tmp/ccXDgX4F.s:542    .text:00000000000002ac .L0 
+     /tmp/ccXDgX4F.s:544    .text:00000000000002b0 .L0 
+     /tmp/ccXDgX4F.s:546    .text:00000000000002b4 .L0 
+     /tmp/ccXDgX4F.s:554    .text:00000000000002b8 .L0 
+GAS LISTING /tmp/ccXDgX4F.s 			page 28
 
 
-     /tmp/ccbDqsYH.s:555    .text:00000000000002b8 .L0 
-     /tmp/ccbDqsYH.s:557    .text:00000000000002bc .L0 
-     /tmp/ccbDqsYH.s:558    .text:00000000000002bc .L0 
-     /tmp/ccbDqsYH.s:560    .text:00000000000002c0 .L0 
-     /tmp/ccbDqsYH.s:562    .text:00000000000002c4 .L0 
-     /tmp/ccbDqsYH.s:564    .text:00000000000002c8 .L0 
-     /tmp/ccbDqsYH.s:566    .text:00000000000002cc .L0 
-     /tmp/ccbDqsYH.s:574    .text:00000000000002d0 .L0 
-     /tmp/ccbDqsYH.s:575    .text:00000000000002d4 .L0 
-     /tmp/ccbDqsYH.s:576    .text:00000000000002d4 .L0 
-     /tmp/ccbDqsYH.s:577    .text:00000000000002d4 .L0 
-     /tmp/ccbDqsYH.s:579    .text:00000000000002d8 .L0 
-     /tmp/ccbDqsYH.s:583    .text:00000000000002dc .L0 
-     /tmp/ccbDqsYH.s:587    .text:00000000000002dc .L0 
-     /tmp/ccbDqsYH.s:588    .text:00000000000002dc .L0 
-     /tmp/ccbDqsYH.s:594    .text:00000000000002f0 .L0 
-     /tmp/ccbDqsYH.s:595    .text:00000000000002f0 .L0 
-     /tmp/ccbDqsYH.s:603    .text:0000000000000300 .L0 
-     /tmp/ccbDqsYH.s:604    .text:0000000000000300 .L0 
-     /tmp/ccbDqsYH.s:606    .text:0000000000000304 .L0 
-     /tmp/ccbDqsYH.s:609    .text:000000000000030c .L0 
-     /tmp/ccbDqsYH.s:610    .text:000000000000030c .L0 
-     /tmp/ccbDqsYH.s:612    .text:0000000000000310 .L0 
-     /tmp/ccbDqsYH.s:614    .text:0000000000000314 .L0 
-     /tmp/ccbDqsYH.s:616    .text:0000000000000318 .L0 
-     /tmp/ccbDqsYH.s:617    .text:0000000000000318 .L0 
-     /tmp/ccbDqsYH.s:626    .text:0000000000000320 .L0 
-     /tmp/ccbDqsYH.s:627    .text:0000000000000320 .L0 
-     /tmp/ccbDqsYH.s:629    .text:0000000000000324 .L0 
-     /tmp/ccbDqsYH.s:632    .text:000000000000032c .L0 
-     /tmp/ccbDqsYH.s:633    .text:000000000000032c .L0 
-     /tmp/ccbDqsYH.s:635    .text:0000000000000330 .L0 
-     /tmp/ccbDqsYH.s:637    .text:0000000000000334 .L0 
-     /tmp/ccbDqsYH.s:639    .text:0000000000000338 .L0 
-     /tmp/ccbDqsYH.s:640    .text:0000000000000338 .L0 
-     /tmp/ccbDqsYH.s:647    .text:000000000000033c .L0 
-     /tmp/ccbDqsYH.s:648    .text:000000000000033c .L0 
-     /tmp/ccbDqsYH.s:649    .text:0000000000000340 .L0 
-     /tmp/ccbDqsYH.s:655    .text:0000000000000340 _ZdaPv
-     /tmp/ccbDqsYH.s:658    .text:0000000000000340 .L0 
-     /tmp/ccbDqsYH.s:660    .text:0000000000000340 .L0 
-     /tmp/ccbDqsYH.s:661    .text:0000000000000344 .L0 
-     /tmp/ccbDqsYH.s:663    .text:0000000000000348 .L0 
-     /tmp/ccbDqsYH.s:665    .text:000000000000034c .L0 
-     /tmp/ccbDqsYH.s:670    .text:000000000000034c .L0 
-     /tmp/ccbDqsYH.s:671    .text:000000000000034c .L0 
-     /tmp/ccbDqsYH.s:672    .text:000000000000034c .L0 
-     /tmp/ccbDqsYH.s:673    .text:000000000000034c .L0 
-     /tmp/ccbDqsYH.s:676    .text:0000000000000358 .L0 
-     /tmp/ccbDqsYH.s:678    .text:000000000000035c .L0 
-     /tmp/ccbDqsYH.s:682    .text:0000000000000360 .L0 
-     /tmp/ccbDqsYH.s:684    .text:0000000000000364 .L0 
-     /tmp/ccbDqsYH.s:687    .text:0000000000000368 .L0 
-     /tmp/ccbDqsYH.s:693    .text:0000000000000374 .L0 
-     /tmp/ccbDqsYH.s:700    .text:0000000000000380 .L0 
-     /tmp/ccbDqsYH.s:701    .text:0000000000000380 .L0 
-     /tmp/ccbDqsYH.s:702    .text:0000000000000380 .L0 
-GAS LISTING /tmp/ccbDqsYH.s 			page 29
+     /tmp/ccXDgX4F.s:555    .text:00000000000002b8 .L0 
+     /tmp/ccXDgX4F.s:557    .text:00000000000002bc .L0 
+     /tmp/ccXDgX4F.s:558    .text:00000000000002bc .L0 
+     /tmp/ccXDgX4F.s:560    .text:00000000000002c0 .L0 
+     /tmp/ccXDgX4F.s:562    .text:00000000000002c4 .L0 
+     /tmp/ccXDgX4F.s:564    .text:00000000000002c8 .L0 
+     /tmp/ccXDgX4F.s:566    .text:00000000000002cc .L0 
+     /tmp/ccXDgX4F.s:574    .text:00000000000002d0 .L0 
+     /tmp/ccXDgX4F.s:575    .text:00000000000002d4 .L0 
+     /tmp/ccXDgX4F.s:576    .text:00000000000002d4 .L0 
+     /tmp/ccXDgX4F.s:577    .text:00000000000002d4 .L0 
+     /tmp/ccXDgX4F.s:579    .text:00000000000002d8 .L0 
+     /tmp/ccXDgX4F.s:583    .text:00000000000002dc .L0 
+     /tmp/ccXDgX4F.s:587    .text:00000000000002dc .L0 
+     /tmp/ccXDgX4F.s:588    .text:00000000000002dc .L0 
+     /tmp/ccXDgX4F.s:594    .text:00000000000002f0 .L0 
+     /tmp/ccXDgX4F.s:595    .text:00000000000002f0 .L0 
+     /tmp/ccXDgX4F.s:603    .text:0000000000000300 .L0 
+     /tmp/ccXDgX4F.s:604    .text:0000000000000300 .L0 
+     /tmp/ccXDgX4F.s:606    .text:0000000000000304 .L0 
+     /tmp/ccXDgX4F.s:609    .text:000000000000030c .L0 
+     /tmp/ccXDgX4F.s:610    .text:000000000000030c .L0 
+     /tmp/ccXDgX4F.s:612    .text:0000000000000310 .L0 
+     /tmp/ccXDgX4F.s:614    .text:0000000000000314 .L0 
+     /tmp/ccXDgX4F.s:616    .text:0000000000000318 .L0 
+     /tmp/ccXDgX4F.s:617    .text:0000000000000318 .L0 
+     /tmp/ccXDgX4F.s:626    .text:0000000000000320 .L0 
+     /tmp/ccXDgX4F.s:627    .text:0000000000000320 .L0 
+     /tmp/ccXDgX4F.s:629    .text:0000000000000324 .L0 
+     /tmp/ccXDgX4F.s:632    .text:000000000000032c .L0 
+     /tmp/ccXDgX4F.s:633    .text:000000000000032c .L0 
+     /tmp/ccXDgX4F.s:635    .text:0000000000000330 .L0 
+     /tmp/ccXDgX4F.s:637    .text:0000000000000334 .L0 
+     /tmp/ccXDgX4F.s:639    .text:0000000000000338 .L0 
+     /tmp/ccXDgX4F.s:640    .text:0000000000000338 .L0 
+     /tmp/ccXDgX4F.s:647    .text:000000000000033c .L0 
+     /tmp/ccXDgX4F.s:648    .text:000000000000033c .L0 
+     /tmp/ccXDgX4F.s:649    .text:0000000000000340 .L0 
+     /tmp/ccXDgX4F.s:655    .text:0000000000000340 _ZdaPv
+     /tmp/ccXDgX4F.s:658    .text:0000000000000340 .L0 
+     /tmp/ccXDgX4F.s:660    .text:0000000000000340 .L0 
+     /tmp/ccXDgX4F.s:661    .text:0000000000000344 .L0 
+     /tmp/ccXDgX4F.s:663    .text:0000000000000348 .L0 
+     /tmp/ccXDgX4F.s:665    .text:000000000000034c .L0 
+     /tmp/ccXDgX4F.s:670    .text:000000000000034c .L0 
+     /tmp/ccXDgX4F.s:671    .text:000000000000034c .L0 
+     /tmp/ccXDgX4F.s:672    .text:000000000000034c .L0 
+     /tmp/ccXDgX4F.s:673    .text:000000000000034c .L0 
+     /tmp/ccXDgX4F.s:676    .text:0000000000000358 .L0 
+     /tmp/ccXDgX4F.s:678    .text:000000000000035c .L0 
+     /tmp/ccXDgX4F.s:682    .text:0000000000000360 .L0 
+     /tmp/ccXDgX4F.s:684    .text:0000000000000364 .L0 
+     /tmp/ccXDgX4F.s:687    .text:0000000000000368 .L0 
+     /tmp/ccXDgX4F.s:693    .text:0000000000000374 .L0 
+     /tmp/ccXDgX4F.s:700    .text:0000000000000380 .L0 
+     /tmp/ccXDgX4F.s:701    .text:0000000000000380 .L0 
+     /tmp/ccXDgX4F.s:702    .text:0000000000000380 .L0 
+GAS LISTING /tmp/ccXDgX4F.s 			page 29
 
 
-     /tmp/ccbDqsYH.s:704    .text:0000000000000384 .L0 
-     /tmp/ccbDqsYH.s:708    .text:0000000000000384 .L0 
-     /tmp/ccbDqsYH.s:711    .text:0000000000000384 .L0 
-     /tmp/ccbDqsYH.s:712    .text:0000000000000384 .L0 
-     /tmp/ccbDqsYH.s:715    .text:000000000000038c .L0 
-     /tmp/ccbDqsYH.s:716    .text:000000000000038c .L0 
-     /tmp/ccbDqsYH.s:718    .text:0000000000000390 .L0 
-     /tmp/ccbDqsYH.s:720    .text:0000000000000394 .L0 
-     /tmp/ccbDqsYH.s:721    .text:0000000000000394 .L0 
-     /tmp/ccbDqsYH.s:723    .text:0000000000000398 .L0 
-     /tmp/ccbDqsYH.s:726    .text:000000000000039c .L0 
-     /tmp/ccbDqsYH.s:727    .text:000000000000039c .L0 
-     /tmp/ccbDqsYH.s:729    .text:00000000000003a0 .L0 
-     /tmp/ccbDqsYH.s:731    .text:00000000000003a4 .L0 
-     /tmp/ccbDqsYH.s:732    .text:00000000000003a4 .L0 
-     /tmp/ccbDqsYH.s:735    .text:00000000000003a8 .L0 
-     /tmp/ccbDqsYH.s:737    .text:00000000000003ac .L0 
-     /tmp/ccbDqsYH.s:738    .text:00000000000003ac .L0 
-     /tmp/ccbDqsYH.s:744    .text:00000000000003b0 .L0 
-     /tmp/ccbDqsYH.s:745    .text:00000000000003b0 .L0 
-     /tmp/ccbDqsYH.s:747    .text:00000000000003b4 .L0 
-     /tmp/ccbDqsYH.s:748    .text:00000000000003b4 .L0 
-     /tmp/ccbDqsYH.s:750    .text:00000000000003b8 .L0 
-     /tmp/ccbDqsYH.s:752    .text:00000000000003bc .L0 
-     /tmp/ccbDqsYH.s:754    .text:00000000000003c0 .L0 
-     /tmp/ccbDqsYH.s:756    .text:00000000000003c4 .L0 
-     /tmp/ccbDqsYH.s:764    .text:00000000000003c8 .L0 
-     /tmp/ccbDqsYH.s:765    .text:00000000000003c8 .L0 
-     /tmp/ccbDqsYH.s:767    .text:00000000000003cc .L0 
-     /tmp/ccbDqsYH.s:768    .text:00000000000003cc .L0 
-     /tmp/ccbDqsYH.s:770    .text:00000000000003d0 .L0 
-     /tmp/ccbDqsYH.s:772    .text:00000000000003d4 .L0 
-     /tmp/ccbDqsYH.s:774    .text:00000000000003d8 .L0 
-     /tmp/ccbDqsYH.s:776    .text:00000000000003dc .L0 
-     /tmp/ccbDqsYH.s:784    .text:00000000000003e0 .L0 
-     /tmp/ccbDqsYH.s:785    .text:00000000000003e4 .L0 
-     /tmp/ccbDqsYH.s:786    .text:00000000000003e4 .L0 
-     /tmp/ccbDqsYH.s:787    .text:00000000000003e4 .L0 
-     /tmp/ccbDqsYH.s:789    .text:00000000000003e8 .L0 
-     /tmp/ccbDqsYH.s:793    .text:00000000000003ec .L0 
-     /tmp/ccbDqsYH.s:797    .text:00000000000003ec .L0 
-     /tmp/ccbDqsYH.s:798    .text:00000000000003ec .L0 
-     /tmp/ccbDqsYH.s:804    .text:0000000000000400 .L0 
-     /tmp/ccbDqsYH.s:805    .text:0000000000000400 .L0 
-     /tmp/ccbDqsYH.s:813    .text:0000000000000410 .L0 
-     /tmp/ccbDqsYH.s:814    .text:0000000000000410 .L0 
-     /tmp/ccbDqsYH.s:816    .text:0000000000000414 .L0 
-     /tmp/ccbDqsYH.s:819    .text:000000000000041c .L0 
-     /tmp/ccbDqsYH.s:820    .text:000000000000041c .L0 
-     /tmp/ccbDqsYH.s:822    .text:0000000000000420 .L0 
-     /tmp/ccbDqsYH.s:824    .text:0000000000000424 .L0 
-     /tmp/ccbDqsYH.s:826    .text:0000000000000428 .L0 
-     /tmp/ccbDqsYH.s:827    .text:0000000000000428 .L0 
-     /tmp/ccbDqsYH.s:836    .text:0000000000000430 .L0 
-     /tmp/ccbDqsYH.s:837    .text:0000000000000430 .L0 
-     /tmp/ccbDqsYH.s:839    .text:0000000000000434 .L0 
-     /tmp/ccbDqsYH.s:842    .text:000000000000043c .L0 
-GAS LISTING /tmp/ccbDqsYH.s 			page 30
+     /tmp/ccXDgX4F.s:704    .text:0000000000000384 .L0 
+     /tmp/ccXDgX4F.s:708    .text:0000000000000384 .L0 
+     /tmp/ccXDgX4F.s:711    .text:0000000000000384 .L0 
+     /tmp/ccXDgX4F.s:712    .text:0000000000000384 .L0 
+     /tmp/ccXDgX4F.s:715    .text:000000000000038c .L0 
+     /tmp/ccXDgX4F.s:716    .text:000000000000038c .L0 
+     /tmp/ccXDgX4F.s:718    .text:0000000000000390 .L0 
+     /tmp/ccXDgX4F.s:720    .text:0000000000000394 .L0 
+     /tmp/ccXDgX4F.s:721    .text:0000000000000394 .L0 
+     /tmp/ccXDgX4F.s:723    .text:0000000000000398 .L0 
+     /tmp/ccXDgX4F.s:726    .text:000000000000039c .L0 
+     /tmp/ccXDgX4F.s:727    .text:000000000000039c .L0 
+     /tmp/ccXDgX4F.s:729    .text:00000000000003a0 .L0 
+     /tmp/ccXDgX4F.s:731    .text:00000000000003a4 .L0 
+     /tmp/ccXDgX4F.s:732    .text:00000000000003a4 .L0 
+     /tmp/ccXDgX4F.s:735    .text:00000000000003a8 .L0 
+     /tmp/ccXDgX4F.s:737    .text:00000000000003ac .L0 
+     /tmp/ccXDgX4F.s:738    .text:00000000000003ac .L0 
+     /tmp/ccXDgX4F.s:744    .text:00000000000003b0 .L0 
+     /tmp/ccXDgX4F.s:745    .text:00000000000003b0 .L0 
+     /tmp/ccXDgX4F.s:747    .text:00000000000003b4 .L0 
+     /tmp/ccXDgX4F.s:748    .text:00000000000003b4 .L0 
+     /tmp/ccXDgX4F.s:750    .text:00000000000003b8 .L0 
+     /tmp/ccXDgX4F.s:752    .text:00000000000003bc .L0 
+     /tmp/ccXDgX4F.s:754    .text:00000000000003c0 .L0 
+     /tmp/ccXDgX4F.s:756    .text:00000000000003c4 .L0 
+     /tmp/ccXDgX4F.s:764    .text:00000000000003c8 .L0 
+     /tmp/ccXDgX4F.s:765    .text:00000000000003c8 .L0 
+     /tmp/ccXDgX4F.s:767    .text:00000000000003cc .L0 
+     /tmp/ccXDgX4F.s:768    .text:00000000000003cc .L0 
+     /tmp/ccXDgX4F.s:770    .text:00000000000003d0 .L0 
+     /tmp/ccXDgX4F.s:772    .text:00000000000003d4 .L0 
+     /tmp/ccXDgX4F.s:774    .text:00000000000003d8 .L0 
+     /tmp/ccXDgX4F.s:776    .text:00000000000003dc .L0 
+     /tmp/ccXDgX4F.s:784    .text:00000000000003e0 .L0 
+     /tmp/ccXDgX4F.s:785    .text:00000000000003e4 .L0 
+     /tmp/ccXDgX4F.s:786    .text:00000000000003e4 .L0 
+     /tmp/ccXDgX4F.s:787    .text:00000000000003e4 .L0 
+     /tmp/ccXDgX4F.s:789    .text:00000000000003e8 .L0 
+     /tmp/ccXDgX4F.s:793    .text:00000000000003ec .L0 
+     /tmp/ccXDgX4F.s:797    .text:00000000000003ec .L0 
+     /tmp/ccXDgX4F.s:798    .text:00000000000003ec .L0 
+     /tmp/ccXDgX4F.s:804    .text:0000000000000400 .L0 
+     /tmp/ccXDgX4F.s:805    .text:0000000000000400 .L0 
+     /tmp/ccXDgX4F.s:813    .text:0000000000000410 .L0 
+     /tmp/ccXDgX4F.s:814    .text:0000000000000410 .L0 
+     /tmp/ccXDgX4F.s:816    .text:0000000000000414 .L0 
+     /tmp/ccXDgX4F.s:819    .text:000000000000041c .L0 
+     /tmp/ccXDgX4F.s:820    .text:000000000000041c .L0 
+     /tmp/ccXDgX4F.s:822    .text:0000000000000420 .L0 
+     /tmp/ccXDgX4F.s:824    .text:0000000000000424 .L0 
+     /tmp/ccXDgX4F.s:826    .text:0000000000000428 .L0 
+     /tmp/ccXDgX4F.s:827    .text:0000000000000428 .L0 
+     /tmp/ccXDgX4F.s:836    .text:0000000000000430 .L0 
+     /tmp/ccXDgX4F.s:837    .text:0000000000000430 .L0 
+     /tmp/ccXDgX4F.s:839    .text:0000000000000434 .L0 
+     /tmp/ccXDgX4F.s:842    .text:000000000000043c .L0 
+GAS LISTING /tmp/ccXDgX4F.s 			page 30
 
 
-     /tmp/ccbDqsYH.s:843    .text:000000000000043c .L0 
-     /tmp/ccbDqsYH.s:845    .text:0000000000000440 .L0 
-     /tmp/ccbDqsYH.s:847    .text:0000000000000444 .L0 
-     /tmp/ccbDqsYH.s:849    .text:0000000000000448 .L0 
-     /tmp/ccbDqsYH.s:850    .text:0000000000000448 .L0 
-     /tmp/ccbDqsYH.s:857    .text:000000000000044c .L0 
-     /tmp/ccbDqsYH.s:858    .text:000000000000044c .L0 
-     /tmp/ccbDqsYH.s:859    .text:0000000000000450 .L0 
-     /tmp/ccbDqsYH.s:864    .text:0000000000000450 .L0 
-     /tmp/ccbDqsYH.s:45     .text:000000000000001c .L0 
-     /tmp/ccbDqsYH.s:54     .text:000000000000002c .L0 
-     /tmp/ccbDqsYH.s:111    .text:0000000000000084 .L0 
-     /tmp/ccbDqsYH.s:168    .text:00000000000000d8 .L0 
-     /tmp/ccbDqsYH.s:213    .text:0000000000000108 .L0 
-     /tmp/ccbDqsYH.s:262    .text:0000000000000134 .L0 
-     /tmp/ccbDqsYH.s:271    .text:0000000000000144 .L0 
-     /tmp/ccbDqsYH.s:328    .text:000000000000019c .L0 
-     /tmp/ccbDqsYH.s:385    .text:00000000000001f0 .L0 
-     /tmp/ccbDqsYH.s:430    .text:0000000000000220 .L0 
-     /tmp/ccbDqsYH.s:463    .text:000000000000023c .L0 
-     /tmp/ccbDqsYH.s:588    .text:00000000000002dc .L0 
-     /tmp/ccbDqsYH.s:595    .text:00000000000002f0 .L0 
-     /tmp/ccbDqsYH.s:673    .text:000000000000034c .L0 
-     /tmp/ccbDqsYH.s:798    .text:00000000000003ec .L0 
-     /tmp/ccbDqsYH.s:805    .text:0000000000000400 .L0 
-     /tmp/ccbDqsYH.s:185    .text:00000000000000f8 .L1
-     /tmp/ccbDqsYH.s:98     .text:000000000000007c .L11
-     /tmp/ccbDqsYH.s:116    .text:0000000000000094 .L4
-     /tmp/ccbDqsYH.s:106    .text:0000000000000084 .L5
-     /tmp/ccbDqsYH.s:48     .text:0000000000000028 .L3
-     /tmp/ccbDqsYH.s:83     .text:0000000000000068 .L6
-     /tmp/ccbDqsYH.s:201    .text:0000000000000104 .L8
-     /tmp/ccbDqsYH.s:145    .text:00000000000000b8 .L10
-     /tmp/ccbDqsYH.s:136    .text:00000000000000ac .L9
-     /tmp/ccbDqsYH.s:402    .text:0000000000000210 .L13
-     /tmp/ccbDqsYH.s:315    .text:0000000000000194 .L23
-     /tmp/ccbDqsYH.s:333    .text:00000000000001ac .L16
-     /tmp/ccbDqsYH.s:323    .text:000000000000019c .L17
-     /tmp/ccbDqsYH.s:265    .text:0000000000000140 .L15
-     /tmp/ccbDqsYH.s:300    .text:0000000000000180 .L18
-     /tmp/ccbDqsYH.s:418    .text:000000000000021c .L20
-     /tmp/ccbDqsYH.s:362    .text:00000000000001d0 .L22
-     /tmp/ccbDqsYH.s:353    .text:00000000000001c4 .L21
-     /tmp/ccbDqsYH.s:481    .text:0000000000000264 .L35
-     /tmp/ccbDqsYH.s:485    .text:000000000000026c .L36
-     /tmp/ccbDqsYH.s:488    .text:0000000000000270 .L26
-     /tmp/ccbDqsYH.s:470    .text:0000000000000250 .L27
-     /tmp/ccbDqsYH.s:582    .text:00000000000002dc .L28
-     /tmp/ccbDqsYH.s:523    .text:0000000000000298 .L30
-     /tmp/ccbDqsYH.s:592    .text:00000000000002f0 .L31
-     /tmp/ccbDqsYH.s:547    .text:00000000000002b8 .L33
-     /tmp/ccbDqsYH.s:599    .text:0000000000000300 .L38
-     /tmp/ccbDqsYH.s:568    .text:00000000000002d0 .L25
-     /tmp/ccbDqsYH.s:620    .text:0000000000000320 .L39
-     /tmp/ccbDqsYH.s:514    .text:000000000000028c .L29
-     /tmp/ccbDqsYH.s:529    .text:00000000000002a0 .L32
-     /tmp/ccbDqsYH.s:691    .text:0000000000000374 .L50
-GAS LISTING /tmp/ccbDqsYH.s 			page 31
+     /tmp/ccXDgX4F.s:843    .text:000000000000043c .L0 
+     /tmp/ccXDgX4F.s:845    .text:0000000000000440 .L0 
+     /tmp/ccXDgX4F.s:847    .text:0000000000000444 .L0 
+     /tmp/ccXDgX4F.s:849    .text:0000000000000448 .L0 
+     /tmp/ccXDgX4F.s:850    .text:0000000000000448 .L0 
+     /tmp/ccXDgX4F.s:857    .text:000000000000044c .L0 
+     /tmp/ccXDgX4F.s:858    .text:000000000000044c .L0 
+     /tmp/ccXDgX4F.s:859    .text:0000000000000450 .L0 
+     /tmp/ccXDgX4F.s:864    .text:0000000000000450 .L0 
+     /tmp/ccXDgX4F.s:45     .text:000000000000001c .L0 
+     /tmp/ccXDgX4F.s:54     .text:000000000000002c .L0 
+     /tmp/ccXDgX4F.s:111    .text:0000000000000084 .L0 
+     /tmp/ccXDgX4F.s:168    .text:00000000000000d8 .L0 
+     /tmp/ccXDgX4F.s:213    .text:0000000000000108 .L0 
+     /tmp/ccXDgX4F.s:262    .text:0000000000000134 .L0 
+     /tmp/ccXDgX4F.s:271    .text:0000000000000144 .L0 
+     /tmp/ccXDgX4F.s:328    .text:000000000000019c .L0 
+     /tmp/ccXDgX4F.s:385    .text:00000000000001f0 .L0 
+     /tmp/ccXDgX4F.s:430    .text:0000000000000220 .L0 
+     /tmp/ccXDgX4F.s:463    .text:000000000000023c .L0 
+     /tmp/ccXDgX4F.s:588    .text:00000000000002dc .L0 
+     /tmp/ccXDgX4F.s:595    .text:00000000000002f0 .L0 
+     /tmp/ccXDgX4F.s:673    .text:000000000000034c .L0 
+     /tmp/ccXDgX4F.s:798    .text:00000000000003ec .L0 
+     /tmp/ccXDgX4F.s:805    .text:0000000000000400 .L0 
+     /tmp/ccXDgX4F.s:185    .text:00000000000000f8 .L1
+     /tmp/ccXDgX4F.s:98     .text:000000000000007c .L11
+     /tmp/ccXDgX4F.s:116    .text:0000000000000094 .L4
+     /tmp/ccXDgX4F.s:106    .text:0000000000000084 .L5
+     /tmp/ccXDgX4F.s:48     .text:0000000000000028 .L3
+     /tmp/ccXDgX4F.s:83     .text:0000000000000068 .L6
+     /tmp/ccXDgX4F.s:201    .text:0000000000000104 .L8
+     /tmp/ccXDgX4F.s:145    .text:00000000000000b8 .L10
+     /tmp/ccXDgX4F.s:136    .text:00000000000000ac .L9
+     /tmp/ccXDgX4F.s:402    .text:0000000000000210 .L13
+     /tmp/ccXDgX4F.s:315    .text:0000000000000194 .L23
+     /tmp/ccXDgX4F.s:333    .text:00000000000001ac .L16
+     /tmp/ccXDgX4F.s:323    .text:000000000000019c .L17
+     /tmp/ccXDgX4F.s:265    .text:0000000000000140 .L15
+     /tmp/ccXDgX4F.s:300    .text:0000000000000180 .L18
+     /tmp/ccXDgX4F.s:418    .text:000000000000021c .L20
+     /tmp/ccXDgX4F.s:362    .text:00000000000001d0 .L22
+     /tmp/ccXDgX4F.s:353    .text:00000000000001c4 .L21
+     /tmp/ccXDgX4F.s:481    .text:0000000000000264 .L35
+     /tmp/ccXDgX4F.s:485    .text:000000000000026c .L36
+     /tmp/ccXDgX4F.s:488    .text:0000000000000270 .L26
+     /tmp/ccXDgX4F.s:470    .text:0000000000000250 .L27
+     /tmp/ccXDgX4F.s:582    .text:00000000000002dc .L28
+     /tmp/ccXDgX4F.s:523    .text:0000000000000298 .L30
+     /tmp/ccXDgX4F.s:592    .text:00000000000002f0 .L31
+     /tmp/ccXDgX4F.s:547    .text:00000000000002b8 .L33
+     /tmp/ccXDgX4F.s:599    .text:0000000000000300 .L38
+     /tmp/ccXDgX4F.s:568    .text:00000000000002d0 .L25
+     /tmp/ccXDgX4F.s:620    .text:0000000000000320 .L39
+     /tmp/ccXDgX4F.s:514    .text:000000000000028c .L29
+     /tmp/ccXDgX4F.s:529    .text:00000000000002a0 .L32
+     /tmp/ccXDgX4F.s:691    .text:0000000000000374 .L50
+GAS LISTING /tmp/ccXDgX4F.s 			page 31
 
 
-     /tmp/ccbDqsYH.s:695    .text:000000000000037c .L51
-     /tmp/ccbDqsYH.s:698    .text:0000000000000380 .L41
-     /tmp/ccbDqsYH.s:680    .text:0000000000000360 .L42
-     /tmp/ccbDqsYH.s:792    .text:00000000000003ec .L43
-     /tmp/ccbDqsYH.s:733    .text:00000000000003a8 .L45
-     /tmp/ccbDqsYH.s:802    .text:0000000000000400 .L46
-     /tmp/ccbDqsYH.s:757    .text:00000000000003c8 .L48
-     /tmp/ccbDqsYH.s:809    .text:0000000000000410 .L53
-     /tmp/ccbDqsYH.s:778    .text:00000000000003e0 .L40
-     /tmp/ccbDqsYH.s:830    .text:0000000000000430 .L54
-     /tmp/ccbDqsYH.s:724    .text:000000000000039c .L44
-     /tmp/ccbDqsYH.s:739    .text:00000000000003b0 .L47
-     /tmp/ccbDqsYH.s:1493   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
-     /tmp/ccbDqsYH.s:2699   .debug_str:00000000000001ac .LASF51
-     /tmp/ccbDqsYH.s:2671   .debug_str:00000000000000b1 .LASF52
-     /tmp/ccbDqsYH.s:2723   .debug_str:0000000000000328 .LASF53
-     /tmp/ccbDqsYH.s:5      .text:0000000000000000 .Ltext0
-     /tmp/ccbDqsYH.s:862    .text:0000000000000450 .Letext0
-     /tmp/ccbDqsYH.s:2645   .debug_line:0000000000000000 .Ldebug_line0
-     /tmp/ccbDqsYH.s:2705   .debug_str:0000000000000280 .LASF0
-     /tmp/ccbDqsYH.s:2691   .debug_str:0000000000000142 .LASF1
-     /tmp/ccbDqsYH.s:2681   .debug_str:00000000000000ef .LASF2
-     /tmp/ccbDqsYH.s:2663   .debug_str:000000000000006a .LASF4
-     /tmp/ccbDqsYH.s:2689   .debug_str:0000000000000130 .LASF3
-     /tmp/ccbDqsYH.s:2649   .debug_str:0000000000000013 .LASF5
-     /tmp/ccbDqsYH.s:2647   .debug_str:0000000000000000 .LASF6
-     /tmp/ccbDqsYH.s:2673   .debug_str:00000000000000be .LASF7
-     /tmp/ccbDqsYH.s:2715   .debug_str:00000000000002d4 .LASF8
-     /tmp/ccbDqsYH.s:2659   .debug_str:000000000000004b .LASF9
-     /tmp/ccbDqsYH.s:2759   .debug_str:0000000000000439 .LASF10
-     /tmp/ccbDqsYH.s:2679   .debug_str:00000000000000e0 .LASF11
-     /tmp/ccbDqsYH.s:2741   .debug_str:00000000000003c1 .LASF12
-     /tmp/ccbDqsYH.s:2713   .debug_str:00000000000002c4 .LASF13
-     /tmp/ccbDqsYH.s:2693   .debug_str:0000000000000155 .LASF14
-     /tmp/ccbDqsYH.s:2667   .debug_str:0000000000000079 .LASF15
-     /tmp/ccbDqsYH.s:2719   .debug_str:0000000000000306 .LASF16
-     /tmp/ccbDqsYH.s:2661   .debug_str:0000000000000059 .LASF23
-     /tmp/ccbDqsYH.s:2683   .debug_str:00000000000000fd .LASF54
-     /tmp/ccbDqsYH.s:2651   .debug_str:000000000000001a .LASF17
-     /tmp/ccbDqsYH.s:2757   .debug_str:0000000000000434 .LASF18
-     /tmp/ccbDqsYH.s:2753   .debug_str:0000000000000429 .LASF19
-     /tmp/ccbDqsYH.s:2675   .debug_str:00000000000000d1 .LASF20
-     /tmp/ccbDqsYH.s:2729   .debug_str:000000000000036c .LASF21
-     /tmp/ccbDqsYH.s:2677   .debug_str:00000000000000db .LASF22
-     /tmp/ccbDqsYH.s:2735   .debug_str:0000000000000396 .LASF24
-     /tmp/ccbDqsYH.s:2695   .debug_str:0000000000000161 .LASF25
-     /tmp/ccbDqsYH.s:2745   .debug_str:00000000000003f8 .LASF26
-     /tmp/ccbDqsYH.s:2727   .debug_str:000000000000034f .LASF27
-     /tmp/ccbDqsYH.s:2721   .debug_str:000000000000031c .LASF55
-     /tmp/ccbDqsYH.s:2685   .debug_str:0000000000000105 .LASF56
-     /tmp/ccbDqsYH.s:2701   .debug_str:0000000000000270 .LASF38
-     /tmp/ccbDqsYH.s:2707   .debug_str:000000000000028d .LASF40
-     /tmp/ccbDqsYH.s:2703   .debug_str:0000000000000278 .LASF28
-     /tmp/ccbDqsYH.s:2657   .debug_str:000000000000002b .LASF30
-     /tmp/ccbDqsYH.s:2733   .debug_str:0000000000000388 .LASF29
-     /tmp/ccbDqsYH.s:2743   .debug_str:00000000000003d1 .LASF31
-     /tmp/ccbDqsYH.s:2739   .debug_str:00000000000003b7 .LASF32
-GAS LISTING /tmp/ccbDqsYH.s 			page 32
+     /tmp/ccXDgX4F.s:695    .text:000000000000037c .L51
+     /tmp/ccXDgX4F.s:698    .text:0000000000000380 .L41
+     /tmp/ccXDgX4F.s:680    .text:0000000000000360 .L42
+     /tmp/ccXDgX4F.s:792    .text:00000000000003ec .L43
+     /tmp/ccXDgX4F.s:733    .text:00000000000003a8 .L45
+     /tmp/ccXDgX4F.s:802    .text:0000000000000400 .L46
+     /tmp/ccXDgX4F.s:757    .text:00000000000003c8 .L48
+     /tmp/ccXDgX4F.s:809    .text:0000000000000410 .L53
+     /tmp/ccXDgX4F.s:778    .text:00000000000003e0 .L40
+     /tmp/ccXDgX4F.s:830    .text:0000000000000430 .L54
+     /tmp/ccXDgX4F.s:724    .text:000000000000039c .L44
+     /tmp/ccXDgX4F.s:739    .text:00000000000003b0 .L47
+     /tmp/ccXDgX4F.s:1493   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccXDgX4F.s:2699   .debug_str:00000000000001ac .LASF51
+     /tmp/ccXDgX4F.s:2671   .debug_str:00000000000000b1 .LASF52
+     /tmp/ccXDgX4F.s:2723   .debug_str:0000000000000328 .LASF53
+     /tmp/ccXDgX4F.s:5      .text:0000000000000000 .Ltext0
+     /tmp/ccXDgX4F.s:862    .text:0000000000000450 .Letext0
+     /tmp/ccXDgX4F.s:2645   .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccXDgX4F.s:2705   .debug_str:0000000000000280 .LASF0
+     /tmp/ccXDgX4F.s:2691   .debug_str:0000000000000142 .LASF1
+     /tmp/ccXDgX4F.s:2681   .debug_str:00000000000000ef .LASF2
+     /tmp/ccXDgX4F.s:2663   .debug_str:000000000000006a .LASF4
+     /tmp/ccXDgX4F.s:2689   .debug_str:0000000000000130 .LASF3
+     /tmp/ccXDgX4F.s:2649   .debug_str:0000000000000013 .LASF5
+     /tmp/ccXDgX4F.s:2647   .debug_str:0000000000000000 .LASF6
+     /tmp/ccXDgX4F.s:2673   .debug_str:00000000000000be .LASF7
+     /tmp/ccXDgX4F.s:2715   .debug_str:00000000000002d4 .LASF8
+     /tmp/ccXDgX4F.s:2659   .debug_str:000000000000004b .LASF9
+     /tmp/ccXDgX4F.s:2759   .debug_str:0000000000000439 .LASF10
+     /tmp/ccXDgX4F.s:2679   .debug_str:00000000000000e0 .LASF11
+     /tmp/ccXDgX4F.s:2741   .debug_str:00000000000003c1 .LASF12
+     /tmp/ccXDgX4F.s:2713   .debug_str:00000000000002c4 .LASF13
+     /tmp/ccXDgX4F.s:2693   .debug_str:0000000000000155 .LASF14
+     /tmp/ccXDgX4F.s:2667   .debug_str:0000000000000079 .LASF15
+     /tmp/ccXDgX4F.s:2719   .debug_str:0000000000000306 .LASF16
+     /tmp/ccXDgX4F.s:2661   .debug_str:0000000000000059 .LASF23
+     /tmp/ccXDgX4F.s:2683   .debug_str:00000000000000fd .LASF54
+     /tmp/ccXDgX4F.s:2651   .debug_str:000000000000001a .LASF17
+     /tmp/ccXDgX4F.s:2757   .debug_str:0000000000000434 .LASF18
+     /tmp/ccXDgX4F.s:2753   .debug_str:0000000000000429 .LASF19
+     /tmp/ccXDgX4F.s:2675   .debug_str:00000000000000d1 .LASF20
+     /tmp/ccXDgX4F.s:2729   .debug_str:000000000000036c .LASF21
+     /tmp/ccXDgX4F.s:2677   .debug_str:00000000000000db .LASF22
+     /tmp/ccXDgX4F.s:2735   .debug_str:0000000000000396 .LASF24
+     /tmp/ccXDgX4F.s:2695   .debug_str:0000000000000161 .LASF25
+     /tmp/ccXDgX4F.s:2745   .debug_str:00000000000003f8 .LASF26
+     /tmp/ccXDgX4F.s:2727   .debug_str:000000000000034f .LASF27
+     /tmp/ccXDgX4F.s:2721   .debug_str:000000000000031c .LASF55
+     /tmp/ccXDgX4F.s:2685   .debug_str:0000000000000105 .LASF56
+     /tmp/ccXDgX4F.s:2701   .debug_str:0000000000000270 .LASF38
+     /tmp/ccXDgX4F.s:2707   .debug_str:000000000000028d .LASF40
+     /tmp/ccXDgX4F.s:2703   .debug_str:0000000000000278 .LASF28
+     /tmp/ccXDgX4F.s:2657   .debug_str:000000000000002b .LASF30
+     /tmp/ccXDgX4F.s:2733   .debug_str:0000000000000388 .LASF29
+     /tmp/ccXDgX4F.s:2743   .debug_str:00000000000003d1 .LASF31
+     /tmp/ccXDgX4F.s:2739   .debug_str:00000000000003b7 .LASF32
+GAS LISTING /tmp/ccXDgX4F.s 			page 32
 
 
-     /tmp/ccbDqsYH.s:2697   .debug_str:000000000000017e .LASF33
-     /tmp/ccbDqsYH.s:2725   .debug_str:0000000000000346 .LASF34
-     /tmp/ccbDqsYH.s:2669   .debug_str:000000000000008f .LASF35
-     /tmp/ccbDqsYH.s:2749   .debug_str:000000000000040f .LASF36
-     /tmp/ccbDqsYH.s:2717   .debug_str:00000000000002e4 .LASF37
-     /tmp/ccbDqsYH.s:2731   .debug_str:0000000000000375 .LASF39
-     /tmp/ccbDqsYH.s:2655   .debug_str:0000000000000024 .LASF41
-     /tmp/ccbDqsYH.s:656    .text:0000000000000340 .LFB13
-     /tmp/ccbDqsYH.s:860    .text:0000000000000450 .LFE13
-     /tmp/ccbDqsYH.s:668    .text:000000000000034c .LBB86
-     /tmp/ccbDqsYH.s:2567   .debug_ranges:0000000000000000 .Ldebug_ranges0
-     /tmp/ccbDqsYH.s:2184   .debug_loc:0000000000000000 .LLST14
-     /tmp/ccbDqsYH.s:2195   .debug_loc:0000000000000036 .LLST15
-     /tmp/ccbDqsYH.s:742    .text:00000000000003b0 .LBB88
-     /tmp/ccbDqsYH.s:2224   .debug_loc:00000000000000ba .LLST16
-     /tmp/ccbDqsYH.s:762    .text:00000000000003c8 .LBB91
-     /tmp/ccbDqsYH.s:2235   .debug_loc:00000000000000f0 .LLST17
-     /tmp/ccbDqsYH.s:2709   .debug_str:00000000000002ad .LASF42
-     /tmp/ccbDqsYH.s:2737   .debug_str:00000000000003b0 .LASF43
-     /tmp/ccbDqsYH.s:446    .text:0000000000000230 .LFB12
-     /tmp/ccbDqsYH.s:650    .text:0000000000000340 .LFE12
-     /tmp/ccbDqsYH.s:458    .text:000000000000023c .LBB66
-     /tmp/ccbDqsYH.s:2246   .debug_loc:0000000000000126 .LLST10
-     /tmp/ccbDqsYH.s:2257   .debug_loc:000000000000015c .LLST11
-     /tmp/ccbDqsYH.s:532    .text:00000000000002a0 .LBB68
-     /tmp/ccbDqsYH.s:2286   .debug_loc:00000000000001e0 .LLST12
-     /tmp/ccbDqsYH.s:552    .text:00000000000002b8 .LBB71
-     /tmp/ccbDqsYH.s:2297   .debug_loc:0000000000000216 .LLST13
-     /tmp/ccbDqsYH.s:2751   .debug_str:0000000000000419 .LASF44
-     /tmp/ccbDqsYH.s:2687   .debug_str:000000000000012a .LASF46
-     /tmp/ccbDqsYH.s:229    .text:0000000000000118 .LFB11
-     /tmp/ccbDqsYH.s:440    .text:0000000000000230 .LFE11
-     /tmp/ccbDqsYH.s:2308   .debug_loc:000000000000024c .LLST5
-     /tmp/ccbDqsYH.s:241    .text:0000000000000124 .LBB44
-     /tmp/ccbDqsYH.s:252    .text:0000000000000130 .LBE44
-     /tmp/ccbDqsYH.s:2322   .debug_loc:0000000000000285 .LLST6
-     /tmp/ccbDqsYH.s:253    .text:0000000000000130 .LBB46
-     /tmp/ccbDqsYH.s:2329   .debug_loc:00000000000002a8 .LLST7
-     /tmp/ccbDqsYH.s:2405   .debug_loc:000000000000036a .LLST8
-     /tmp/ccbDqsYH.s:2420   .debug_loc:00000000000003b3 .LLST9
-     /tmp/ccbDqsYH.s:2747   .debug_str:0000000000000402 .LASF45
-     /tmp/ccbDqsYH.s:2755   .debug_str:000000000000042e .LASF47
-     /tmp/ccbDqsYH.s:10     .text:0000000000000000 .LFB10
-     /tmp/ccbDqsYH.s:223    .text:0000000000000118 .LFE10
-     /tmp/ccbDqsYH.s:2431   .debug_loc:00000000000003e9 .LLST0
-     /tmp/ccbDqsYH.s:23     .text:000000000000000c .LBB20
-     /tmp/ccbDqsYH.s:35     .text:0000000000000018 .LBE20
-     /tmp/ccbDqsYH.s:2445   .debug_loc:0000000000000422 .LLST1
-     /tmp/ccbDqsYH.s:36     .text:0000000000000018 .LBB22
-     /tmp/ccbDqsYH.s:2452   .debug_loc:0000000000000445 .LLST2
-     /tmp/ccbDqsYH.s:2528   .debug_loc:0000000000000507 .LLST3
-     /tmp/ccbDqsYH.s:2543   .debug_loc:0000000000000550 .LLST4
-     /tmp/ccbDqsYH.s:2665   .debug_str:0000000000000071 .LASF48
-     /tmp/ccbDqsYH.s:2711   .debug_str:00000000000002bd .LASF49
-     /tmp/ccbDqsYH.s:2653   .debug_str:000000000000001f .LASF50
-     /tmp/ccbDqsYH.s:667    .text:000000000000034c .LVL45
-     /tmp/ccbDqsYH.s:777    .text:00000000000003e0 .LVL53
-GAS LISTING /tmp/ccbDqsYH.s 			page 33
+     /tmp/ccXDgX4F.s:2697   .debug_str:000000000000017e .LASF33
+     /tmp/ccXDgX4F.s:2725   .debug_str:0000000000000346 .LASF34
+     /tmp/ccXDgX4F.s:2669   .debug_str:000000000000008f .LASF35
+     /tmp/ccXDgX4F.s:2749   .debug_str:000000000000040f .LASF36
+     /tmp/ccXDgX4F.s:2717   .debug_str:00000000000002e4 .LASF37
+     /tmp/ccXDgX4F.s:2731   .debug_str:0000000000000375 .LASF39
+     /tmp/ccXDgX4F.s:2655   .debug_str:0000000000000024 .LASF41
+     /tmp/ccXDgX4F.s:656    .text:0000000000000340 .LFB13
+     /tmp/ccXDgX4F.s:860    .text:0000000000000450 .LFE13
+     /tmp/ccXDgX4F.s:668    .text:000000000000034c .LBB86
+     /tmp/ccXDgX4F.s:2567   .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccXDgX4F.s:2184   .debug_loc:0000000000000000 .LLST14
+     /tmp/ccXDgX4F.s:2195   .debug_loc:0000000000000036 .LLST15
+     /tmp/ccXDgX4F.s:742    .text:00000000000003b0 .LBB88
+     /tmp/ccXDgX4F.s:2224   .debug_loc:00000000000000ba .LLST16
+     /tmp/ccXDgX4F.s:762    .text:00000000000003c8 .LBB91
+     /tmp/ccXDgX4F.s:2235   .debug_loc:00000000000000f0 .LLST17
+     /tmp/ccXDgX4F.s:2709   .debug_str:00000000000002ad .LASF42
+     /tmp/ccXDgX4F.s:2737   .debug_str:00000000000003b0 .LASF43
+     /tmp/ccXDgX4F.s:446    .text:0000000000000230 .LFB12
+     /tmp/ccXDgX4F.s:650    .text:0000000000000340 .LFE12
+     /tmp/ccXDgX4F.s:458    .text:000000000000023c .LBB66
+     /tmp/ccXDgX4F.s:2246   .debug_loc:0000000000000126 .LLST10
+     /tmp/ccXDgX4F.s:2257   .debug_loc:000000000000015c .LLST11
+     /tmp/ccXDgX4F.s:532    .text:00000000000002a0 .LBB68
+     /tmp/ccXDgX4F.s:2286   .debug_loc:00000000000001e0 .LLST12
+     /tmp/ccXDgX4F.s:552    .text:00000000000002b8 .LBB71
+     /tmp/ccXDgX4F.s:2297   .debug_loc:0000000000000216 .LLST13
+     /tmp/ccXDgX4F.s:2751   .debug_str:0000000000000419 .LASF44
+     /tmp/ccXDgX4F.s:2687   .debug_str:000000000000012a .LASF46
+     /tmp/ccXDgX4F.s:229    .text:0000000000000118 .LFB11
+     /tmp/ccXDgX4F.s:440    .text:0000000000000230 .LFE11
+     /tmp/ccXDgX4F.s:2308   .debug_loc:000000000000024c .LLST5
+     /tmp/ccXDgX4F.s:241    .text:0000000000000124 .LBB44
+     /tmp/ccXDgX4F.s:252    .text:0000000000000130 .LBE44
+     /tmp/ccXDgX4F.s:2322   .debug_loc:0000000000000285 .LLST6
+     /tmp/ccXDgX4F.s:253    .text:0000000000000130 .LBB46
+     /tmp/ccXDgX4F.s:2329   .debug_loc:00000000000002a8 .LLST7
+     /tmp/ccXDgX4F.s:2405   .debug_loc:000000000000036a .LLST8
+     /tmp/ccXDgX4F.s:2420   .debug_loc:00000000000003b3 .LLST9
+     /tmp/ccXDgX4F.s:2747   .debug_str:0000000000000402 .LASF45
+     /tmp/ccXDgX4F.s:2755   .debug_str:000000000000042e .LASF47
+     /tmp/ccXDgX4F.s:10     .text:0000000000000000 .LFB10
+     /tmp/ccXDgX4F.s:223    .text:0000000000000118 .LFE10
+     /tmp/ccXDgX4F.s:2431   .debug_loc:00000000000003e9 .LLST0
+     /tmp/ccXDgX4F.s:23     .text:000000000000000c .LBB20
+     /tmp/ccXDgX4F.s:35     .text:0000000000000018 .LBE20
+     /tmp/ccXDgX4F.s:2445   .debug_loc:0000000000000422 .LLST1
+     /tmp/ccXDgX4F.s:36     .text:0000000000000018 .LBB22
+     /tmp/ccXDgX4F.s:2452   .debug_loc:0000000000000445 .LLST2
+     /tmp/ccXDgX4F.s:2528   .debug_loc:0000000000000507 .LLST3
+     /tmp/ccXDgX4F.s:2543   .debug_loc:0000000000000550 .LLST4
+     /tmp/ccXDgX4F.s:2665   .debug_str:0000000000000071 .LASF48
+     /tmp/ccXDgX4F.s:2711   .debug_str:00000000000002bd .LASF49
+     /tmp/ccXDgX4F.s:2653   .debug_str:000000000000001f .LASF50
+     /tmp/ccXDgX4F.s:667    .text:000000000000034c .LVL45
+     /tmp/ccXDgX4F.s:777    .text:00000000000003e0 .LVL53
+GAS LISTING /tmp/ccXDgX4F.s 			page 33
 
 
-     /tmp/ccbDqsYH.s:791    .text:00000000000003ec .LVL54
-     /tmp/ccbDqsYH.s:851    .text:000000000000044c .LVL57
-     /tmp/ccbDqsYH.s:679    .text:0000000000000360 .LVL46
-     /tmp/ccbDqsYH.s:685    .text:0000000000000368 .LVL47
-     /tmp/ccbDqsYH.s:690    .text:0000000000000374 .LVL48
-     /tmp/ccbDqsYH.s:697    .text:0000000000000380 .LVL49
-     /tmp/ccbDqsYH.s:741    .text:00000000000003b0 .LVL51
-     /tmp/ccbDqsYH.s:758    .text:00000000000003c8 .LVL52
-     /tmp/ccbDqsYH.s:808    .text:0000000000000410 .LVL55
-     /tmp/ccbDqsYH.s:829    .text:0000000000000430 .LVL56
-     /tmp/ccbDqsYH.s:457    .text:000000000000023c .LVL31
-     /tmp/ccbDqsYH.s:567    .text:00000000000002d0 .LVL39
-     /tmp/ccbDqsYH.s:581    .text:00000000000002dc .LVL40
-     /tmp/ccbDqsYH.s:641    .text:000000000000033c .LVL43
-     /tmp/ccbDqsYH.s:469    .text:0000000000000250 .LVL32
-     /tmp/ccbDqsYH.s:475    .text:0000000000000258 .LVL33
-     /tmp/ccbDqsYH.s:480    .text:0000000000000264 .LVL34
-     /tmp/ccbDqsYH.s:487    .text:0000000000000270 .LVL35
-     /tmp/ccbDqsYH.s:531    .text:00000000000002a0 .LVL37
-     /tmp/ccbDqsYH.s:548    .text:00000000000002b8 .LVL38
-     /tmp/ccbDqsYH.s:598    .text:0000000000000300 .LVL41
-     /tmp/ccbDqsYH.s:619    .text:0000000000000320 .LVL42
-     /tmp/ccbDqsYH.s:232    .text:0000000000000118 .LVL15
-     /tmp/ccbDqsYH.s:264    .text:0000000000000140 .LVL19
-     /tmp/ccbDqsYH.s:240    .text:0000000000000124 .LVL16
-     /tmp/ccbDqsYH.s:250    .text:0000000000000130 .LVL17
-     /tmp/ccbDqsYH.s:299    .text:0000000000000180 .LVL20
-     /tmp/ccbDqsYH.s:314    .text:0000000000000194 .LVL21
-     /tmp/ccbDqsYH.s:329    .text:00000000000001a4 .LVL24
-     /tmp/ccbDqsYH.s:332    .text:00000000000001ac .LVL25
-     /tmp/ccbDqsYH.s:378    .text:00000000000001e8 .LVL27
-     /tmp/ccbDqsYH.s:401    .text:0000000000000210 .LVL28
-     /tmp/ccbDqsYH.s:417    .text:000000000000021c .LVL29
-     /tmp/ccbDqsYH.s:320    .text:0000000000000198 .LVL22
-     /tmp/ccbDqsYH.s:322    .text:000000000000019c .LVL23
-     /tmp/ccbDqsYH.s:338    .text:00000000000001b0 .LVL26
-     /tmp/ccbDqsYH.s:14     .text:0000000000000000 .LVL0
-     /tmp/ccbDqsYH.s:47     .text:0000000000000028 .LVL4
-     /tmp/ccbDqsYH.s:22     .text:000000000000000c .LVL1
-     /tmp/ccbDqsYH.s:33     .text:0000000000000018 .LVL2
-     /tmp/ccbDqsYH.s:82     .text:0000000000000068 .LVL5
-     /tmp/ccbDqsYH.s:97     .text:000000000000007c .LVL6
-     /tmp/ccbDqsYH.s:112    .text:000000000000008c .LVL9
-     /tmp/ccbDqsYH.s:115    .text:0000000000000094 .LVL10
-     /tmp/ccbDqsYH.s:161    .text:00000000000000d0 .LVL12
-     /tmp/ccbDqsYH.s:184    .text:00000000000000f8 .LVL13
-     /tmp/ccbDqsYH.s:200    .text:0000000000000104 .LVL14
-     /tmp/ccbDqsYH.s:103    .text:0000000000000080 .LVL7
-     /tmp/ccbDqsYH.s:105    .text:0000000000000084 .LVL8
-     /tmp/ccbDqsYH.s:121    .text:0000000000000098 .LVL11
-     /tmp/ccbDqsYH.s:865    .debug_info:0000000000000000 .Ldebug_info0
-     /tmp/ccbDqsYH.s:191    .text:00000000000000f8 .LBE22
-     /tmp/ccbDqsYH.s:203    .text:0000000000000104 .LBB35
-     /tmp/ccbDqsYH.s:221    .text:0000000000000118 .LBE35
-     /tmp/ccbDqsYH.s:43     .text:000000000000001c .LBB24
-     /tmp/ccbDqsYH.s:189    .text:00000000000000f8 .LBE24
-     /tmp/ccbDqsYH.s:205    .text:0000000000000104 .LBB33
-GAS LISTING /tmp/ccbDqsYH.s 			page 34
+     /tmp/ccXDgX4F.s:791    .text:00000000000003ec .LVL54
+     /tmp/ccXDgX4F.s:851    .text:000000000000044c .LVL57
+     /tmp/ccXDgX4F.s:679    .text:0000000000000360 .LVL46
+     /tmp/ccXDgX4F.s:685    .text:0000000000000368 .LVL47
+     /tmp/ccXDgX4F.s:690    .text:0000000000000374 .LVL48
+     /tmp/ccXDgX4F.s:697    .text:0000000000000380 .LVL49
+     /tmp/ccXDgX4F.s:741    .text:00000000000003b0 .LVL51
+     /tmp/ccXDgX4F.s:758    .text:00000000000003c8 .LVL52
+     /tmp/ccXDgX4F.s:808    .text:0000000000000410 .LVL55
+     /tmp/ccXDgX4F.s:829    .text:0000000000000430 .LVL56
+     /tmp/ccXDgX4F.s:457    .text:000000000000023c .LVL31
+     /tmp/ccXDgX4F.s:567    .text:00000000000002d0 .LVL39
+     /tmp/ccXDgX4F.s:581    .text:00000000000002dc .LVL40
+     /tmp/ccXDgX4F.s:641    .text:000000000000033c .LVL43
+     /tmp/ccXDgX4F.s:469    .text:0000000000000250 .LVL32
+     /tmp/ccXDgX4F.s:475    .text:0000000000000258 .LVL33
+     /tmp/ccXDgX4F.s:480    .text:0000000000000264 .LVL34
+     /tmp/ccXDgX4F.s:487    .text:0000000000000270 .LVL35
+     /tmp/ccXDgX4F.s:531    .text:00000000000002a0 .LVL37
+     /tmp/ccXDgX4F.s:548    .text:00000000000002b8 .LVL38
+     /tmp/ccXDgX4F.s:598    .text:0000000000000300 .LVL41
+     /tmp/ccXDgX4F.s:619    .text:0000000000000320 .LVL42
+     /tmp/ccXDgX4F.s:232    .text:0000000000000118 .LVL15
+     /tmp/ccXDgX4F.s:264    .text:0000000000000140 .LVL19
+     /tmp/ccXDgX4F.s:240    .text:0000000000000124 .LVL16
+     /tmp/ccXDgX4F.s:250    .text:0000000000000130 .LVL17
+     /tmp/ccXDgX4F.s:299    .text:0000000000000180 .LVL20
+     /tmp/ccXDgX4F.s:314    .text:0000000000000194 .LVL21
+     /tmp/ccXDgX4F.s:329    .text:00000000000001a4 .LVL24
+     /tmp/ccXDgX4F.s:332    .text:00000000000001ac .LVL25
+     /tmp/ccXDgX4F.s:378    .text:00000000000001e8 .LVL27
+     /tmp/ccXDgX4F.s:401    .text:0000000000000210 .LVL28
+     /tmp/ccXDgX4F.s:417    .text:000000000000021c .LVL29
+     /tmp/ccXDgX4F.s:320    .text:0000000000000198 .LVL22
+     /tmp/ccXDgX4F.s:322    .text:000000000000019c .LVL23
+     /tmp/ccXDgX4F.s:338    .text:00000000000001b0 .LVL26
+     /tmp/ccXDgX4F.s:14     .text:0000000000000000 .LVL0
+     /tmp/ccXDgX4F.s:47     .text:0000000000000028 .LVL4
+     /tmp/ccXDgX4F.s:22     .text:000000000000000c .LVL1
+     /tmp/ccXDgX4F.s:33     .text:0000000000000018 .LVL2
+     /tmp/ccXDgX4F.s:82     .text:0000000000000068 .LVL5
+     /tmp/ccXDgX4F.s:97     .text:000000000000007c .LVL6
+     /tmp/ccXDgX4F.s:112    .text:000000000000008c .LVL9
+     /tmp/ccXDgX4F.s:115    .text:0000000000000094 .LVL10
+     /tmp/ccXDgX4F.s:161    .text:00000000000000d0 .LVL12
+     /tmp/ccXDgX4F.s:184    .text:00000000000000f8 .LVL13
+     /tmp/ccXDgX4F.s:200    .text:0000000000000104 .LVL14
+     /tmp/ccXDgX4F.s:103    .text:0000000000000080 .LVL7
+     /tmp/ccXDgX4F.s:105    .text:0000000000000084 .LVL8
+     /tmp/ccXDgX4F.s:121    .text:0000000000000098 .LVL11
+     /tmp/ccXDgX4F.s:865    .debug_info:0000000000000000 .Ldebug_info0
+     /tmp/ccXDgX4F.s:191    .text:00000000000000f8 .LBE22
+     /tmp/ccXDgX4F.s:203    .text:0000000000000104 .LBB35
+     /tmp/ccXDgX4F.s:221    .text:0000000000000118 .LBE35
+     /tmp/ccXDgX4F.s:43     .text:000000000000001c .LBB24
+     /tmp/ccXDgX4F.s:189    .text:00000000000000f8 .LBE24
+     /tmp/ccXDgX4F.s:205    .text:0000000000000104 .LBB33
+GAS LISTING /tmp/ccXDgX4F.s 			page 34
 
 
-     /tmp/ccbDqsYH.s:219    .text:0000000000000118 .LBE33
-     /tmp/ccbDqsYH.s:117    .text:0000000000000094 .LBB27
-     /tmp/ccbDqsYH.s:186    .text:00000000000000f8 .LBE27
-     /tmp/ccbDqsYH.s:208    .text:0000000000000104 .LBB28
-     /tmp/ccbDqsYH.s:216    .text:0000000000000118 .LBE28
-     /tmp/ccbDqsYH.s:408    .text:0000000000000210 .LBE46
-     /tmp/ccbDqsYH.s:420    .text:000000000000021c .LBB59
-     /tmp/ccbDqsYH.s:438    .text:0000000000000230 .LBE59
-     /tmp/ccbDqsYH.s:260    .text:0000000000000134 .LBB48
-     /tmp/ccbDqsYH.s:406    .text:0000000000000210 .LBE48
-     /tmp/ccbDqsYH.s:422    .text:000000000000021c .LBB57
-     /tmp/ccbDqsYH.s:436    .text:0000000000000230 .LBE57
-     /tmp/ccbDqsYH.s:334    .text:00000000000001ac .LBB51
-     /tmp/ccbDqsYH.s:403    .text:0000000000000210 .LBE51
-     /tmp/ccbDqsYH.s:425    .text:000000000000021c .LBB52
-     /tmp/ccbDqsYH.s:433    .text:0000000000000230 .LBE52
-     /tmp/ccbDqsYH.s:497    .text:0000000000000274 .LBE66
-     /tmp/ccbDqsYH.s:499    .text:0000000000000274 .LBB78
-     /tmp/ccbDqsYH.s:572    .text:00000000000002d0 .LBE78
-     /tmp/ccbDqsYH.s:584    .text:00000000000002dc .LBB79
-     /tmp/ccbDqsYH.s:646    .text:000000000000033c .LBE79
-     /tmp/ccbDqsYH.s:550    .text:00000000000002b8 .LBE68
-     /tmp/ccbDqsYH.s:600    .text:0000000000000300 .LBB74
-     /tmp/ccbDqsYH.s:622    .text:0000000000000320 .LBE74
-     /tmp/ccbDqsYH.s:570    .text:00000000000002d0 .LBE71
-     /tmp/ccbDqsYH.s:623    .text:0000000000000320 .LBB75
-     /tmp/ccbDqsYH.s:643    .text:000000000000033c .LBE75
-     /tmp/ccbDqsYH.s:707    .text:0000000000000384 .LBE86
-     /tmp/ccbDqsYH.s:709    .text:0000000000000384 .LBB98
-     /tmp/ccbDqsYH.s:782    .text:00000000000003e0 .LBE98
-     /tmp/ccbDqsYH.s:794    .text:00000000000003ec .LBB99
-     /tmp/ccbDqsYH.s:856    .text:000000000000044c .LBE99
-     /tmp/ccbDqsYH.s:760    .text:00000000000003c8 .LBE88
-     /tmp/ccbDqsYH.s:810    .text:0000000000000410 .LBB94
-     /tmp/ccbDqsYH.s:832    .text:0000000000000430 .LBE94
-     /tmp/ccbDqsYH.s:780    .text:00000000000003e0 .LBE91
-     /tmp/ccbDqsYH.s:833    .text:0000000000000430 .LBB95
-     /tmp/ccbDqsYH.s:853    .text:000000000000044c .LBE95
+     /tmp/ccXDgX4F.s:219    .text:0000000000000118 .LBE33
+     /tmp/ccXDgX4F.s:117    .text:0000000000000094 .LBB27
+     /tmp/ccXDgX4F.s:186    .text:00000000000000f8 .LBE27
+     /tmp/ccXDgX4F.s:208    .text:0000000000000104 .LBB28
+     /tmp/ccXDgX4F.s:216    .text:0000000000000118 .LBE28
+     /tmp/ccXDgX4F.s:408    .text:0000000000000210 .LBE46
+     /tmp/ccXDgX4F.s:420    .text:000000000000021c .LBB59
+     /tmp/ccXDgX4F.s:438    .text:0000000000000230 .LBE59
+     /tmp/ccXDgX4F.s:260    .text:0000000000000134 .LBB48
+     /tmp/ccXDgX4F.s:406    .text:0000000000000210 .LBE48
+     /tmp/ccXDgX4F.s:422    .text:000000000000021c .LBB57
+     /tmp/ccXDgX4F.s:436    .text:0000000000000230 .LBE57
+     /tmp/ccXDgX4F.s:334    .text:00000000000001ac .LBB51
+     /tmp/ccXDgX4F.s:403    .text:0000000000000210 .LBE51
+     /tmp/ccXDgX4F.s:425    .text:000000000000021c .LBB52
+     /tmp/ccXDgX4F.s:433    .text:0000000000000230 .LBE52
+     /tmp/ccXDgX4F.s:497    .text:0000000000000274 .LBE66
+     /tmp/ccXDgX4F.s:499    .text:0000000000000274 .LBB78
+     /tmp/ccXDgX4F.s:572    .text:00000000000002d0 .LBE78
+     /tmp/ccXDgX4F.s:584    .text:00000000000002dc .LBB79
+     /tmp/ccXDgX4F.s:646    .text:000000000000033c .LBE79
+     /tmp/ccXDgX4F.s:550    .text:00000000000002b8 .LBE68
+     /tmp/ccXDgX4F.s:600    .text:0000000000000300 .LBB74
+     /tmp/ccXDgX4F.s:622    .text:0000000000000320 .LBE74
+     /tmp/ccXDgX4F.s:570    .text:00000000000002d0 .LBE71
+     /tmp/ccXDgX4F.s:623    .text:0000000000000320 .LBB75
+     /tmp/ccXDgX4F.s:643    .text:000000000000033c .LBE75
+     /tmp/ccXDgX4F.s:707    .text:0000000000000384 .LBE86
+     /tmp/ccXDgX4F.s:709    .text:0000000000000384 .LBB98
+     /tmp/ccXDgX4F.s:782    .text:00000000000003e0 .LBE98
+     /tmp/ccXDgX4F.s:794    .text:00000000000003ec .LBB99
+     /tmp/ccXDgX4F.s:856    .text:000000000000044c .LBE99
+     /tmp/ccXDgX4F.s:760    .text:00000000000003c8 .LBE88
+     /tmp/ccXDgX4F.s:810    .text:0000000000000410 .LBB94
+     /tmp/ccXDgX4F.s:832    .text:0000000000000430 .LBE94
+     /tmp/ccXDgX4F.s:780    .text:00000000000003e0 .LBE91
+     /tmp/ccXDgX4F.s:833    .text:0000000000000430 .LBB95
+     /tmp/ccXDgX4F.s:853    .text:000000000000044c .LBE95
 
 UNDEFINED SYMBOLS
 _ZN16MemoryAllocation9fmem_headE

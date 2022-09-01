@@ -97,12 +97,12 @@ inline void RiscV::w_scause(uint64 scause){
 }
 
 inline uint64 RiscV::r_sepc(){
-    uint64 volatile sepc;
+    uint64  sepc;
     __asm__ volatile("csrr %[sepc], sepc" : [sepc] "=r"(sepc));
     return sepc;
 }
 
-inline void RiscV::w_sepc(uint64 sepc){
+inline void RiscV::w_sepc(uint64 volatile sepc){
     __asm__ volatile ("csrw sepc, %[sepc]": : [sepc] "r"(sepc));
 }
 
@@ -153,12 +153,12 @@ inline void RiscV::mc_sstatus(uint64 mask) {
 }
 
 inline uint64 RiscV::r_sstatus() {
-    uint64 volatile sstatus;
+    uint64  sstatus;
     __asm__ volatile ("csrr %[sstatus], sstatus": [sstatus] "=r"(sstatus));
     return sstatus;
 }
 
-inline void RiscV::w_sstatus(uint64 sstatus) {
+inline void RiscV::w_sstatus(uint64 volatile sstatus) {
     __asm__ volatile("csrw sstatus, %[sstatus]": : [sstatus] "r"(sstatus));
 }
 
