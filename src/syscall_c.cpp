@@ -32,25 +32,36 @@ int mem_free(void * ptr) {
     return ret;
 }
 
-/*void handleTrap() {
-    uint64 sysCallNr;
-    size_t size;
-    void* ptr;
-    uint64 scause = RiscV::r_scause();
-    __asm__ volatile("mv %[sysCallNr], a0" : [sysCallNr] "=r"(sysCallNr)); //promeni ovaj read, da li mozda treba %0? Kaze undefined reference
-    if(scause==0x09UL) { //ovo je scause za sistemski rezim
-        if (sysCallNr == 0x01UL) {
-            __asm__ volatile("mv %[size], a1" : [size] "=r"(size)); //promeni ovaj read, undefined reference
-            void* pointer=MemoryAllocation::mem_alloc(size); //gore imas da pretvoris u bytes to blocks
-            //ja sam ovde spakovao argument koji se dobije, i saljem ga nazad u funkciju posle ecalla, da li to tako treba da funkcionise?
-            __asm__ volatile("mv a1, %0": : [pointer] "r"(pointer) );
-        } else if (sysCallNr == 0x02UL) {
-            __asm__ volatile("mv %[ptr], a1" : [ptr] "=r"(ptr)); //promeni ovaj read, undefined reference
-            int ret=MemoryAllocation::mem_free(ptr);
-            __asm__ volatile("mv a1, %0": : [ret] "r"(ret));
-        }
-    }
-}*/
+int thread_create (
+        thread_t* handle,
+        void(*start_routine)(void*),
+        void* arg
+){
+    uint64 sysCallNr=0x11UL;
+    //ovde trebaju svi ovi argumenti
+    __asm__ volatile("mv a0, %0" : : [sysCallNr] "r" (sysCallNr));
+    __asm__ volatile("mv a1, %0" : : [handle] "r" (handle));
+    __asm__ volatile("mv a2, %0" : : [start_routine] "r" (start_routine));
+    __asm__ volatile("mv a3, %0" : : [arg] "r" (arg));
+    __asm__ volatile("ecall");
+    //moras da vidis sta ovde treba da se vrati
+}
+
+int thread_exit (){
+    int ret=0;
+    uint64 sysCallNr=0x12UL;
+    __asm__ volatile("mv a0, %0" : : [sysCallNr] "r" (sysCallNr));
+    __asm__ volatile("ecall");
+    //sta treba ovde da se vrati, verovatno da li je uspelo ili nije uspelo, PREBACI THREAD_EXIT U INT U TCB-U
+    __asm__ volatile("mv %[ret], a1" : [ret] "=r"(ret)); //kaze undefined reference
+    return ret;
+}
+
+void thread_dispatch (){
+    uint64 sysCallNr=0x13UL;
+    __asm__ volatile("mv a0, %0" : : [sysCallNr] "r" (sysCallNr));
+    __asm__ volatile("ecall");
+}
 
 
 

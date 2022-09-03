@@ -6,6 +6,7 @@
 #include "../h/tcb.hpp"
 #include "../lib/console.h"
 #include "../h/MemoryAllocation.hpp"
+#include "../h/tcb.hpp"
 
 
 void RiscV::popSppSpie() {
@@ -28,11 +29,15 @@ void RiscV::handleSupervisorTrap() {
     uint64 sysCallNr;
     size_t size;
     void* ptr;
-    uint64 scause = r_scause(); //ovde je scause 922337203684239523 kada drugi put prodje?
-    volatile uint64 sepc = r_sepc() + 4; //OVDE SE POTPUNO PROMENI FMEM_HEAD na neke lude cifre??? <- ovo se ne desava kada izbrisem volatile, ali onda ne radi prekidna rutina???
+    thread_t* handle;
+    void(*start_routine)(void*);
+    void* arg;
+    int ret_value_thr_exit;
+    uint64 scause = r_scause();
+    volatile uint64 sepc = r_sepc() + 4;
     volatile uint64 sstatus = r_sstatus();
     __asm__ volatile("mv %[sysCallNr], a0" : [sysCallNr] "=r"(sysCallNr));
-    if (scause == 0x000000000000009UL){
+    if (scause == 0x000000000000009UL || scause == 0x000000000000008UL){
         if (sysCallNr == 0x01UL) {
             __asm__ volatile("mv %[size], a1" : [size] "=r"(size)); //promeni ovaj read, undefined reference
             void* pointer=MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(size)); //gore imas da pretvoris u bytes to blocks
@@ -43,7 +48,20 @@ void RiscV::handleSupervisorTrap() {
             __asm__ volatile("mv %[ptr], a1" : [ptr] "=r"(ptr)); //promeni ovaj read, undefined reference
             int ret=MemoryAllocation::mem_free(ptr);
             __asm__ volatile("mv a1, %0": : [ret] "r"(ret));
+            __asm__ volatile("sd a1, 88(s0)"); //zasto je ovde bas 88
+        }else if(sysCallNr == 0x11UL){
+            __asm__ volatile("mv %[handle], a1" : [handle] "=r"(handle)); //sta ja ovde da radim sa handleom
+            __asm__ volatile("mv %[start_routine], a2" : [start_routine] "=r"(start_routine));
+            __asm__ volatile("mv %[arg], a3" : [arg] "=r"(arg));
+            TCB* ret_value_thread=TCB::createThread(start_routine(arg));
+            __asm__ volatile("mv a1, %0": : [ret_value_thread] "r"(ret_value_thread) );
             __asm__ volatile("sd a1, 88(s0)");
+        }else if(sysCallNr == 0x12UL){
+            ret_value_thr_exit=TCB::thread_exit();
+            __asm__ volatile("mv a1, %0": : [ret_value_thr_exit] "r"(ret_value_thr_exit) );
+            __asm__ volatile("sd a1, 88(s0)");
+        }else if(sysCallNr == 0x13UL){
+            TCB::thread_dispatch();
         }
         //enviroment call from s-mode
 

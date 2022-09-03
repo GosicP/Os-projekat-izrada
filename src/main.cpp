@@ -124,9 +124,9 @@ void stressTesting(){
         printString("sz:");
         printInteger(sz);
         for(int i = 0 ; i<num;i+=2){
-            printString("i:");
-            printInteger(i);
-            printString("free\n");
+            //printString("i:");
+            //printInteger(i);
+            //printString("free\n");
             int retval = mem_free(addrs[i]);
             if(retval != 0){
                 printString("not ok\n");
@@ -140,9 +140,9 @@ void stressTesting(){
             }
         }
         for(int i = 1 ; i<num;i+=2){
-            printString("i:");
-            printInteger(i);
-            printString("free\n");
+            //printString("i:");
+            //printInteger(i);
+            //printString("free\n");
             int retval = mem_free(addrs[i]);
             if(retval != 0){
                 printString("not ok\n");
