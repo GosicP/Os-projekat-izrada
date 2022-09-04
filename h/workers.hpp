@@ -5,13 +5,9 @@
 #ifndef PROJECT_BASE_WORKERS_HPP
 #define PROJECT_BASE_WORKERS_HPP
 
-extern void workerBodyA();
+extern void workerBodyA(void*);
 
-extern void workerBodyB();
-
-extern void workerBodyC();
-
-extern void workerBodyD();
+extern void workerBodyB(void*);
 
 
 #endif //PROJECT_BASE_WORKERS_HPP

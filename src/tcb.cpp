@@ -12,14 +12,17 @@ bool TCB::isFinished() const {
 }
 
 void TCB::setFinished(bool finished) {
-    TCB::finished = finished;
+    TCB::finished=finished;
 }
 TCB* TCB::running = nullptr;
 
 uint64 TCB::timeSliceCounter=0;
 
-TCB* TCB::createThread(TCB::Body body) {
-    return new TCB(body, TIME_SLICE);
+int TCB::createThread(TCB::Body body, TCB** handle , void* arguments) {
+    *handle = new TCB(body, TIME_SLICE, arguments);
+    if(*handle==nullptr){
+        return -1;
+    }else{return 0;}
 }
 
 void TCB::yield(){
@@ -40,11 +43,7 @@ void TCB::dispatch() {
 
 void TCB::threadWrapper() {
     RiscV::popSppSpie();
-    running->body();
+    running->body(running->arguments);
     running->setFinished(true);
     TCB::yield();
-}
-
-int TCB::thread_exit() {
-    return 0;
 }

@@ -15,22 +15,13 @@ void RiscV::popSppSpie() {
 }
 
 void RiscV::handleSupervisorTrap() {
-    //uint64 a0;
-    //size_t a1;
-    //void* a2;
-    //__asm__ volatile("sd a0, %0" : "=m"(a0));
-    //__asm__ volatile("sd a1, %0" : "=m"(a1));
-    //__asm__ volatile("sd a2, %0" : "=m"(a2));
-    //__asm__ volatile("sd a3, %0" : "=m"(a3));
-    //__asm__ volatile("sd a4, %0" : "=m"(a4));
-    //__asm__ volatile("sd a5, %0" : "=m"(a5));
-    //__asm__ volatile("sd a6, %0" : "=m"(a6));
-    //__asm__ volatile("sd a6, %0" : "=m"(a7));
+    //class TCB;
+    typedef TCB* thread_t;
     uint64 sysCallNr;
     size_t size;
     void* ptr;
     thread_t* handle;
-    void(*start_routine)(void*);
+    TCB::Body start_routine;
     void* arg;
     int ret_value_thr_exit;
     uint64 scause = r_scause();
@@ -53,8 +44,8 @@ void RiscV::handleSupervisorTrap() {
             __asm__ volatile("mv %[handle], a1" : [handle] "=r"(handle)); //sta ja ovde da radim sa handleom
             __asm__ volatile("mv %[start_routine], a2" : [start_routine] "=r"(start_routine));
             __asm__ volatile("mv %[arg], a3" : [arg] "=r"(arg));
-            TCB* ret_value_thread=TCB::createThread(start_routine(arg));
-            __asm__ volatile("mv a1, %0": : [ret_value_thread] "r"(ret_value_thread) );
+            int ret_val=TCB::createThread(start_routine, handle, arg);
+            __asm__ volatile("mv a1, %0": : [ret_val] "r"(ret_val));
             __asm__ volatile("sd a1, 88(s0)");
         }else if(sysCallNr == 0x12UL){
             ret_value_thr_exit=TCB::thread_exit();

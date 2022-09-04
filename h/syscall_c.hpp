@@ -12,8 +12,8 @@
 
     extern int mem_free (void* ptr);
 
-    class tcb; //odakle ovo class thread, jel bi to zapravo trebala da bude klasa tcb?
-    typedef tcb* thread_t;
+    class TCB; //odakle ovo class thread, jel bi to zapravo trebala da bude klasa tcb?
+    typedef TCB* thread_t;
     int thread_create (
             thread_t* handle,
             void(*start_routine)(void*),

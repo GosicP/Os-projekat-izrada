@@ -7,33 +7,6 @@
 #include "../lib/hw.h"
 #include "../h/Print.hpp"
 
-void workerBodyA(){
-    for(uint64 i=0;i<10;i++){
-        printString("A: i=");
-        printInteger(i);
-        printString("\n");
-        for(uint64 j=0; j<10000; j++){
-            for(uint64 k=0;k<30000;k++){
-                //busy wait
-            }
-            //TCB::yield();
-        }
-    }
-}
-
-void workerBodyB(){
-    for(uint64 i=0;i<16;i++){
-        printString("B: i=");
-        printInteger(i);
-        printString("\n");
-        for(uint64 j=0; j<10000; j++){
-            for(uint64 k=0;k<30000;k++){
-                //busy wait
-            }
-            //TCB::yield();
-        }
-    }
-}
 
 static uint64 fibonacci(uint64 n) {
     if (n == 0 || n == 1) { return n; }
@@ -41,7 +14,7 @@ static uint64 fibonacci(uint64 n) {
     return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
-void workerBodyC(){
+void workerBodyA(void*){
     uint8 i=0;
     for(; i<3 ; i++){
         printString("C: i=");
@@ -75,7 +48,7 @@ void workerBodyC(){
     TCB::yield();
 }
 
-void workerBodyD(){
+void workerBodyB(void*){
     uint8 i=10;
     for(; i<13; i++){
         printString("D: i=");
