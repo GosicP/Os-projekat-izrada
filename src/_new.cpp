@@ -4,21 +4,21 @@
 //SVUDA SAM OBRISAO MEMORYALLOCATOR:: JER PRAVIM IZ SISTEMSKIH POZIVA
 
 void *operator new(uint64 n){//promenjeno uint64 u size_t
-    return mem_alloc(n); //njemu je samo __mem_alloc???
+    return MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(n)); //njemu je samo __mem_alloc???
     //return __mem_alloc(n);
 }
 
 void *operator new[](uint64 n){
-    return mem_alloc(n);
+    return MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(n));
     //return __mem_alloc(n);
 }
 
 void operator delete(void *p) noexcept {
-    mem_free(p);
+    MemoryAllocation::mem_free(p);
     //__mem_free(p);
 }
 
 void operator delete[] (void *p) noexcept{
-    mem_free(p);
+    MemoryAllocation::mem_free(p);
     //__mem_free(p);
 }

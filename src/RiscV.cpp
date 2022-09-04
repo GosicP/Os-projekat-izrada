@@ -20,9 +20,9 @@ void RiscV::handleSupervisorTrap() {
     uint64 sysCallNr;
     size_t size;
     void* ptr;
-    thread_t* handle;
-    TCB::Body start_routine;
-    void* arg;
+    uint64 handle;
+    uint64 start_routine;
+    uint64 arg;
     int ret_value_thr_exit;
     uint64 scause = r_scause();
     volatile uint64 sepc = r_sepc() + 4;
@@ -44,7 +44,7 @@ void RiscV::handleSupervisorTrap() {
             __asm__ volatile("mv %[handle], a1" : [handle] "=r"(handle)); //sta ja ovde da radim sa handleom
             __asm__ volatile("mv %[start_routine], a2" : [start_routine] "=r"(start_routine));
             __asm__ volatile("mv %[arg], a3" : [arg] "=r"(arg));
-            int ret_val=TCB::createThread(start_routine, handle, arg);
+            int ret_val=TCB::createThread((TCB::Body)start_routine, (thread_t*) handle, (void*)arg);
             __asm__ volatile("mv a1, %0": : [ret_val] "r"(ret_val));
             __asm__ volatile("sd a1, 88(s0)");
         }else if(sysCallNr == 0x12UL){

@@ -6,10 +6,31 @@
 #define PROJECT_BASE_TCB_HPP
 #include "../lib/hw.h"
 #include "../h/Scheduler.hpp"
+#include "../h/MemoryAllocation.hpp"
 
 class TCB {
 
 public:
+    void *operator new(uint64 n){//promenjeno uint64 u size_t
+        return MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(n)); //njemu je samo __mem_alloc???
+        //return __mem_alloc(n);
+    }
+
+    void *operator new[](uint64 n){
+        return MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(n));
+        //return __mem_alloc(n);
+    }
+
+    void operator delete(void *p) noexcept {
+        MemoryAllocation::mem_free(p);
+        //__mem_free(p);
+    }
+
+    void operator delete[] (void *p) noexcept{
+        MemoryAllocation::mem_free(p);
+        //__mem_free(p);
+    }
+
     ~TCB() { delete[] stack; }
 
     using Body = void (*)(void*); //mislim da mora da se promeni ovaj body sa nekim argumentima, i create thread generalno, dodao sam mu void* u argumentima
