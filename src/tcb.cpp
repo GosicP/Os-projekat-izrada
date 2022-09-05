@@ -19,14 +19,23 @@ TCB* TCB::running = nullptr;
 uint64 TCB::timeSliceCounter=0;
 
 int TCB::createThread(TCB::Body body, TCB** handle , void* arguments) {
-    *handle = new TCB(body, TIME_SLICE, arguments);
+    //*handle = new TCB(body, TIME_SLICE, arguments);
+    *handle = (TCB*) MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(sizeof(TCB)));
+    (*handle)->body=body;
+    (*handle)->arguments=arguments;
+    (*handle)->stack = body ? (uint64*) MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(DEFAULT_STACK_SIZE)) : nullptr;
+    (*handle)->context.ra = body ? (uint64)&threadWrapper : 0;
+    (*handle)->context.sp = (*handle)->stack ? (uint64) &(*handle)->stack[DEFAULT_STACK_SIZE] : 0;
+    (*handle)->finished=false;
+    if (body != nullptr) { Scheduler::put(*handle); }
     if(*handle==nullptr){
         return -1;
     }else{return 0;}
 }
 
 void TCB::yield(){
-
+    uint64 sysCallNr=0x13UL;
+    __asm__ volatile("mv a0, %0" : : [sysCallNr] "r" (sysCallNr));
     __asm__ volatile ("ecall");
 
 };

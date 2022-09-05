@@ -40,13 +40,13 @@ int thread_create (
     TCB* ret_value_thread;
     uint64 sysCallNr=0x11UL;
     //neki stack_space alokacija se pominje????
-    __asm__ volatile("mv a0, %0" : : [sysCallNr] "r" (sysCallNr));
-    __asm__ volatile("mv a1, %0" : : [handle] "r" (handle));
-    __asm__ volatile("mv a2, %0" : : [start_routine] "r" (start_routine));
     __asm__ volatile("mv a3, %0" : : [arg] "r" (arg));
+    __asm__ volatile("mv a2, %0" : : [start_routine] "r" (start_routine));
+    __asm__ volatile("mv a1, %0" : : [handle] "r" (handle));
+    __asm__ volatile("mv a0, %0" : : [sysCallNr] "r" (sysCallNr));
     __asm__ volatile("ecall");
     __asm__ volatile("mv %[ret_value_thread], a1" : [ret_value_thread] "=r"(ret_value_thread)); //kaze undefined reference
-    return 0;
+    return 0;//todo
     //moras da vidis sta ovde treba da se vrati
 }
 

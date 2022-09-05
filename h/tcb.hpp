@@ -11,12 +11,12 @@
 class TCB {
 
 public:
-    void *operator new(uint64 n){//promenjeno uint64 u size_t
+    void* operator new(uint64 n){//promenjeno uint64 u size_t
         return MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(n)); //njemu je samo __mem_alloc???
         //return __mem_alloc(n);
     }
 
-    void *operator new[](uint64 n){
+    void* operator new[](uint64 n){
         return MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(n));
         //return __mem_alloc(n);
     }
@@ -53,21 +53,18 @@ public:
     static void yield();
 
     static TCB *running;
-
-    inline uint64 getTimeSlice() const { return timeSlice; };
 private:
     //mislim da ti ne treba timeslice vise, jer radis sinhronu promenu
-    explicit TCB(Body body, uint64 timeSlice, void* arguments) :
-            body(body),
-            stack(body != nullptr ? new uint64[1024] : nullptr),
-            context({(uint64)&threadWrapper,
-                     stack != nullptr ? (uint64) &stack[1024] : 0
-                    }
-            ),
-            timeSlice(timeSlice),
-            finished(false), arguments(arguments) {
-        if (body != nullptr) { Scheduler::put(this); }
-    }
+    //explicit TCB(Body body, void* arguments) :
+    //        body(body),
+    //        stack(body != nullptr ? (uint64*)MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(uint64[DEFAULT_STACK_SIZE]))  : nullptr),
+    //        context({(uint64)&threadWrapper,
+    //                 stack != nullptr ? (uint64) &stack[DEFAULT_STACK_SIZE] : 0
+    //                }
+    //        ),
+    //        finished(false), arguments(arguments) {
+    //    if (body != nullptr) { Scheduler::put(this); }
+    //}
     struct Context {
         uint64 ra;
         uint64 sp;
@@ -78,7 +75,6 @@ private:
     Body body;
     uint64 *stack;
     Context context;
-    uint64 timeSlice;
     bool finished;
     void* arguments;
 

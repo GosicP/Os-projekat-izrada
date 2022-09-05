@@ -2,7 +2,7 @@
 
 #ifndef PROJECT_BASE_LINKEDLIST_HPP
 #define PROJECT_BASE_LINKEDLIST_HPP
-
+#include "../h/MemoryAllocation.hpp"
 
 //uradi sutra kada te ne bi mrzelo, jer me sada mrzi da radim double linked, a vrv ce te i sutra mrzeti to da radis, ali ja se kockam na to da nece
 template<typename T>
@@ -24,13 +24,17 @@ class LinkedList{
     LinkedList<T> &operator=(const LinkedList<T> &) = delete;
 
     void addFirst(T *data){
-        Elem *elem = new Elem (data, head);
+        Elem *elem = (Elem*) MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(sizeof(Elem))); //TODO promeni na ne new alokaciju
+        elem->data=data;
+        elem->next=nullptr;
         head=elem;
         if(!tail) {tail=head;}
     }
 
     void addLast(T *data){
-        Elem *elem = new Elem(data, 0);
+        Elem *elem = (Elem*) MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(sizeof(Elem))); //TODO promeni na ne new alokaciju
+        elem->data=data;
+        elem->next=nullptr;
         if (tail){
             tail->next=elem;
             tail=elem;

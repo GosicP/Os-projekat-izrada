@@ -10,15 +10,16 @@ int main(){
     MemoryAllocation* mem_obj;
     mem_obj = mem_obj->getInstance();
     RiscV::w_stvec((uint64) &RiscV::supervisorTrap);
+    //__asm__ volatile ("csrs sstatus, 0x2");
     TCB *threads[3];
 
     thread_create( &threads[0], nullptr, nullptr);
     TCB::running=threads[0];
 
-    thread_create(&threads[1], workerBodyA, nullptr); //ovde su neki workeri, prepisi to ako te ne bude mrzelo da proveris 01:07:20
+    thread_create(&threads[1], workerBodyA,  nullptr); //ovde su neki workeri, prepisi to ako te ne bude mrzelo da proveris 01:07:20
     printString("Thread A created\n");
 
-    thread_create( &threads[2],workerBodyB, nullptr); //ovde su neki workeri, prepisi to ako te ne bude mrzelo da proveris 01:07:20
+    thread_create(&threads[2], workerBodyB, nullptr); //ovde su neki workeri, prepisi to ako te ne bude mrzelo da proveris 01:07:20
     printString("Thread B created\n");
 
 

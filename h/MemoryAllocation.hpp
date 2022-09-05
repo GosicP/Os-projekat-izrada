@@ -167,9 +167,9 @@ public:
                 newfrgm->prev=nullptr;
                 newfrgm->next=nullptr;
                 //newfrgm->size=cur->size-size;// DODATO TOKOM PROBE NITI
-                if (cur->prev) cur->prev->next = newfrgm;
+                if (cur && cur->prev) cur->prev->next = newfrgm;
                 else fmem_head = newfrgm+sizeof(fmem_head); // ovo sam dodao sizeof da bi mi radio lotsofsmallmalloc //obrisano sizeof(fmem_head)
-                if (cur->next) cur->next->prev = newfrgm;
+                if (cur && cur->next) cur->next->prev = newfrgm;
                 newfrgm->prev = cur->prev;
                 newfrgm->next = cur->next;
                 newfrgm->size = cur->size-size;

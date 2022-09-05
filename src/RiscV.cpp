@@ -17,12 +17,17 @@ void RiscV::popSppSpie() {
 void RiscV::handleSupervisorTrap() {
     //class TCB;
     typedef TCB* thread_t;
+    volatile uint64 size;
+    volatile uint64 handle;
+    volatile uint64 start_routine;
+    volatile uint64 arg;
+    volatile uint64 ptr;
+    __asm__ volatile("sd a3, %0" : "=m"(arg));
+    __asm__ volatile("sd a2, %0" : "=m"(start_routine));
+    __asm__ volatile("sd a1, %0" : "=m"(handle));
+    //__asm__ volatile("sd a1, %0" : "=m"(size));
+    //__asm__ volatile("sd a1, %0" : "=m"(ptr));
     uint64 sysCallNr;
-    size_t size;
-    void* ptr;
-    uint64 handle;
-    uint64 start_routine;
-    uint64 arg;
     int ret_value_thr_exit;
     uint64 scause = r_scause();
     volatile uint64 sepc = r_sepc() + 4;
@@ -31,19 +36,16 @@ void RiscV::handleSupervisorTrap() {
     if (scause == 0x000000000000009UL || scause == 0x000000000000008UL){
         if (sysCallNr == 0x01UL) {
             __asm__ volatile("mv %[size], a1" : [size] "=r"(size)); //promeni ovaj read, undefined reference
-            void* pointer=MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(size)); //gore imas da pretvoris u bytes to blocks
+            void* pointer=MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks((size_t)size)); //gore imas da pretvoris u bytes to blocks
             //ja sam ovde spakovao argument koji se dobije, i saljem ga nazad u funkciju posle ecalla, da li to tako treba da funkcionise?
             __asm__ volatile("mv a1, %0": : [pointer] "r"(pointer) );
             __asm__ volatile("sd a1, 88(s0)");
         } else if (sysCallNr == 0x02UL) {
             __asm__ volatile("mv %[ptr], a1" : [ptr] "=r"(ptr)); //promeni ovaj read, undefined reference
-            int ret=MemoryAllocation::mem_free(ptr);
+            int ret=MemoryAllocation::mem_free((void*)ptr);
             __asm__ volatile("mv a1, %0": : [ret] "r"(ret));
             __asm__ volatile("sd a1, 88(s0)"); //zasto je ovde bas 88
         }else if(sysCallNr == 0x11UL){
-            __asm__ volatile("mv %[handle], a1" : [handle] "=r"(handle)); //sta ja ovde da radim sa handleom
-            __asm__ volatile("mv %[start_routine], a2" : [start_routine] "=r"(start_routine));
-            __asm__ volatile("mv %[arg], a3" : [arg] "=r"(arg));
             int ret_val=TCB::createThread((TCB::Body)start_routine, (thread_t*) handle, (void*)arg);
             __asm__ volatile("mv a1, %0": : [ret_val] "r"(ret_val));
             __asm__ volatile("sd a1, 88(s0)");
