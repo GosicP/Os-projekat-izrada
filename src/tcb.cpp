@@ -27,9 +27,6 @@ int TCB::createThread(TCB::Body body, TCB** handle , void* arguments) {
     (*handle)->context.ra = body ? (uint64)&threadWrapper : 0;
     (*handle)->context.sp = (*handle)->stack ? (uint64) &(*handle)->stack[DEFAULT_STACK_SIZE] : 0;
     (*handle)->finished=false;
-    if(running==nullptr) {
-        (*handle)->running = *handle;
-    }
     if (body != nullptr) { Scheduler::put(*handle); }
     if(*handle==nullptr){
         return -1;

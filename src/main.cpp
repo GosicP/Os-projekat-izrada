@@ -13,6 +13,10 @@ int main(){
     MemoryAllocation* mem_obj;
     mem_obj = mem_obj->getInstance();
     RiscV::w_stvec((uint64) &RiscV::supervisorTrap);
+    TCB* thread;
+
+    thread_create( &thread, nullptr, nullptr);
+    TCB::running=thread;
      //__asm__ volatile ("csrs sstatus, 0x2");
      /*TCB *threads[3];
 
@@ -34,6 +38,8 @@ int main(){
          delete coroutine;
      }
     printString("finished\n");*/
+
+
 
     userMain();
     return 0;
