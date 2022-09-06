@@ -18,7 +18,8 @@ protected:
     void unblock ();
 private:
     int val;
-    Queue blocked;
+    Queue blocked; //TODO mozda bi ceo ovaj red mogao da funkcionise isto kao u scheduleru, sa put i get, ispitaj da li je u scheduleru isti princip, posto je meni sada obrnuto
+    //mozes da koristis i Scheduler zato sto su oba FIFO, ali bolje nemoj da se ne bi zbunio
 };
 int lck = 0; // lock
 

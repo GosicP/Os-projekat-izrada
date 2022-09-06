@@ -15,11 +15,11 @@ private :
 public:
 
     void put(TCB* thread){
-        queue.addFirst(thread);
+        queue.addLast(thread);
     }
 
     TCB* get() {
-        TCB* thread = queue.removeLast();
+        TCB* thread = queue.removeFirst();
         return thread;
     }
 

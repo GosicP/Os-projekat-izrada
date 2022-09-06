@@ -14,9 +14,18 @@ void semaphore::signal() {
 }
 
 void semaphore::block() {
-        blocked.put(TCB::running);
+        //setjmp je linija old=running;
+        TCB *old = TCB::running;
+        if (!old->isFinished()) {
+            blocked.put(old);
+        }
         TCB::running = Scheduler::get();
-        TCB::thread_dispatch(); //TODO proveri ovaj dispatch da li je dobar, mislim da jeste, ali sada nemam mentalnih kapaciteta
+        TCB::contextSwitch(&old->context, &running->context); //TODO proveri ovaj dispatch da li je dobar, mislim da jeste, ali sada nemam mentalnih kapaciteta
+        //longjmp je linija context switch
+        //mozda bi zapravo trebao ceo block da bude dispatch, jer pola blocka je slicno dispatchu, ili da napises block ovako:
+        //TODO MILICEV JE SAM REKAO DA JE JEDINA RAZLIKA STO NE STAVLJAMO NIT U SCHEDULER NEGO JE STAVLJAMO U RED BLOKIRANIH
+        //strana 261 u pdfu
+        //marinko kaze da je dobar ovaj block
 }
 
 void semaphore::unblock() {
