@@ -1,7 +1,7 @@
 #ifndef XV6_THREADS_C_API_TEST_HPP
 #define XV6_THREADS_C_API_TEST_HPP
 
-#include "../h/syscall_c.hpp"
+//#include "../h/syscall_c.hpp"
 
 #include "../h/printing.hpp"
 
@@ -93,6 +93,10 @@ void workerBodyD(void* arg) {
 
 void Threads_C_API_test() {
     thread_t threads[4];
+
+    //thread_create( &threads[0], nullptr, nullptr);
+    //TCB::running=threads[0];
+
     thread_create(&threads[0], workerBodyA, nullptr);
     printString("ThreadA created\n");
 
@@ -106,7 +110,8 @@ void Threads_C_API_test() {
     printString("ThreadD created\n");
 
     while (!(finishedA && finishedB && finishedC && finishedD)) {
-        thread_dispatch();
+        thread_dispatch(); //kada udje u threadDispatch, on se vrati u prekidnu rutinu iz nekog razloga
+        //TCB::yield();
     }
 
 }
