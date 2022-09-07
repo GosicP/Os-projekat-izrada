@@ -79,6 +79,7 @@ private:
     void* arguments;
 
     friend class RiscV;
+    friend class semaphore;
 
     static void threadWrapper();
 

@@ -6,22 +6,19 @@
 #define PROJECT_BASE_QUEUE_HPP
 
 #include "LinkedList.hpp"
-#include "tcb.hpp"
-
+//#include "tcb.hpp"
+class TCB;
 class Queue{
 private :
-    LinkedList<TCB> queue;
+    static LinkedList<TCB> queue;
 
 public:
 
-    void put(TCB* thread){
-        queue.addLast(thread);
-    }
+    static void put(TCB* thread);
 
-    TCB* get() {
-        TCB* thread = queue.removeFirst();
-        return thread;
-    }
+    static TCB* get();
+
+    static bool isEmpty();
 
 };
 

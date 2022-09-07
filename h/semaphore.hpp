@@ -5,23 +5,29 @@
 #ifndef PROJECT_BASE_SEMAPHORE_HPP
 #define PROJECT_BASE_SEMAPHORE_HPP
 
-#include "queue.hpp"
+#include "../h/queue.hpp"
 //TODO ZA SUTRA : PROVERI SEMAFORE NEKAKO IZ KLASE, I ONDA URADI SISTEMSKE POZIVE
 class semaphore {
 public:
-    semaphore (unsigned short init=1) : val(init) {}
-    void wait ();
-    void signal ();
+    //semaphore (unsigned short init=1) : val(init) {}
     int value () const { return val; }
+
+    static int semOpen(semaphore** handle,
+                 unsigned init);
+
+    static int semClose(semaphore** semID);
+
+    static int semWait(semaphore** semID);
+
+    static int semSignal(semaphore** semID);
 protected:
-    void block ();
-    void unblock ();
+    static void block ();
+    static void unblock ();
 private:
     int val;
-    Queue blocked; //TODO mozda bi ceo ovaj red mogao da funkcionise isto kao u scheduleru, sa put i get, ispitaj da li je u scheduleru isti princip, posto je meni sada obrnuto
+    static Queue blocked; //TODO mozda bi ceo ovaj red mogao da funkcionise isto kao u scheduleru, sa put i get, ispitaj da li je u scheduleru isti princip, posto je meni sada obrnuto
     //mozes da koristis i Scheduler zato sto su oba FIFO, ali bolje nemoj da se ne bi zbunio
 };
-int lck = 0; // lock
 
 
 #endif //PROJECT_BASE_SEMAPHORE_HPP
