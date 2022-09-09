@@ -33,7 +33,7 @@ void semaphore::unblock() {
     Scheduler::put(t);
 }
 
-int semaphore::semOpen(semaphore **handle, int init) {
+int semaphore::semOpen(semaphore **handle, unsigned init) {
     *handle=(semaphore*)MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(sizeof(semaphore)));
     if (*handle==nullptr){
         return -1;

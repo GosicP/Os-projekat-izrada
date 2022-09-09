@@ -17,6 +17,7 @@ void RiscV::popSppSpie() {
 void RiscV::handleSupervisorTrap() {
     //class TCB;
     typedef TCB* thread_t;
+    typedef semaphore* sem_t;
     volatile uint64 size;
     volatile uint64 handle;
     volatile uint64 start_routine;
@@ -55,6 +56,22 @@ void RiscV::handleSupervisorTrap() {
             __asm__ volatile("sd a1, 88(s0)");
         }else if(sysCallNr == 0x13UL){
             TCB::thread_dispatch();
+        }else if(sysCallNr == 0x21UL){
+            int retval = semaphore::semOpen((sem_t*)handle, (unsigned)start_routine);
+            __asm__ volatile("mv a1, %0": : [retval] "r"(retval) );
+            __asm__ volatile("sd a1, 88(s0)");
+        }else if(sysCallNr == 0x22UL){
+            int retval = semaphore::semClose((sem_t)handle);
+            __asm__ volatile("mv a1, %0": : [retval] "r"(retval) );
+            __asm__ volatile("sd a1, 88(s0)");
+        }else if(sysCallNr == 0x23UL){
+            int retval = semaphore::semWait((sem_t)handle);
+            __asm__ volatile("mv a1, %0": : [retval] "r"(retval) );
+            __asm__ volatile("sd a1, 88(s0)");
+        }else if(sysCallNr == 0x24UL){
+            int retval = semaphore::semSignal((sem_t)handle);
+            __asm__ volatile("mv a1, %0": : [retval] "r"(retval) );
+            __asm__ volatile("sd a1, 88(s0)");
         }
         //enviroment call from s-mode
 

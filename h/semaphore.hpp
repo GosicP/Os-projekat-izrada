@@ -13,7 +13,7 @@ public:
     int value () const { return val; }
 
     static int semOpen(semaphore** handle,
-                 int init);
+                 unsigned init);
 
     static int semClose(semaphore* semID);
 

@@ -66,6 +66,48 @@ void thread_dispatch (){
     __asm__ volatile("ecall");
 }
 
+int sem_open (
+        sem_t* handle,
+        unsigned init
+){
+    uint64 sysCallNr=0x21UL;
+    int retval;
+    __asm__ volatile("mv a2, %0": : [init] "r" (init));
+    __asm__ volatile("mv a1, %0": : [handle] "r" (handle));
+    __asm__ volatile("mv a0, %0" : : [sysCallNr] "r" (sysCallNr));
+    __asm__ volatile("ecall");
+    __asm__ volatile("mv %[retval], a1" : [retval] "=r"(retval));
+    return retval;
+}
 
+int sem_close (sem_t handle){
+    uint64 sysCallNr=0x22UL;
+    int retval;
+    __asm__ volatile("mv a1, %0": : [handle] "r" (handle));
+    __asm__ volatile("mv a0, %0" : : [sysCallNr] "r" (sysCallNr));
+    __asm__ volatile("ecall");
+    __asm__ volatile("mv %[retval], a1" : [retval] "=r"(retval));
+    return retval;
+}
+
+int sem_wait (sem_t id){
+    uint64 sysCallNr=0x23UL;
+    int retval;
+    __asm__ volatile("mv a1, %0": : [id] "r" (id));
+    __asm__ volatile("mv a0, %0" : : [sysCallNr] "r" (sysCallNr));
+    __asm__ volatile("ecall");
+    __asm__ volatile("mv %[retval], a1" : [retval] "=r"(retval));
+    return retval;
+}
+
+int sem_signal (sem_t id){
+    uint64 sysCallNr=0x24UL;
+    int retval;
+    __asm__ volatile("mv a1, %0": : [id] "r" (id));
+    __asm__ volatile("mv a0, %0" : : [sysCallNr] "r" (sysCallNr));
+    __asm__ volatile("ecall");
+    __asm__ volatile("mv %[retval], a1" : [retval] "=r"(retval));
+    return retval;
+}
 
 

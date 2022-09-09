@@ -26,12 +26,11 @@ int main(){
     thread_create(&main, nullptr, nullptr);
     TCB::running = main;
 
-    semaphore::semOpen(&mutex,1);
-    semaphore::semOpen(&paper,0);
-    //semaphore::semOpen(&matches,0);
-    semaphore::semOpen(&matches, 0);
-    semaphore::semOpen(&agent,0);
-    semaphore::semOpen(&tabacco,0);
+    sem_open(&mutex,1);
+    sem_open(&paper,0);
+    sem_open(&matches, 0);
+    sem_open(&agent,0);
+    sem_open(&tabacco,0);
 
     thread_t t= nullptr;
     thread_t t1= nullptr;
@@ -44,7 +43,7 @@ int main(){
     thread_create(&t3, smoker3, nullptr);
 
 
-    semaphore::semOpen(&dummy,-1);
+    sem_open(&dummy,-1);
     thread_t tt= nullptr;
     thread_t t11= nullptr;
     thread_t t21= nullptr;
@@ -57,67 +56,67 @@ int main(){
     for (int i = 0; i < 30; ++i) {
         thread_dispatch();
     }
-    if(semaphore::semWait(dummy)==-1) printString("ubien semafor\n");
+    if(sem_wait(dummy)==-1) printString("ubien semafor\n");
     return 0;
 }
 void agentfun(void *args){
     int i=0;
     while (true){
-        semaphore::semWait(mutex);
+        sem_wait(mutex);
         switch (i%3) {
             case 0:
                 printString("duvan i papir\n");
-                semaphore::semSignal(matches);
+                sem_signal(matches);
                 break;
             case 1:
                 printString("duvan i sibice\n");
-                semaphore::semSignal(paper);
+                sem_signal(paper);
                 break;
             case 2:
                 printString("sibice i papir\n");
-                semaphore::semSignal(tabacco);
+                sem_signal(tabacco);
                 break;
         }
         if(i==50) semaphore::semClose(dummy);
         i++;
-        semaphore::semSignal(mutex);
-        semaphore::semWait(agent);
+        sem_signal(mutex);
+        sem_wait(agent);
     }
 }
 
 void smoker1(void *arg){
     while (true){
-        semaphore::semWait(paper);
-        semaphore::semWait(mutex);
+        sem_wait(paper);
+        sem_wait(mutex);
 
         printString("duvan i sibice cigaraaa\n");
-        semaphore::semSignal(agent);
-        semaphore::semSignal(mutex);
+        sem_signal(agent);
+        sem_signal(mutex);
     }
 }
 
 void smoker2(void *arg){
     while (true){
-        semaphore::semWait(matches);
-        semaphore::semWait(mutex);
+        sem_wait(matches);
+        sem_wait(mutex);
 
         printString("duvan i papir cigaraaaaa\n");
-        semaphore::semSignal(agent);
-        semaphore::semSignal(mutex);
+        sem_signal(agent);
+        sem_signal(mutex);
     }
 }
 
 void smoker3(void *arg){
     while (true){
-        semaphore::semWait(tabacco);
-        semaphore::semWait(mutex);
+        sem_wait(tabacco);
+        sem_wait(mutex);
         printString("sibiceee i papirr cigaraaa\n");
-        semaphore::semSignal(agent);
-        semaphore::semSignal(mutex);
+        sem_signal(agent);
+        sem_signal(mutex);
     }
 }
 void dummyfun(void *){
-    int i = semaphore::semWait(dummy);
+    int i = sem_wait(dummy);
     if(i==-1)printString("waitvreacagreskukadjeubijemnem \n");
     printString("kitaljka\n");
 }
