@@ -13,19 +13,19 @@ public:
     int value () const { return val; }
 
     static int semOpen(semaphore** handle,
-                 unsigned init);
+                 int init);
 
-    static int semClose(semaphore** semID);
+    static int semClose(semaphore* semID);
 
-    static int semWait(semaphore** semID);
+    static int semWait(semaphore* semID);
 
-    static int semSignal(semaphore** semID);
+    static int semSignal(semaphore* semID);
 protected:
-    static void block ();
-    static void unblock ();
+    void block ();
+    void unblock ();
 private:
     int val;
-    static Queue blocked; //TODO mozda bi ceo ovaj red mogao da funkcionise isto kao u scheduleru, sa put i get, ispitaj da li je u scheduleru isti princip, posto je meni sada obrnuto
+    LinkedList<TCB>* blocked; //TODO mozda bi ceo ovaj red mogao da funkcionise isto kao u scheduleru, sa put i get, ispitaj da li je u scheduleru isti princip, posto je meni sada obrnuto
     //mozes da koristis i Scheduler zato sto su oba FIFO, ali bolje nemoj da se ne bi zbunio
 };
 

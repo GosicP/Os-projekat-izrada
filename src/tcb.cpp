@@ -27,6 +27,7 @@ int TCB::createThread(TCB::Body body, TCB** handle , void* arguments) {
     (*handle)->context.ra = body ? (uint64)&threadWrapper : 0;
     (*handle)->context.sp = (*handle)->stack ? (uint64) &(*handle)->stack[DEFAULT_STACK_SIZE] : 0;
     (*handle)->finished=false;
+    (*handle)->semBlocked=nullptr;
     if (body != nullptr) { Scheduler::put(*handle); }
     if(*handle==nullptr){
         return -1;
@@ -42,7 +43,7 @@ void TCB::yield(){
 
 void TCB::dispatch() {
     TCB *old = running;
-    if (!old->isFinished()) {
+    if (old->semBlocked==nullptr && !old->isFinished()) {
         Scheduler::put(old);
     }
     running = Scheduler::get();
@@ -51,7 +52,9 @@ void TCB::dispatch() {
 }
 
 void TCB::threadWrapper() {
-    RiscV::popSppSpie();
+    //RiscV::popSppSpie();
+    __asm__ volatile ("csrw sepc, ra");
+    //__asm__ volatile ("sret");
     running->body(running->arguments);
     running->setFinished(true);
     TCB::yield();

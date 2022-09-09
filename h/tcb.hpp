@@ -7,6 +7,7 @@
 #include "../lib/hw.h"
 #include "../h/Scheduler.hpp"
 #include "../h/MemoryAllocation.hpp"
+#include "../h/semaphore.hpp"
 
 class TCB {
 
@@ -77,6 +78,7 @@ private:
     Context context;
     bool finished;
     void* arguments;
+    semaphore* semBlocked;
 
     friend class RiscV;
     friend class semaphore;

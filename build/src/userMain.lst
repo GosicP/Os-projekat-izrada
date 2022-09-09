@@ -1,4 +1,4 @@
-GAS LISTING /tmp/ccEYuAw5.s 			page 1
+GAS LISTING /tmp/ccfTWyUu.s 			page 1
 
 
    1              		.file	"userMain.cpp"
@@ -49,34 +49,34 @@ GAS LISTING /tmp/ccEYuAw5.s 			page 1
   27              		.cfi_endproc
   28              	.LFE0:
   30              	.Letext0:
-GAS LISTING /tmp/ccEYuAw5.s 			page 2
+GAS LISTING /tmp/ccfTWyUu.s 			page 2
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 userMain.cpp
-     /tmp/ccEYuAw5.s:9      .text:0000000000000000 _Z8userMainv
-     /tmp/ccEYuAw5.s:13     .text:0000000000000000 .L0 
-     /tmp/ccEYuAw5.s:14     .text:0000000000000000 .L0 
-     /tmp/ccEYuAw5.s:15     .text:0000000000000004 .L0 
-     /tmp/ccEYuAw5.s:17     .text:0000000000000008 .L0 
-     /tmp/ccEYuAw5.s:19     .text:000000000000000c .L0 
-     /tmp/ccEYuAw5.s:21     .text:000000000000000c .L0 
-     /tmp/ccEYuAw5.s:22     .text:0000000000000010 .L0 
-     /tmp/ccEYuAw5.s:23     .text:0000000000000010 .L0 
-     /tmp/ccEYuAw5.s:25     .text:0000000000000014 .L0 
-     /tmp/ccEYuAw5.s:27     .text:0000000000000018 .L0 
-     /tmp/ccEYuAw5.s:31     .text:0000000000000018 .L0 
-     /tmp/ccEYuAw5.s:57     .debug_abbrev:0000000000000000 .Ldebug_abbrev0
-     /tmp/ccEYuAw5.s:120    .debug_str:000000000000001e .LASF0
-     /tmp/ccEYuAw5.s:124    .debug_str:00000000000000ef .LASF1
-     /tmp/ccEYuAw5.s:118    .debug_str:0000000000000000 .LASF2
-     /tmp/ccEYuAw5.s:5      .text:0000000000000000 .Ltext0
-     /tmp/ccEYuAw5.s:30     .text:0000000000000018 .Letext0
-     /tmp/ccEYuAw5.s:116    .debug_line:0000000000000000 .Ldebug_line0
-     /tmp/ccEYuAw5.s:126    .debug_str:0000000000000100 .LASF3
-     /tmp/ccEYuAw5.s:122    .debug_str:00000000000000e2 .LASF4
-     /tmp/ccEYuAw5.s:10     .text:0000000000000000 .LFB0
-     /tmp/ccEYuAw5.s:28     .text:0000000000000018 .LFE0
-     /tmp/ccEYuAw5.s:32     .debug_info:0000000000000000 .Ldebug_info0
+     /tmp/ccfTWyUu.s:9      .text:0000000000000000 _Z8userMainv
+     /tmp/ccfTWyUu.s:13     .text:0000000000000000 .L0 
+     /tmp/ccfTWyUu.s:14     .text:0000000000000000 .L0 
+     /tmp/ccfTWyUu.s:15     .text:0000000000000004 .L0 
+     /tmp/ccfTWyUu.s:17     .text:0000000000000008 .L0 
+     /tmp/ccfTWyUu.s:19     .text:000000000000000c .L0 
+     /tmp/ccfTWyUu.s:21     .text:000000000000000c .L0 
+     /tmp/ccfTWyUu.s:22     .text:0000000000000010 .L0 
+     /tmp/ccfTWyUu.s:23     .text:0000000000000010 .L0 
+     /tmp/ccfTWyUu.s:25     .text:0000000000000014 .L0 
+     /tmp/ccfTWyUu.s:27     .text:0000000000000018 .L0 
+     /tmp/ccfTWyUu.s:31     .text:0000000000000018 .L0 
+     /tmp/ccfTWyUu.s:57     .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccfTWyUu.s:120    .debug_str:000000000000001e .LASF0
+     /tmp/ccfTWyUu.s:124    .debug_str:00000000000000ef .LASF1
+     /tmp/ccfTWyUu.s:118    .debug_str:0000000000000000 .LASF2
+     /tmp/ccfTWyUu.s:5      .text:0000000000000000 .Ltext0
+     /tmp/ccfTWyUu.s:30     .text:0000000000000018 .Letext0
+     /tmp/ccfTWyUu.s:116    .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccfTWyUu.s:126    .debug_str:0000000000000100 .LASF3
+     /tmp/ccfTWyUu.s:122    .debug_str:00000000000000e2 .LASF4
+     /tmp/ccfTWyUu.s:10     .text:0000000000000000 .LFB0
+     /tmp/ccfTWyUu.s:28     .text:0000000000000018 .LFE0
+     /tmp/ccfTWyUu.s:32     .debug_info:0000000000000000 .Ldebug_info0
 
 NO UNDEFINED SYMBOLS

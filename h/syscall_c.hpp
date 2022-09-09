@@ -3,6 +3,7 @@
 #define PROJECT_BASE_SYSCALL_C_HPP
 #include "../h/MemoryAllocation.hpp"
 #include "../h/tcb.hpp"
+#include "../h/semaphore.hpp"
 
 //extern void handleTrap(); //ovo ne radi sa static modifierima, jel sme to tako??
 
@@ -23,6 +24,8 @@
     int thread_exit ();
 
     void thread_dispatch ();
+
+
 
 
 

@@ -16,7 +16,7 @@ void printString(char const *string){
     RiscV::ms_sstatus(sstatus & RiscV::SSTATUS_SIE ? RiscV::SSTATUS_SIE : 0);
 }
 
-void printInteger(uint64 integer){
+void printInteger(int integer){
     uint64 sstatus = RiscV::r_sstatus();
     RiscV::mc_sstatus(RiscV::SSTATUS_SIE);
     static char digits[] = "0123456789";

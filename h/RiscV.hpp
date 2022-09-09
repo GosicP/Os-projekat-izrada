@@ -153,7 +153,7 @@ inline void RiscV::mc_sstatus(uint64 mask) {
 }
 
 inline uint64 RiscV::r_sstatus() {
-    uint64  sstatus;
+    uint64 sstatus;
     __asm__ volatile ("csrr %[sstatus], sstatus": [sstatus] "=r"(sstatus));
     return sstatus;
 }
