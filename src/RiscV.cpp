@@ -7,6 +7,7 @@
 #include "../lib/console.h"
 #include "../h/MemoryAllocation.hpp"
 #include "../h/tcb.hpp"
+#include "../lib/console.h"
 
 
 void RiscV::popSppSpie() {
@@ -72,6 +73,12 @@ void RiscV::handleSupervisorTrap() {
             int retval = semaphore::semSignal((sem_t)handle);
             __asm__ volatile("mv a1, %0": : [retval] "r"(retval) );
             __asm__ volatile("sd a1, 88(s0)");
+       }else if(sysCallNr==0x41UL){
+            char retval = __getc();
+            __asm__ volatile("mv a1, %0": : [retval] "r"(retval) );
+            __asm__ volatile("sd a1, 88(s0)");
+        }else if(sysCallNr==0x42UL){
+            __putc((char)handle);
         }
         //enviroment call from s-mode
 
@@ -81,6 +88,15 @@ void RiscV::handleSupervisorTrap() {
         w_sepc(sepc);
     }
     else if(scause == 0x8000000000000001UL){
+//          TCB::timeSliceCounter++;
+//          if(TCB::timeSliceCounter>= TCB::running->getTimeSlice()){
+//              volatile uint64 sepc = r_sepc();
+//              volatile uint64 sstatus = r_sstatus();
+//              TCB::timeSliceCounter=0;
+//              TCB::dispatch();
+//              w_sstatus(sstatus);
+//              w_sepc(sepc);
+//          }
         mc_sip(SIP_SSIP);
     }else if(scause==0x8000000000000009UL){
         //supervisor external interrupt (console)

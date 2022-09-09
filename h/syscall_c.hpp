@@ -38,6 +38,11 @@
 
     int sem_signal (sem_t id);
 
+    const int EOF = -1;
+    char getc ();
+
+    void putc (char);
+
 
 
 

@@ -5,7 +5,7 @@
 #ifndef XV6_CONSUMERPRODUCER_C_API_TEST_H
 #define XV6_CONSUMERPRODUCER_C_API_TEST_H
 
-#include "../h/syscall_c.hpp"
+//#include "../h/syscall_c.hpp"
 
 #include "../h/buffer.hpp"
 
@@ -24,7 +24,7 @@ void producerKeyboard(void *arg) {
 
     int key;
     int i = 0;
-    while ((key = getc()) != 0x1b) {
+    while ((key = getc()) != 'q') {
         data->buffer->put(key);
         i++;
 

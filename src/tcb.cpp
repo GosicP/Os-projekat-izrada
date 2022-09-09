@@ -28,6 +28,7 @@ int TCB::createThread(TCB::Body body, TCB** handle , void* arguments) {
     (*handle)->context.sp = (*handle)->stack ? (uint64) &(*handle)->stack[DEFAULT_STACK_SIZE] : 0;
     (*handle)->finished=false;
     (*handle)->semBlocked=nullptr;
+    (*handle)->timeSlice=TIME_SLICE;
     if (body != nullptr) { Scheduler::put(*handle); }
     if(*handle==nullptr){
         return -1;

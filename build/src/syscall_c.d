@@ -5,7 +5,7 @@ build/src/syscall_c.o: src/syscall_c.cpp src/../h/syscall_c.hpp \
  src/../h/../h/../h/../h/MemoryAllocation.hpp \
  src/../h/../h/../h/MemoryAllocation.hpp src/../h/../h/../h/semaphore.hpp \
  src/../h/../h/../h/../h/queue.hpp src/../h/../h/../h/../h/LinkedList.hpp \
- src/../h/../h/semaphore.hpp src/../h/RiscV.hpp
+ src/../h/../h/semaphore.hpp src/../h/RiscV.hpp src/../lib/console.h
 
 src/../h/syscall_c.hpp:
 
@@ -32,3 +32,5 @@ src/../h/../h/../h/../h/LinkedList.hpp:
 src/../h/../h/semaphore.hpp:
 
 src/../h/RiscV.hpp:
+
+src/../lib/console.h:

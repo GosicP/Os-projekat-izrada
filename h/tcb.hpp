@@ -53,6 +53,10 @@ public:
 
     static void yield();
 
+    uint64 getTimeSlice(){
+        return timeSlice;
+    }
+
     static TCB *running;
 private:
     //mislim da ti ne treba timeslice vise, jer radis sinhronu promenu
@@ -79,6 +83,7 @@ private:
     bool finished;
     void* arguments;
     semaphore* semBlocked;
+    uint64 timeSlice;
 
     friend class RiscV;
     friend class semaphore;

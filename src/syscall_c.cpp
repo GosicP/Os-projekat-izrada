@@ -4,6 +4,7 @@
 
 #include "../h/syscall_c.hpp"
 #include "../h/RiscV.hpp"
+#include "../lib/console.h"
 //#include "../h/MemoryAllocation.hpp"
 
 
@@ -110,4 +111,21 @@ int sem_signal (sem_t id){
     return retval;
 }
 
+char getc (){
+   uint64 sysCallNr=0x41UL;
+   char retval;
+   __asm__ volatile("mv a0, %0" : : [sysCallNr] "r" (sysCallNr));
+   __asm__ volatile("ecall");
+   __asm__ volatile("mv %[retval], a1" : [retval] "=r"(retval));
+   return retval;
+//   char c=__getc();
+//   return c;
+}
 
+void putc (char c){
+    uint64 sysCallNr=0x42UL;
+    __asm__ volatile("mv a1, %0": : [c] "r" (c));
+    __asm__ volatile("mv a0, %0" : : [sysCallNr] "r" (sysCallNr));
+    __asm__ volatile("ecall");
+//    __putc(c);
+}
