@@ -36,7 +36,7 @@ public:
 
     using Body = void (*)(void*); //mislim da mora da se promeni ovaj body sa nekim argumentima, i create thread generalno, dodao sam mu void* u argumentima
 
-    static int createThread(Body body, TCB** handle, void* arguments);
+    static int createThread(Body body, TCB** handle, void* arguments, bool started);
 
     static void thread_dispatch(){dispatch();}
 
@@ -46,6 +46,19 @@ public:
         //running nullptr->negativna
         return 0;
     };
+
+    void setStarted(TCB** handle){
+        (*handle)->threadStarted=true;
+    }
+
+    bool isStarted() {
+        return threadStarted;
+    }
+
+    static void startThread(TCB** handle){
+        (*handle)->threadStarted=true;
+        Scheduler::put(*handle); //vidi nekako da startuje handle nad kojim pozivas, mada mislim da ce poziv izgledati handle->start
+    }
 
     bool isFinished() const;
 
@@ -84,6 +97,7 @@ private:
     void* arguments;
     semaphore* semBlocked;
     uint64 timeSlice;
+    bool threadStarted = false;
 
     friend class RiscV;
     friend class semaphore;

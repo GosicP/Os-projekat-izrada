@@ -23,6 +23,7 @@ int main(){
     mem_obj = mem_obj->getInstance();
     RiscV::w_stvec((uint64) &RiscV::supervisorTrap);
     //__asm__ volatile ("csrs sstatus, 0x2"); //todo nesto treba sa ovim spoljasnjim prekidima da se radi
+    //RiscV::ms_sstatus(RiscV::SSTATUS_SIE);
     thread_t main;
     thread_create(&main, nullptr, nullptr);
     TCB::running = main;

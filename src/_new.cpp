@@ -1,5 +1,7 @@
 #include "../h/MemoryAllocation.hpp"
 #include "../h/syscall_c.hpp"
+#include "../h/syscall_cpp.hpp"
+
 
 //SVUDA SAM OBRISAO MEMORYALLOCATOR:: JER PRAVIM IZ SISTEMSKIH POZIVA
 
@@ -22,3 +24,4 @@ void operator delete[] (void *p) noexcept{
     MemoryAllocation::mem_free(p);
     //__mem_free(p);
 }
+

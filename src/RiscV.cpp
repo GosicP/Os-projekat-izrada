@@ -48,7 +48,7 @@ void RiscV::handleSupervisorTrap() {
             __asm__ volatile("mv a1, %0": : [ret] "r"(ret));
             __asm__ volatile("sd a1, 88(s0)"); //zasto je ovde bas 88
         }else if(sysCallNr == 0x11UL){
-            int ret_val=TCB::createThread((TCB::Body)start_routine, (thread_t*) handle, (void*)arg);
+            int ret_val=TCB::createThread((TCB::Body)start_routine, (thread_t*) handle, (void*)arg, true);
             __asm__ volatile("mv a1, %0": : [ret_val] "r"(ret_val));
             __asm__ volatile("sd a1, 88(s0)");
         }else if(sysCallNr == 0x12UL){
@@ -57,6 +57,12 @@ void RiscV::handleSupervisorTrap() {
             __asm__ volatile("sd a1, 88(s0)");
         }else if(sysCallNr == 0x13UL){
             TCB::thread_dispatch();
+        }else if(sysCallNr==0x14UL){
+            int ret_val=TCB::createThread((TCB::Body)start_routine, (thread_t*) handle, (void*)arg, false);
+            __asm__ volatile("mv a1, %0": : [ret_val] "r"(ret_val));
+            __asm__ volatile("sd a1, 88(s0)");
+        }else if(sysCallNr==0x15UL){
+            TCB::startThread((thread_t*)handle);
         }else if(sysCallNr == 0x21UL){
             int retval = semaphore::semOpen((sem_t*)handle, (unsigned)start_routine);
             __asm__ volatile("mv a1, %0": : [retval] "r"(retval) );
@@ -88,15 +94,15 @@ void RiscV::handleSupervisorTrap() {
         w_sepc(sepc);
     }
     else if(scause == 0x8000000000000001UL){
-//          TCB::timeSliceCounter++;
-//          if(TCB::timeSliceCounter>= TCB::running->getTimeSlice()){
-//              volatile uint64 sepc = r_sepc();
-//              volatile uint64 sstatus = r_sstatus();
-//              TCB::timeSliceCounter=0;
-//              TCB::dispatch();
-//              w_sstatus(sstatus);
-//              w_sepc(sepc);
-//          }
+//         TCB::timeSliceCounter++;
+//         if(TCB::timeSliceCounter>= TCB::running->getTimeSlice()){
+//             volatile uint64 sepc = r_sepc();
+//             volatile uint64 sstatus = r_sstatus();
+//             TCB::timeSliceCounter=0;
+//             TCB::dispatch();
+//             w_sstatus(sstatus);
+//             w_sepc(sepc);
+//         }
         mc_sip(SIP_SSIP);
     }else if(scause==0x8000000000000009UL){
         //supervisor external interrupt (console)

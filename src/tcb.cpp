@@ -18,7 +18,7 @@ TCB* TCB::running = nullptr;
 
 uint64 TCB::timeSliceCounter=0;
 
-int TCB::createThread(TCB::Body body, TCB** handle , void* arguments) {
+int TCB::createThread(TCB::Body body, TCB** handle , void* arguments, bool started) {
     //*handle = new TCB(body, TIME_SLICE, arguments);
     *handle = (TCB*) MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(sizeof(TCB)));
     (*handle)->body=body;
@@ -29,7 +29,8 @@ int TCB::createThread(TCB::Body body, TCB** handle , void* arguments) {
     (*handle)->finished=false;
     (*handle)->semBlocked=nullptr;
     (*handle)->timeSlice=TIME_SLICE;
-    if (body != nullptr) { Scheduler::put(*handle); }
+    (*handle)->threadStarted=started;
+    if (body != nullptr && (*handle)->isStarted()==true) { Scheduler::put(*handle); }
     if(*handle==nullptr){
         return -1;
     }else{return 0;}

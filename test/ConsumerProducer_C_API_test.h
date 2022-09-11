@@ -20,11 +20,12 @@ struct thread_data {
 volatile int threadEnd = 0;
 
 void producerKeyboard(void *arg) {
+    //printString("Napravi keyboard producer nit\n");
     struct thread_data *data = (struct thread_data *) arg;
 
     int key;
     int i = 0;
-    while ((key = getc()) != 'q') {
+    while ((key = getc()) != 'q') { //ne dozvoli mi da udjem ovde
         data->buffer->put(key);
         i++;
 
@@ -40,10 +41,11 @@ void producerKeyboard(void *arg) {
 }
 
 void producer(void *arg) {
+    //printString("Napravi producer nit\n");
     struct thread_data *data = (struct thread_data *) arg;
 
     int i = 0;
-    while (!threadEnd) {
+    while (!threadEnd) { //on ovde pukne umesto da ode na consumera
         data->buffer->put(data->id + '0');
         i++;
 
@@ -56,14 +58,17 @@ void producer(void *arg) {
 }
 
 void consumer(void *arg) {
+    //printString("Napravi consumer nit\n");
     struct thread_data *data = (struct thread_data *) arg;
 
     int i = 0;
     while (!threadEnd) {
         int key = data->buffer->get();
         i++;
+        //printString("Napravi consumer nit\n");
 
         putc(key);
+        //printString("Napravi consumer nit\n");
 
         if (i % (5 * data->id) == 0) {
             thread_dispatch();
@@ -128,6 +133,7 @@ void producerConsumer_C_API() {
         thread_create(threads + i,
                       i > 0 ? producer : producerKeyboard,
                       data + i);
+
     }
 
     thread_dispatch();
