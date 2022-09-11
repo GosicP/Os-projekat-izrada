@@ -3,6 +3,9 @@ build/src/RiscV.o: src/RiscV.cpp src/../h/RiscV.hpp src/../h/../lib/hw.h \
  src/../h/../h/LinkedList.hpp src/../h/../h/../h/MemoryAllocation.hpp \
  src/../h/../h/MemoryAllocation.hpp src/../h/../h/semaphore.hpp \
  src/../h/../h/../h/queue.hpp src/../h/../h/../h/LinkedList.hpp \
+ src/../h/../h/printing.hpp src/../h/../h/../h/syscall_c.hpp \
+ src/../h/../h/../h/../h/MemoryAllocation.hpp \
+ src/../h/../h/../h/../h/tcb.hpp src/../h/../h/../h/../h/semaphore.hpp \
  src/../lib/console.h src/../h/MemoryAllocation.hpp
 
 src/../h/RiscV.hpp:
@@ -24,6 +27,16 @@ src/../h/../h/semaphore.hpp:
 src/../h/../h/../h/queue.hpp:
 
 src/../h/../h/../h/LinkedList.hpp:
+
+src/../h/../h/printing.hpp:
+
+src/../h/../h/../h/syscall_c.hpp:
+
+src/../h/../h/../h/../h/MemoryAllocation.hpp:
+
+src/../h/../h/../h/../h/tcb.hpp:
+
+src/../h/../h/../h/../h/semaphore.hpp:
 
 src/../lib/console.h:
 

@@ -5,6 +5,7 @@
 #ifndef _syscall_cpp
 #define _syscall_cpp
 #include "syscall_c.hpp"
+#include "../h/printing.hpp"
 //void* ::operator new (size_t);
 //void ::operator delete (void*);
 class Thread {
@@ -13,9 +14,16 @@ public:
     virtual ~Thread ();
     int start ();
     static void dispatch ();
+    static void threadWrapper(void* arg);
 protected:
-    Thread ();
-    virtual void run () {}
+    Thread (){
+        //tu izleda da treba da dodas gornji konstruktor
+        printString("pre wrappera");
+        threadWrapper(this); //todo uopste mi ne napravi handle
+        printString("posle wrappera");
+        Thread(threadWrapper, this); //todo mozda treba & ispred threadWrapper
+    };
+    virtual void run () {} //on ovde zabaguje potpuno
 private:
     thread_t myHandle;
 };

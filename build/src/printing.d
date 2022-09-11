@@ -8,7 +8,8 @@ build/src/printing.o: src/printing.cpp src/../h/printing.hpp \
  src/../h/../h/../h/../h/semaphore.hpp \
  src/../h/../h/../h/../h/../h/queue.hpp \
  src/../h/../h/../h/../h/../h/LinkedList.hpp \
- src/../h/../h/../h/semaphore.hpp src/../lib/console.h
+ src/../h/../h/../h/../h/printing.hpp src/../h/../h/../h/semaphore.hpp \
+ src/../lib/console.h
 
 src/../h/printing.hpp:
 
@@ -33,6 +34,8 @@ src/../h/../h/../h/../h/semaphore.hpp:
 src/../h/../h/../h/../h/../h/queue.hpp:
 
 src/../h/../h/../h/../h/../h/LinkedList.hpp:
+
+src/../h/../h/../h/../h/printing.hpp:
 
 src/../h/../h/../h/semaphore.hpp:
 

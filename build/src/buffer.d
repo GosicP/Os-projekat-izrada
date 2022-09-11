@@ -8,8 +8,9 @@ build/src/buffer.o: src/buffer.cpp src/../h/buffer.hpp \
  src/../h/../h/../h/../h/semaphore.hpp \
  src/../h/../h/../h/../h/../h/queue.hpp \
  src/../h/../h/../h/../h/../h/LinkedList.hpp \
- src/../h/../h/../h/semaphore.hpp src/../h/../h/printing.hpp \
- src/../h/../h/../h/syscall_c.hpp
+ src/../h/../h/../h/../h/printing.hpp \
+ src/../h/../h/../h/../h/../h/syscall_c.hpp \
+ src/../h/../h/../h/semaphore.hpp src/../h/../h/printing.hpp
 
 src/../h/buffer.hpp:
 
@@ -35,8 +36,10 @@ src/../h/../h/../h/../h/../h/queue.hpp:
 
 src/../h/../h/../h/../h/../h/LinkedList.hpp:
 
+src/../h/../h/../h/../h/printing.hpp:
+
+src/../h/../h/../h/../h/../h/syscall_c.hpp:
+
 src/../h/../h/../h/semaphore.hpp:
 
 src/../h/../h/printing.hpp:
-
-src/../h/../h/../h/syscall_c.hpp:

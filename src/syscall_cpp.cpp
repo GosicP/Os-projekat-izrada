@@ -4,8 +4,8 @@
 
 #include "../h/syscall_cpp.hpp"
 
-Thread::Thread(void (*body)(void *), void *arg) { //nekako treba da inicijalizujes myHandle
-    thread_create_cpp_api((thread_t*)myHandle, body, arg);
+Thread::Thread(void (*body)(void *), void *arg) : myHandle(nullptr){ //todo nekako treba da inicijalizujes myHandle, nullptr mi sumnjiv
+    thread_create_cpp_api(&myHandle, body, arg);
 }
 
 void Thread::dispatch() {
@@ -13,10 +13,16 @@ void Thread::dispatch() {
 }
 
 Thread::~Thread() {
-    mem_free(myHandle);
+    //mem_free(myHandle);//mozda cak i sizeof(Thread)
 }
 
 int Thread::start() {
-    thread_start((thread_t*)myHandle);
+    printString("udje u start");
+    thread_start(&myHandle); //todo vrati na cast (thread_t*) ako ne bude radilo
+    printString("izadje iz starta");
     return 0;
+}
+
+void Thread::threadWrapper(void *arg) {
+    ((Thread*)arg)->run();
 }
