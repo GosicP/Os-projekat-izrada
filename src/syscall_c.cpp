@@ -138,9 +138,9 @@ int thread_create_cpp_api (
     TCB *ret_value_thread;
     uint64 sysCallNr = 0x14UL;
     //neki stack_space alokacija se pominje????
+    __asm__ volatile("mv a4, %0" : : [handle] "r"(handle));
     __asm__ volatile("mv a3, %0" : : [arg] "r"(arg));
     __asm__ volatile("mv a2, %0" : : [start_routine] "r"(start_routine));
-    __asm__ volatile("mv a1, %0" : : [handle] "r"(handle));
     __asm__ volatile("mv a0, %0" : : [sysCallNr] "r"(sysCallNr));
     __asm__ volatile("ecall");
     __asm__ volatile("mv %[ret_value_thread], a1" : [ret_value_thread] "=r"(

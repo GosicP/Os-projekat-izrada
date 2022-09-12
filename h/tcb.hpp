@@ -61,7 +61,7 @@ public:
         (*handle)->threadStarted=true;
         //printString("setuje started\n");
         Scheduler::put(*handle); //vidi nekako da startuje handle nad kojim pozivas, mada mislim da ce poziv izgledati handle->start
-        //printString("ubacuje u scheduler\n");
+       //printString("ubacuje u scheduler\n");
     }
 
     bool isFinished() const;

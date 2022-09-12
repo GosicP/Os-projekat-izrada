@@ -1,4 +1,4 @@
-GAS LISTING /tmp/ccEbgajL.s 			page 1
+GAS LISTING /tmp/ccHhMgek.s 			page 1
 
 
    1              		.file	"MemoryAllocation.cpp"
@@ -58,7 +58,7 @@ GAS LISTING /tmp/ccEbgajL.s 			page 1
   51              		.cfi_startproc
   52 0044 130101FF 		addi	sp,sp,-16
   53              		.cfi_def_cfa_offset 16
-GAS LISTING /tmp/ccEbgajL.s 			page 2
+GAS LISTING /tmp/ccHhMgek.s 			page 2
 
 
   54 0048 23341100 		sd	ra,8(sp)
@@ -103,113 +103,113 @@ GAS LISTING /tmp/ccEbgajL.s 			page 1
   94              	.Letext0:
   95              		.file 2 "src/../h/../lib/hw.h"
   96              		.file 3 "src/../h/MemoryAllocation.hpp"
-GAS LISTING /tmp/ccEbgajL.s 			page 3
+GAS LISTING /tmp/ccHhMgek.s 			page 3
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 MemoryAllocation.cpp
-     /tmp/ccEbgajL.s:8      .text:0000000000000000 _Z41__static_initialization_and_destruction_0ii
-     /tmp/ccEbgajL.s:12     .text:0000000000000000 .L0 
-     /tmp/ccEbgajL.s:14     .text:0000000000000000 .L0 
-     /tmp/ccEbgajL.s:15     .text:0000000000000004 .L0 
-     /tmp/ccEbgajL.s:17     .text:0000000000000008 .L0 
-     /tmp/ccEbgajL.s:19     .text:000000000000000c .L0 
-     /tmp/ccEbgajL.s:21     .text:000000000000000c .L0 
-     /tmp/ccEbgajL.s:25     .text:0000000000000018 .L0 
-     /tmp/ccEbgajL.s:26     .text:0000000000000018 .L0 
-     /tmp/ccEbgajL.s:27     .text:0000000000000018 .L0 
-     /tmp/ccEbgajL.s:29     .text:000000000000001c .L0 
-     /tmp/ccEbgajL.s:32     .text:0000000000000020 .L0 
-     /tmp/ccEbgajL.s:34     .text:0000000000000020 .L0 
-     /tmp/ccEbgajL.s:38     .text:000000000000002c .L0 
-     /tmp/ccEbgajL.s:42     .text:0000000000000040 .L0 
-     /tmp/ccEbgajL.s:43     .text:0000000000000044 .L0 
-     /tmp/ccEbgajL.s:48     .text:0000000000000044 _GLOBAL__sub_I__ZN16MemoryAllocation9fmem_headE
-     /tmp/ccEbgajL.s:51     .text:0000000000000044 .L0 
-     /tmp/ccEbgajL.s:52     .text:0000000000000044 .L0 
-     /tmp/ccEbgajL.s:53     .text:0000000000000048 .L0 
-     /tmp/ccEbgajL.s:56     .text:0000000000000050 .L0 
-     /tmp/ccEbgajL.s:57     .text:0000000000000050 .L0 
-     /tmp/ccEbgajL.s:59     .text:0000000000000054 .L0 
-     /tmp/ccEbgajL.s:61     .text:0000000000000054 .L0 
-     /tmp/ccEbgajL.s:67     .text:000000000000006c .L0 
-     /tmp/ccEbgajL.s:69     .text:0000000000000070 .L0 
-     /tmp/ccEbgajL.s:70     .text:0000000000000070 .L0 
-     /tmp/ccEbgajL.s:72     .text:0000000000000074 .L0 
-     /tmp/ccEbgajL.s:74     .text:0000000000000078 .L0 
-     /tmp/ccEbgajL.s:91     .bss:0000000000000008 _ZN16MemoryAllocation8instanceE
-     /tmp/ccEbgajL.s:87     .bss:0000000000000000 _ZN16MemoryAllocation9fmem_headE
-     /tmp/ccEbgajL.s:84     .bss:0000000000000000 .LANCHOR0
-     /tmp/ccEbgajL.s:97     .text:0000000000000078 .L0 
-     /tmp/ccEbgajL.s:38     .text:000000000000002c .L0 
-     /tmp/ccEbgajL.s:40     .text:0000000000000038 .L0 
-     /tmp/ccEbgajL.s:31     .text:0000000000000020 .L4
-     /tmp/ccEbgajL.s:23     .text:0000000000000014 .L1
-     /tmp/ccEbgajL.s:476    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
-     /tmp/ccEbgajL.s:1032   .debug_str:000000000000020a .LASF42
-     /tmp/ccEbgajL.s:1080   .debug_str:000000000000046e .LASF43
-     /tmp/ccEbgajL.s:1054   .debug_str:000000000000037e .LASF44
-     /tmp/ccEbgajL.s:5      .text:0000000000000000 .Ltext0
-     /tmp/ccEbgajL.s:94     .text:0000000000000078 .Letext0
-     /tmp/ccEbgajL.s:980    .debug_line:0000000000000000 .Ldebug_line0
-     /tmp/ccEbgajL.s:1038   .debug_str:00000000000002de .LASF0
-     /tmp/ccEbgajL.s:1024   .debug_str:00000000000001a0 .LASF1
-     /tmp/ccEbgajL.s:1016   .debug_str:0000000000000153 .LASF2
-     /tmp/ccEbgajL.s:1000   .debug_str:00000000000000b3 .LASF4
-     /tmp/ccEbgajL.s:1022   .debug_str:000000000000018e .LASF3
-     /tmp/ccEbgajL.s:986    .debug_str:000000000000001e .LASF5
-     /tmp/ccEbgajL.s:982    .debug_str:0000000000000000 .LASF6
-     /tmp/ccEbgajL.s:1008   .debug_str:0000000000000122 .LASF7
-     /tmp/ccEbgajL.s:1046   .debug_str:000000000000032a .LASF8
-     /tmp/ccEbgajL.s:996    .debug_str:0000000000000094 .LASF9
-     /tmp/ccEbgajL.s:1084   .debug_str:000000000000048c .LASF10
-GAS LISTING /tmp/ccEbgajL.s 			page 4
+     /tmp/ccHhMgek.s:8      .text:0000000000000000 _Z41__static_initialization_and_destruction_0ii
+     /tmp/ccHhMgek.s:12     .text:0000000000000000 .L0 
+     /tmp/ccHhMgek.s:14     .text:0000000000000000 .L0 
+     /tmp/ccHhMgek.s:15     .text:0000000000000004 .L0 
+     /tmp/ccHhMgek.s:17     .text:0000000000000008 .L0 
+     /tmp/ccHhMgek.s:19     .text:000000000000000c .L0 
+     /tmp/ccHhMgek.s:21     .text:000000000000000c .L0 
+     /tmp/ccHhMgek.s:25     .text:0000000000000018 .L0 
+     /tmp/ccHhMgek.s:26     .text:0000000000000018 .L0 
+     /tmp/ccHhMgek.s:27     .text:0000000000000018 .L0 
+     /tmp/ccHhMgek.s:29     .text:000000000000001c .L0 
+     /tmp/ccHhMgek.s:32     .text:0000000000000020 .L0 
+     /tmp/ccHhMgek.s:34     .text:0000000000000020 .L0 
+     /tmp/ccHhMgek.s:38     .text:000000000000002c .L0 
+     /tmp/ccHhMgek.s:42     .text:0000000000000040 .L0 
+     /tmp/ccHhMgek.s:43     .text:0000000000000044 .L0 
+     /tmp/ccHhMgek.s:48     .text:0000000000000044 _GLOBAL__sub_I__ZN16MemoryAllocation9fmem_headE
+     /tmp/ccHhMgek.s:51     .text:0000000000000044 .L0 
+     /tmp/ccHhMgek.s:52     .text:0000000000000044 .L0 
+     /tmp/ccHhMgek.s:53     .text:0000000000000048 .L0 
+     /tmp/ccHhMgek.s:56     .text:0000000000000050 .L0 
+     /tmp/ccHhMgek.s:57     .text:0000000000000050 .L0 
+     /tmp/ccHhMgek.s:59     .text:0000000000000054 .L0 
+     /tmp/ccHhMgek.s:61     .text:0000000000000054 .L0 
+     /tmp/ccHhMgek.s:67     .text:000000000000006c .L0 
+     /tmp/ccHhMgek.s:69     .text:0000000000000070 .L0 
+     /tmp/ccHhMgek.s:70     .text:0000000000000070 .L0 
+     /tmp/ccHhMgek.s:72     .text:0000000000000074 .L0 
+     /tmp/ccHhMgek.s:74     .text:0000000000000078 .L0 
+     /tmp/ccHhMgek.s:91     .bss:0000000000000008 _ZN16MemoryAllocation8instanceE
+     /tmp/ccHhMgek.s:87     .bss:0000000000000000 _ZN16MemoryAllocation9fmem_headE
+     /tmp/ccHhMgek.s:84     .bss:0000000000000000 .LANCHOR0
+     /tmp/ccHhMgek.s:97     .text:0000000000000078 .L0 
+     /tmp/ccHhMgek.s:38     .text:000000000000002c .L0 
+     /tmp/ccHhMgek.s:40     .text:0000000000000038 .L0 
+     /tmp/ccHhMgek.s:31     .text:0000000000000020 .L4
+     /tmp/ccHhMgek.s:23     .text:0000000000000014 .L1
+     /tmp/ccHhMgek.s:476    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccHhMgek.s:1032   .debug_str:000000000000020a .LASF42
+     /tmp/ccHhMgek.s:1080   .debug_str:000000000000046e .LASF43
+     /tmp/ccHhMgek.s:1054   .debug_str:000000000000037e .LASF44
+     /tmp/ccHhMgek.s:5      .text:0000000000000000 .Ltext0
+     /tmp/ccHhMgek.s:94     .text:0000000000000078 .Letext0
+     /tmp/ccHhMgek.s:980    .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccHhMgek.s:1038   .debug_str:00000000000002de .LASF0
+     /tmp/ccHhMgek.s:1024   .debug_str:00000000000001a0 .LASF1
+     /tmp/ccHhMgek.s:1016   .debug_str:0000000000000153 .LASF2
+     /tmp/ccHhMgek.s:1000   .debug_str:00000000000000b3 .LASF4
+     /tmp/ccHhMgek.s:1022   .debug_str:000000000000018e .LASF3
+     /tmp/ccHhMgek.s:986    .debug_str:000000000000001e .LASF5
+     /tmp/ccHhMgek.s:982    .debug_str:0000000000000000 .LASF6
+     /tmp/ccHhMgek.s:1008   .debug_str:0000000000000122 .LASF7
+     /tmp/ccHhMgek.s:1046   .debug_str:000000000000032a .LASF8
+     /tmp/ccHhMgek.s:996    .debug_str:0000000000000094 .LASF9
+     /tmp/ccHhMgek.s:1084   .debug_str:000000000000048c .LASF10
+GAS LISTING /tmp/ccHhMgek.s 			page 4
 
 
-     /tmp/ccEbgajL.s:1014   .debug_str:0000000000000144 .LASF11
-     /tmp/ccEbgajL.s:1070   .debug_str:000000000000041e .LASF12
-     /tmp/ccEbgajL.s:1044   .debug_str:000000000000031a .LASF13
-     /tmp/ccEbgajL.s:1026   .debug_str:00000000000001b3 .LASF14
-     /tmp/ccEbgajL.s:1004   .debug_str:00000000000000ea .LASF15
-     /tmp/ccEbgajL.s:1050   .debug_str:000000000000035c .LASF16
-     /tmp/ccEbgajL.s:998    .debug_str:00000000000000a2 .LASF23
-     /tmp/ccEbgajL.s:1018   .debug_str:0000000000000161 .LASF45
-     /tmp/ccEbgajL.s:988    .debug_str:0000000000000025 .LASF17
-     /tmp/ccEbgajL.s:1082   .debug_str:0000000000000487 .LASF18
-     /tmp/ccEbgajL.s:1078   .debug_str:0000000000000469 .LASF19
-     /tmp/ccEbgajL.s:1010   .debug_str:0000000000000135 .LASF20
-     /tmp/ccEbgajL.s:1062   .debug_str:00000000000003e3 .LASF21
-     /tmp/ccEbgajL.s:1012   .debug_str:000000000000013f .LASF22
-     /tmp/ccEbgajL.s:1066   .debug_str:00000000000003fa .LASF24
-     /tmp/ccEbgajL.s:1028   .debug_str:00000000000001bf .LASF25
-     /tmp/ccEbgajL.s:1074   .debug_str:0000000000000455 .LASF26
-     /tmp/ccEbgajL.s:1058   .debug_str:00000000000003a5 .LASF27
-     /tmp/ccEbgajL.s:1052   .debug_str:0000000000000372 .LASF46
-     /tmp/ccEbgajL.s:1020   .debug_str:0000000000000169 .LASF47
-     /tmp/ccEbgajL.s:1034   .debug_str:00000000000002ce .LASF48
-     /tmp/ccEbgajL.s:1040   .debug_str:00000000000002eb .LASF49
-     /tmp/ccEbgajL.s:1036   .debug_str:00000000000002d6 .LASF28
-     /tmp/ccEbgajL.s:994    .debug_str:0000000000000074 .LASF30
-     /tmp/ccEbgajL.s:1064   .debug_str:00000000000003ec .LASF29
-     /tmp/ccEbgajL.s:1072   .debug_str:000000000000042e .LASF31
-     /tmp/ccEbgajL.s:1068   .debug_str:0000000000000414 .LASF32
-     /tmp/ccEbgajL.s:1030   .debug_str:00000000000001dc .LASF33
-     /tmp/ccEbgajL.s:1056   .debug_str:000000000000039c .LASF34
-     /tmp/ccEbgajL.s:1006   .debug_str:0000000000000100 .LASF35
-     /tmp/ccEbgajL.s:1076   .debug_str:000000000000045f .LASF36
-     /tmp/ccEbgajL.s:1048   .debug_str:000000000000033a .LASF37
-     /tmp/ccEbgajL.s:1060   .debug_str:00000000000003c2 .LASF38
-     /tmp/ccEbgajL.s:990    .debug_str:000000000000002a .LASF39
-     /tmp/ccEbgajL.s:1002   .debug_str:00000000000000ba .LASF50
-     /tmp/ccEbgajL.s:49     .text:0000000000000044 .LFB11
-     /tmp/ccEbgajL.s:75     .text:0000000000000078 .LFE11
-     /tmp/ccEbgajL.s:65     .text:0000000000000068 .LVL1
-     /tmp/ccEbgajL.s:992    .debug_str:000000000000004a .LASF51
-     /tmp/ccEbgajL.s:9      .text:0000000000000000 .LFB10
-     /tmp/ccEbgajL.s:44     .text:0000000000000044 .LFE10
-     /tmp/ccEbgajL.s:1042   .debug_str:000000000000030b .LASF40
-     /tmp/ccEbgajL.s:984    .debug_str:0000000000000013 .LASF41
-     /tmp/ccEbgajL.s:98     .debug_info:0000000000000000 .Ldebug_info0
+     /tmp/ccHhMgek.s:1014   .debug_str:0000000000000144 .LASF11
+     /tmp/ccHhMgek.s:1070   .debug_str:000000000000041e .LASF12
+     /tmp/ccHhMgek.s:1044   .debug_str:000000000000031a .LASF13
+     /tmp/ccHhMgek.s:1026   .debug_str:00000000000001b3 .LASF14
+     /tmp/ccHhMgek.s:1004   .debug_str:00000000000000ea .LASF15
+     /tmp/ccHhMgek.s:1050   .debug_str:000000000000035c .LASF16
+     /tmp/ccHhMgek.s:998    .debug_str:00000000000000a2 .LASF23
+     /tmp/ccHhMgek.s:1018   .debug_str:0000000000000161 .LASF45
+     /tmp/ccHhMgek.s:988    .debug_str:0000000000000025 .LASF17
+     /tmp/ccHhMgek.s:1082   .debug_str:0000000000000487 .LASF18
+     /tmp/ccHhMgek.s:1078   .debug_str:0000000000000469 .LASF19
+     /tmp/ccHhMgek.s:1010   .debug_str:0000000000000135 .LASF20
+     /tmp/ccHhMgek.s:1062   .debug_str:00000000000003e3 .LASF21
+     /tmp/ccHhMgek.s:1012   .debug_str:000000000000013f .LASF22
+     /tmp/ccHhMgek.s:1066   .debug_str:00000000000003fa .LASF24
+     /tmp/ccHhMgek.s:1028   .debug_str:00000000000001bf .LASF25
+     /tmp/ccHhMgek.s:1074   .debug_str:0000000000000455 .LASF26
+     /tmp/ccHhMgek.s:1058   .debug_str:00000000000003a5 .LASF27
+     /tmp/ccHhMgek.s:1052   .debug_str:0000000000000372 .LASF46
+     /tmp/ccHhMgek.s:1020   .debug_str:0000000000000169 .LASF47
+     /tmp/ccHhMgek.s:1034   .debug_str:00000000000002ce .LASF48
+     /tmp/ccHhMgek.s:1040   .debug_str:00000000000002eb .LASF49
+     /tmp/ccHhMgek.s:1036   .debug_str:00000000000002d6 .LASF28
+     /tmp/ccHhMgek.s:994    .debug_str:0000000000000074 .LASF30
+     /tmp/ccHhMgek.s:1064   .debug_str:00000000000003ec .LASF29
+     /tmp/ccHhMgek.s:1072   .debug_str:000000000000042e .LASF31
+     /tmp/ccHhMgek.s:1068   .debug_str:0000000000000414 .LASF32
+     /tmp/ccHhMgek.s:1030   .debug_str:00000000000001dc .LASF33
+     /tmp/ccHhMgek.s:1056   .debug_str:000000000000039c .LASF34
+     /tmp/ccHhMgek.s:1006   .debug_str:0000000000000100 .LASF35
+     /tmp/ccHhMgek.s:1076   .debug_str:000000000000045f .LASF36
+     /tmp/ccHhMgek.s:1048   .debug_str:000000000000033a .LASF37
+     /tmp/ccHhMgek.s:1060   .debug_str:00000000000003c2 .LASF38
+     /tmp/ccHhMgek.s:990    .debug_str:000000000000002a .LASF39
+     /tmp/ccHhMgek.s:1002   .debug_str:00000000000000ba .LASF50
+     /tmp/ccHhMgek.s:49     .text:0000000000000044 .LFB11
+     /tmp/ccHhMgek.s:75     .text:0000000000000078 .LFE11
+     /tmp/ccHhMgek.s:65     .text:0000000000000068 .LVL1
+     /tmp/ccHhMgek.s:992    .debug_str:000000000000004a .LASF51
+     /tmp/ccHhMgek.s:9      .text:0000000000000000 .LFB10
+     /tmp/ccHhMgek.s:44     .text:0000000000000044 .LFE10
+     /tmp/ccHhMgek.s:1042   .debug_str:000000000000030b .LASF40
+     /tmp/ccHhMgek.s:984    .debug_str:0000000000000013 .LASF41
+     /tmp/ccHhMgek.s:98     .debug_info:0000000000000000 .Ldebug_info0
 
 UNDEFINED SYMBOLS
 HEAP_START_ADDR

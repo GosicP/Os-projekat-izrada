@@ -19,11 +19,13 @@ void RiscV::handleSupervisorTrap() {
     //class TCB;
     typedef TCB* thread_t;
     typedef semaphore* sem_t;
+    volatile uint64 a4;
     volatile uint64 size;
     volatile uint64 handle;
     volatile uint64 start_routine;
     volatile uint64 arg;
     volatile uint64 ptr;
+    __asm__ volatile("sd a4, %0" : "=m"(a4));
     __asm__ volatile("sd a3, %0" : "=m"(arg));
     __asm__ volatile("sd a2, %0" : "=m"(start_routine));
     __asm__ volatile("sd a1, %0" : "=m"(handle));
@@ -58,7 +60,7 @@ void RiscV::handleSupervisorTrap() {
         }else if(sysCallNr == 0x13UL){
             TCB::thread_dispatch();
         }else if(sysCallNr==0x14UL){
-            int ret_val=TCB::createThread((TCB::Body)start_routine, (thread_t*) handle, (void*)arg, false);
+            int ret_val=TCB::createThread((TCB::Body)a4, (thread_t*) handle, (void*)arg, false);
             __asm__ volatile("mv a1, %0": : [ret_val] "r"(ret_val));
             __asm__ volatile("sd a1, 88(s0)");
         }else if(sysCallNr==0x15UL){

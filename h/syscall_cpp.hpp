@@ -19,9 +19,10 @@ protected:
     Thread (){
         //tu izleda da treba da dodas gornji konstruktor
         printString("pre wrappera");
-        threadWrapper(this); //todo uopste mi ne napravi handle
-        printString("posle wrappera");
-        Thread(threadWrapper, this); //todo mozda treba & ispred threadWrapper
+        //threadWrapper(this); //todo uopste mi ne napravi handle
+        //printString("posle wrappera");
+        //Thread(threadWrapper(this), this); //todo mozda treba & ispred threadWrapper
+        thread_create_cpp_api(&myHandle, threadWrapper, this);
     };
     virtual void run () {} //on ovde zabaguje potpuno
 private:
