@@ -64,7 +64,7 @@ void RiscV::handleSupervisorTrap() {
             __asm__ volatile("mv a1, %0": : [ret_val] "r"(ret_val));
             __asm__ volatile("sd a1, 88(s0)");
         }else if(sysCallNr==0x15UL){
-            TCB::startThread((thread_t*)handle);
+            TCB::startThread((thread_t*)handle, (TCB::Body)start_routine);
         }else if(sysCallNr == 0x21UL){
             int retval = semaphore::semOpen((sem_t*)handle, (unsigned)start_routine);
             __asm__ volatile("mv a1, %0": : [retval] "r"(retval) );

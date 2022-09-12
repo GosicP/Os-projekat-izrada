@@ -61,3 +61,13 @@ void TCB::threadWrapper() {
     running->setFinished(true);
     TCB::yield();
 }
+
+void TCB::startThread(TCB **handle, TCB::Body body) {
+    (*handle)->body=body;
+    (*handle)->stack = body ? (uint64*) MemoryAllocation::mem_alloc(MemoryAllocation::bytesToBlocks(DEFAULT_STACK_SIZE)) : nullptr;
+    (*handle)->context.ra = body ? (uint64)&threadWrapper : 0;
+    (*handle)->context.sp = (*handle)->stack ? (uint64) &(*handle)->stack[DEFAULT_STACK_SIZE] : 0;
+    (*handle)->threadStarted=true;
+    //printString("setuje started\n");
+    Scheduler::put(*handle); //vidi nekako da startuje handle nad kojim pozivas, mada mislim da ce poziv izgledati handle->start
+}

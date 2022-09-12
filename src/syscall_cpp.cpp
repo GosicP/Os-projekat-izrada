@@ -13,12 +13,12 @@ void Thread::dispatch() {
 }
 
 Thread::~Thread() {
-    //mem_free(myHandle);//mozda cak i sizeof(Thread)
+    mem_free(myHandle);//mozda cak i sizeof(Thread)
 }
 
 int Thread::start() {
     printString("udje u start");
-    thread_start(&myHandle); //todo vrati na cast (thread_t*) ako ne bude radilo
+    thread_start(&myHandle, threadWrapper); //todo vrati na cast (thread_t*) ako ne bude radilo
     printString("izadje iz starta");
     return 0;
 }

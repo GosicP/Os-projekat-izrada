@@ -153,7 +153,9 @@ void Threads_CPP_API_test() {
     }
 
     while (!(finishedA && finishedB && finishedC && finishedD)) {
+        //printString("udje u dispatch\n");
         Thread::dispatch();
+        //printString("uradi dispatch\n");
     }
 
     for (auto thread: threads) { delete thread; }

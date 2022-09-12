@@ -56,13 +56,7 @@ public:
         return threadStarted;
     }
 
-    static void startThread(TCB** handle){ //mzd ne treba static
-        //printString("udje u start klasu\n");
-        (*handle)->threadStarted=true;
-        //printString("setuje started\n");
-        Scheduler::put(*handle); //vidi nekako da startuje handle nad kojim pozivas, mada mislim da ce poziv izgledati handle->start
-       //printString("ubacuje u scheduler\n");
-    }
+    static void startThread(TCB** handle, Body wrapper);
 
     bool isFinished() const;
 

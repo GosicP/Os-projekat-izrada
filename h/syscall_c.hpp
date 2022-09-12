@@ -27,7 +27,7 @@
             void* arg
     );
 
-    void thread_start(thread_t* handle);
+    void thread_start(thread_t* handle, void(*start_routine)(void*));
 
     int thread_exit ();
 
