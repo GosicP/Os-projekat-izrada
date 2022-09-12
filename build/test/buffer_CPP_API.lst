@@ -1,0 +1,16 @@
+GAS LISTING /tmp/ccAySxqu.s 			page 1
+
+
+   1              		.file	"buffer_CPP_API.cpp"
+   2              		.option pic
+   3              		.option norelax
+   4              		.text
+   5              	.Ltext0:
+   6              	.Letext0:
+GAS LISTING /tmp/ccAySxqu.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 buffer_CPP_API.cpp
+
+NO UNDEFINED SYMBOLS

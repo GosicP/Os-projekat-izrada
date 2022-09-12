@@ -19,6 +19,7 @@ void RiscV::handleSupervisorTrap() {
     //class TCB;
     typedef TCB* thread_t;
     typedef semaphore* sem_t;
+    int ret_val=0;
     volatile uint64 a4;
     volatile uint64 size;
     volatile uint64 handle;
@@ -50,7 +51,11 @@ void RiscV::handleSupervisorTrap() {
             __asm__ volatile("mv a1, %0": : [ret] "r"(ret));
             __asm__ volatile("sd a1, 88(s0)"); //zasto je ovde bas 88
         }else if(sysCallNr == 0x11UL){
-            int ret_val=TCB::createThread((TCB::Body)start_routine, (thread_t*) handle, (void*)arg, true);
+            if((bool)a4==false){
+                ret_val=TCB::createThread((TCB::Body)start_routine, (thread_t*) handle, (void*)arg, false);
+            }else {
+                ret_val = TCB::createThread((TCB::Body) start_routine, (thread_t *) handle, (void *) arg, true);
+            }
             __asm__ volatile("mv a1, %0": : [ret_val] "r"(ret_val));
             __asm__ volatile("sd a1, 88(s0)");
         }else if(sysCallNr == 0x12UL){
@@ -59,7 +64,7 @@ void RiscV::handleSupervisorTrap() {
             __asm__ volatile("sd a1, 88(s0)");
         }else if(sysCallNr == 0x13UL){
             TCB::thread_dispatch();
-        }else if(sysCallNr==0x14UL){
+        }else if(sysCallNr==0x16UL){
             int ret_val=TCB::createThread((TCB::Body)a4, (thread_t*) handle, (void*)arg, false);
             __asm__ volatile("mv a1, %0": : [ret_val] "r"(ret_val));
             __asm__ volatile("sd a1, 88(s0)");

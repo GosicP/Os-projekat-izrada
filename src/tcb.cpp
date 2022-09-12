@@ -71,3 +71,5 @@ void TCB::startThread(TCB **handle, TCB::Body body) {
     //printString("setuje started\n");
     Scheduler::put(*handle); //vidi nekako da startuje handle nad kojim pozivas, mada mislim da ce poziv izgledati handle->start
 }
+
+

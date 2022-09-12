@@ -18,12 +18,12 @@ public:
 protected:
     Thread (){
         //tu izleda da treba da dodas gornji konstruktor
-        printString("pre wrappera");
+        //printString("pre wrappera");
         //threadWrapper(this); //todo uopste mi ne napravi handle
         //printString("posle wrappera");
         //Thread(threadWrapper(this), this); //todo mozda treba & ispred threadWrapper
         //thread_create_cpp_api(&myHandle, threadWrapper, this);
-        thread_create(&myHandle,nullptr, this); //OVO RADI, ZNACI ILI NE RADI START ILI NESTO SJEBE U PREKIDNOJ
+        createWrapper(&myHandle, threadWrapper, this, false); //OVO RADI, ZNACI ILI NE RADI START ILI NESTO SJEBE U PREKIDNO
         //THREAD_CREATE RADI BEZ PROBLEMA, STAVLJAO FALSE ILI TRUE MODIFIKATOR, ZNACI I DA SVE OSTALO RADI, DRUGI THREAD CREATE NE RADI, ZATO MORAM DA PROVALIM KAKO DA ISKORISTIM THREAD_CREATE
     };
     virtual void run () {} //on ovde zabaguje potpuno
@@ -43,7 +43,7 @@ private:
 class Console {
 public:
     static char getc ();
-    static void putc (char);
+    static void putc (char c);
 };
 
 #endif

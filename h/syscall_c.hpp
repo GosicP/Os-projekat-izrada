@@ -27,6 +27,11 @@
             void* arg
     );
 
+    int createWrapper(
+            thread_t* handle,
+            void(*start_routine)(void*),
+            void* arg, bool started);
+
     void thread_start(thread_t* handle, void(*start_routine)(void*));
 
     int thread_exit ();

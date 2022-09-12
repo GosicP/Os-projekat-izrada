@@ -1,7 +1,7 @@
 #include "../h/MemoryAllocation.hpp"
 #include "../h/syscall_c.hpp"
 #include "../h/syscall_cpp.hpp"
-//#include "../lib/mem.h"
+#include "../lib/mem.h"
 
 
 //SVUDA SAM OBRISAO MEMORYALLOCATOR:: JER PRAVIM IZ SISTEMSKIH POZIVA
